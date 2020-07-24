@@ -1,6 +1,6 @@
 .LeftSide {
     display: inline-block;
-    width: 30%;
+    width: 35%;
     height: 700px;
     background-color: #1e2443;
     position: relative;
@@ -10,7 +10,7 @@
 
 .RightSide {
     display: inline-block;
-    width: 70%;
+    width: 65%;
     height: 700px;
     background-color: #20274b;
     position: relative;
