@@ -1,0 +1,45 @@
+.LanguageSelector {
+    display: inline-block;
+    background-color: #262e51;
+    height: 40px;
+    width: 50px;
+    border-radius: 10px;
+    color: #8089ad;
+    font-size: .9285714286rem;
+    font-weight: 600;
+    line-height: 40px;
+    cursor: pointer;
+    padding-left: 15px;
+    margin: 40px 0px 0px 150px;
+}
+
+.DropMenu {
+    position: relative;
+    left: -65px;
+    top: 85px;
+    background-color: #262e51;
+    width: 65px;
+    height: 80px;
+    padding-top: 10px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px 0px #111426;
+}
+
+.DropMenu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.DropMenu li {
+    padding-left: 15px;
+    line-height: 30px;
+    color: #8089ad;
+    font-size: .9285714286rem;
+}
+
+.DropMenu li:hover {
+    color : white;
+    background-color: #2e3862;
+}
