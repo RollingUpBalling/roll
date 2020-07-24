@@ -8,14 +8,14 @@ const languageSelector = ( props ) => (
     <Aux>
         <div className={classes.LanguageSelector} onClick={props.clicked}>
             {props.language}
+            {props.show ? 
+            (<div className={classes.DropMenu}>
+                <ul>
+                    <li onClick={props.ENChange}>en</li>
+                    <li onClick={props.RUChange}>ru</li>
+                </ul>
+            </div>) : null}
         </div>
-        {props.show ? 
-        (<div className={classes.DropMenu}>
-            <ul>
-                <li onClick={props.ENChange}>en</li>
-                <li onClick={props.RUChange}>ru</li>
-            </ul>
-        </div>) : null}
     </Aux>
 );
 

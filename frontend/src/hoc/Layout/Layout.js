@@ -11,7 +11,7 @@ class Layout extends Component {
 
     state = {
         language : "EN",
-        volume : false,
+        volume : true,
         showLanguages : false,
     };
 
@@ -19,8 +19,8 @@ class Layout extends Component {
         this.setState({ volume : !this.state.volume });
     };
 
-    showDropMenuHandler = () => {
-        this.setState({showLanguages : true});
+    showMenuHandler = () => {
+        this.setState({showLanguages : !this.state.showLanguages});
     }
     changeEnLanguage = () => {
         this.setState({ 
@@ -43,7 +43,7 @@ class Layout extends Component {
                     <LanguageSelector 
                     language={this.state.language}
                     show={this.state.showLanguages}
-                    clicked={this.showDropMenuHandler}
+                    clicked={this.showMenuHandler}
                     ENChange={this.changeEnLanguage}
                     RUChange={this.changeRULanguage}/>
                     <VolumeSelector 
