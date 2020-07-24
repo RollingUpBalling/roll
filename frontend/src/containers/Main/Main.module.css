@@ -1,0 +1,19 @@
+.LeftSide {
+    display: inline-block;
+    width: 40%;
+    height: 700px;
+    background-color: #1e2443;
+    position: relative;
+    left: 0px;
+    top: -120px;
+}
+
+.RightSide {
+    display: inline-block;
+    width: 60%;
+    height: 700px;
+    background-color: #20274b;
+    position: relative;
+    left: 0px;
+    top: -120px;
+}
