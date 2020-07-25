@@ -57,7 +57,7 @@ class Layout extends Component {
                         volume={this.state.volume}/>
                     <DropDownMenu 
                         clicked={this.showLinksMenuHandler}
-                        show/>
+                        show={this.state.showLinks}/>
                 </div> 
                {this.props.children}
             </Aux>
