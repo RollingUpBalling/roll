@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 
 import Aux from '../Auxillary/Auxillary';
 import Logo from '../../components/Logo/Logo';
-import LanguageSelector from '../../UI/LanguageSelector/LanguageSelector';
+import LanguageSelector from '../../components/UI/LanguageSelector/LanguageSelector';
+import VolumeSelector from '../../components/UI/VolumeSelector/VolumeSelector';
 
 import classes from './Layout.module.css';
 
@@ -10,16 +11,16 @@ class Layout extends Component {
 
     state = {
         language : "EN",
-        volume : false,
+        volume : true,
         showLanguages : false,
     };
 
     changeVolumeHandler = () => {
-        this.setState({ volume : false });
+        this.setState({ volume : !this.state.volume });
     };
 
-    showDropMenuHandler = () => {
-        this.setState({showLanguages : true});
+    showMenuHandler = () => {
+        this.setState({showLanguages : !this.state.showLanguages});
     }
     changeEnLanguage = () => {
         this.setState({ 
@@ -42,9 +43,12 @@ class Layout extends Component {
                     <LanguageSelector 
                     language={this.state.language}
                     show={this.state.showLanguages}
-                    clicked={this.showDropMenuHandler}
+                    clicked={this.showMenuHandler}
                     ENChange={this.changeEnLanguage}
                     RUChange={this.changeRULanguage}/>
+                    <VolumeSelector 
+                    clicked={this.changeVolumeHandler}
+                    volume={this.state.volume}/>
                 </div> 
                {this.props.children}
             </Aux>

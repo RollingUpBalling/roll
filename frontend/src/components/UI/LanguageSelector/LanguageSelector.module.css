@@ -15,15 +15,16 @@
 
 .DropMenu {
     position: relative;
-    left: -65px;
-    top: 85px;
     background-color: #262e51;
+    left: -15px;
+    top: 5px;
     width: 65px;
     height: 80px;
     padding-top: 10px;
     box-sizing: border-box;
     border-radius: 10px;
     box-shadow: 0px 0px 20px 0px #111426;
+    transition: all 1s ease;
 }
 
 .DropMenu ul {
