@@ -58,6 +58,18 @@ class Layout extends Component {
                     <DropDownMenu 
                         clicked={this.showLinksMenuHandler}
                         show={this.state.showLinks}/>
+                
+                    <div className={classes.LayoutRightSide}>
+                        <div className={classes.LayoutLinks}>
+                            <span className="fa fa-telegram" aria-hidden="true"></span>
+                            <span className="fa fa-instagram" aria-hidden="true"></span>
+                            <span className="fa fa-vk" aria-hidden="true"></span>
+                        </div>
+                        <div className={classes.LayoutSteamButton}>
+                            <span>Войти через стим</span>
+                            <i className="fa fa-steam" aria-hidden="true"></i>
+                        </div>
+                    </div>
                 </div> 
                {this.props.children}
             </Aux>
