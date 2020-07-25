@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 
 import Aux from '../Auxillary/Auxillary';
 import Logo from '../../components/Logo/Logo';
-import LanguageSelector from '../../UI/LanguageSelector/LanguageSelector';
-import VolumeSelector from '../../UI/VolumeSelector/VolumeSelector';
+import LanguageSelector from '../../components/UI/LanguageSelector/LanguageSelector';
+import VolumeSelector from '../../components/UI/VolumeSelector/VolumeSelector';
 
 import classes from './Layout.module.css';
 

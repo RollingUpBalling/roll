@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Aux from '../../hoc/Auxillary//Auxillary';
+import Aux from '../../../hoc/Auxillary/Auxillary';
 
 import classes from './LanguageSelector.module.css';
 
