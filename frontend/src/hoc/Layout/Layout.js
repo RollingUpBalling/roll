@@ -41,14 +41,26 @@ class Layout extends Component {
                 <div className={classes.Layout}>
                     <Logo />
                     <LanguageSelector 
-                    language={this.state.language}
-                    show={this.state.showLanguages}
-                    clicked={this.showMenuHandler}
-                    ENChange={this.changeEnLanguage}
-                    RUChange={this.changeRULanguage}/>
-                    <VolumeSelector 
-                    clicked={this.changeVolumeHandler}
-                    volume={this.state.volume}/>
+                        language={this.state.language}
+                        show={this.state.showLanguages}
+                        clicked={this.showMenuHandler}
+                        ENChange={this.changeEnLanguage}
+                        RUChange={this.changeRULanguage}/>
+                        <VolumeSelector 
+                        clicked={this.changeVolumeHandler}
+                        volume={this.state.volume}
+                    />
+                    <div className={classes.LayoutRightSide}>
+                        <div className={classes.LayoutLinks}>
+                            <span className="fa fa-telegram" aria-hidden="true"></span>
+                            <span className="fa fa-instagram" aria-hidden="true"></span>
+                            <span className="fa fa-vk" aria-hidden="true"></span>
+                        </div>
+                        <div className={classes.LayoutSteamButton}>
+                            <span>Войти через стим</span>
+                            <i className="fa fa-steam" aria-hidden="true"></i>
+                        </div>
+                    </div>
                 </div> 
                {this.props.children}
             </Aux>
