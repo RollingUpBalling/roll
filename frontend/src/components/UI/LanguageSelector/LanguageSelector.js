@@ -9,13 +9,13 @@ const languageSelector = ( props ) => (
     <Aux>
         <div className={classes.LanguageSelector} onClick={props.clicked}>
             {props.language}
-            {console.log(props.show)}
-            <div className={classes.DropMenu} style={{visibility: props.show ? "visible" : "hidden"}}>
+            {props.show ?
+            <div className={classes.DropMenu}>
                 <ul>
                     <li onClick={props.ENChange}>en</li>
                     <li onClick={props.RUChange}>ru</li>
                 </ul>
-            </div>
+            </div> : null }
         </div>
     </Aux>
 );

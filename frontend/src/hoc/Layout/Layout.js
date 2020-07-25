@@ -4,6 +4,7 @@ import Aux from '../Auxillary/Auxillary';
 import Logo from '../../components/Logo/Logo';
 import LanguageSelector from '../../components/UI/LanguageSelector/LanguageSelector';
 import VolumeSelector from '../../components/UI/VolumeSelector/VolumeSelector';
+import DropDownMenu from '../../components/UI/DropDownMenu/DropDownMenu';
 
 import classes from './Layout.module.css';
 
@@ -13,13 +14,14 @@ class Layout extends Component {
         language : "EN",
         volume : true,
         showLanguages : false,
+        showLinks : false,
     };
 
     changeVolumeHandler = () => {
         this.setState({ volume : !this.state.volume });
     };
 
-    showMenuHandler = () => {
+    showLanguageMenuHandler = () => {
         this.setState({showLanguages : !this.state.showLanguages});
     }
     changeEnLanguage = () => {
@@ -35,6 +37,10 @@ class Layout extends Component {
         });
     }
 
+    showLinksMenuHandler = () => {
+        this.setState({showLinks : !this.state.showLinks});
+    }
+
     render() {
         return (
             <Aux>
@@ -43,13 +49,16 @@ class Layout extends Component {
                     <LanguageSelector 
                         language={this.state.language}
                         show={this.state.showLanguages}
-                        clicked={this.showMenuHandler}
+                        clicked={this.showLanguageMenuHandler}
                         ENChange={this.changeEnLanguage}
                         RUChange={this.changeRULanguage}/>
-                        <VolumeSelector 
+                    <VolumeSelector 
                         clicked={this.changeVolumeHandler}
-                        volume={this.state.volume}
-                    />
+                        volume={this.state.volume}/>
+                    <DropDownMenu 
+                        clicked={this.showLinksMenuHandler}
+                        show={this.state.showLinks}/>
+                
                     <div className={classes.LayoutRightSide}>
                         <div className={classes.LayoutLinks}>
                             <span className="fa fa-telegram" aria-hidden="true"></span>

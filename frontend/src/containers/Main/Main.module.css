@@ -4,7 +4,7 @@
 
 .LeftSide {
     display: inline-block;
-    width: 550px;
+    width: 530px;
     height: 100%;
     background-color: #1e2443;
     position: relative;
@@ -13,7 +13,7 @@
 
 .RightSide {
     display: inline-block;
-    width: calc(100% - 550px);
+    width: calc(100%-530px);
     height: 100%;
     background-color: #20274b;
     position: relative;
