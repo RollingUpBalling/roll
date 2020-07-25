@@ -4,17 +4,16 @@
 
 .LeftSide {
     display: inline-block;
-    width: 35%;
+    width: 550px;
     height: 100%;
     background-color: #1e2443;
     position: relative;
     left: 0px;
-    top: -120px;
 }
 
 .RightSide {
     display: inline-block;
-    width: 65%;
+    width: calc(100% - 550px);
     height: 100%;
     background-color: #20274b;
     position: relative;

@@ -1,12 +1,48 @@
 .Layout {
     display: flex;
-    align-items: left;
     width: 100%;
     height: 120px;
     box-sizing: border-box;
     padding: 0 15px;
-    position: relative;
+    position: absolute;
     z-index: 10;
     top: 0;
     left: 0;
+}
+
+.LayoutRightSide {
+    display: flex;
+    margin: auto 50px auto auto;
+}
+
+.LayoutLinks {
+    display: flex;
+    align-items: center;
+}
+.LayoutLinks :not(:last-child) {
+    margin-right: 20px;
+}
+
+.LayoutLinks :last-child {
+    margin-right: 60px;
+}
+
+.LayoutLinks span {
+    font-size: 30px;
+    color: #8089ad;
+}
+
+.LayoutSteamButton {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    width: 200px;
+    color: #fff;
+    background-color: #65b296;
+    border-radius: 10px;
+}
+
+.LayoutSteamButton span {
+    font-size: 20px;
+    margin: 0 auto;
 }
