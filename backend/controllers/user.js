@@ -9,6 +9,6 @@ exports.SignIn = (req, res, next) => {
       });
       res.render("success", {
         jwtToken: token,
-        clientUrl: 'localhost:3000',
+        clientUrl: 'http://localhost:3000/',
       });
 }
