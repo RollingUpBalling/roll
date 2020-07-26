@@ -1,0 +1,33 @@
+.SignInButton {
+    height: 58px;
+    background-color: #65b296;
+    border-radius: 10px;
+    padding: 0 30px;
+    padding-top: auto;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 30px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.SignInButton:hover {
+    background-color: #4a9487;
+}
+
+.SignInButton a {
+    line-height: 54px;
+    font-family: DIN Pro, sans-serif;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    box-sizing: border-box;
+    letter-spacing: 0.3px;
+}
+
+.SignInButton a i {
+    margin-left: 15px;
+    font-size: 16px;
+}
