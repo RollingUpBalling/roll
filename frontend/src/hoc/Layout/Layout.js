@@ -59,9 +59,11 @@ class Layout extends Component {
                         volume={this.state.volume}/>
                     <DropDownMenu 
                         clicked={this.showLinksMenuHandler}
-                        show={this.state.showLinks}/>               
-                    <SocialLinks />
-                    <SignInButton />
+                        show={this.state.showLinks}/> 
+                    <div className={classes.LayoutRightSide}>              
+                        <SocialLinks />
+                        <SignInButton />
+                    </div>
                 </div> 
                {this.props.children}
             </Aux>

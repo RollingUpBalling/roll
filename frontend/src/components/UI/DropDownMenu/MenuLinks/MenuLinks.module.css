@@ -6,6 +6,7 @@
     left: 550px;
     top: 100px;
     font-weight: 600;
+    transition: opacity .2s ease-out 0s,visibility .2s ease-out 0s,transform .2s ease-out 0s;
 }
 
 .MenuLinks ul :first-child {
@@ -35,4 +36,15 @@
 .MenuLinks ul li a {
     text-decoration: none;
     color :#8089ad;
+}
+
+.Open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-20px);
+}
+
+.Close {
+    visibility: hidden;
+    opacity: 0;
 }

@@ -9,9 +9,7 @@ const dropDownMenu = ( props ) => {
             <div></div> 
             <div></div>
             <div></div>
-            {props.show ? (
-               <MenuLinks />
-            ) : null}
+            <MenuLinks open={props.show}/>
         </div>
     );
 };
