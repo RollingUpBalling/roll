@@ -24,3 +24,9 @@
     font-size: 20px;
     margin: 0 auto;
 }
+
+.LayoutRightSide {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}

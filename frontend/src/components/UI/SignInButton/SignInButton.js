@@ -2,7 +2,9 @@ import React, { useEffect } from 'react';
 
 import classes from './SignInButton.module.css';
 
+
 const SignInButton = props => {
+
 
     const handleLogin = () => {
         const popupWindow = window.open(
@@ -26,12 +28,14 @@ const SignInButton = props => {
       }, []);
 
     return (
-        <div className={classes.SignInButton}>
-            <button onClick={handleLogin}>
-                Sign with Steam
+        <a href="/" >
+        <div className={classes.SignInButton} onClick={handleLogin}>
+            <span>
+                Sign with Steam 
                 <i className="fa fa-steam" aria-hidden="true"></i>
-            </button>
+            </span>
         </div>
+    </a>
     )
 };
 
