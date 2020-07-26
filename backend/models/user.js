@@ -2,6 +2,10 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const User = new Schema({
+    _id:{
+        type: String,
+        required:true   
+    },
     steamUsername:{
         type: String,
         required: true,   
