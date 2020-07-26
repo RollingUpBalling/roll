@@ -2,14 +2,14 @@ import React from 'react';
 
 import classes from './SocialLinks.module.css';
 
-const socialLinks = ( props ) => (
+const socialLinks = () => (
     <div className={classes.SocialLinks}>
         <a href="https://web.telegram.org/">
             <div 
                 className="fa fa-telegram" 
                 aria-hidden="true"></div>
         </a>
-        <a href="/">
+        <a href="https://www.instagram.com/">
             <div 
                 className="fa fa-instagram" 
                 aria-hidden="true"></div>

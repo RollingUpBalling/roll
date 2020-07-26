@@ -7,6 +7,7 @@ import VolumeSelector from '../../components/UI/VolumeSelector/VolumeSelector';
 import DropDownMenu from '../../components/UI/DropDownMenu/DropDownMenu';
 import SocialLinks from '../../components/Navigation/SocialLinks/SocialLinks';
 import SignInButton from '../../components/UI/SignInButton/SignInButton';
+import Modal from '../../components/UI/Modal/Modal';
 
 import classes from './Layout.module.css';
 
@@ -64,6 +65,7 @@ class Layout extends Component {
                         <SocialLinks />
                         <SignInButton />
                     </div>
+                    <Modal show />
                 </div> 
                {this.props.children}
             </Aux>

@@ -2,20 +2,7 @@ import React, { useEffect } from 'react';
 
 import classes from './SignInButton.module.css';
 
-<<<<<<< HEAD
-const signInButton = (props) => (
-    <a href="/"> 
-        <div className={classes.SignInButton}>
-            <span> 
-                Sign with Steam 
-                <i className="fa fa-steam" aria-hidden="true"></i>
-            </span>
-        </div>
-    </a>
-);
-=======
 const SignInButton = props => {
->>>>>>> 380cd9c337cb66d3fbe87966757068f6ae5c2988
 
     const handleLogin = () => {
         const popupWindow = window.open(
@@ -29,7 +16,6 @@ const SignInButton = props => {
     useEffect(() => {
         window.addEventListener("message", event => {
           if (event.origin !== "http://localhost:5000") return;
-
           const { token, ok } = event.data;
           if (ok) {
             localStorage.setItem("jwtToken", token);
@@ -39,11 +25,13 @@ const SignInButton = props => {
       }, []);
 
     return (
-        <div className={classes.SignInButton}>
-            <button onClick={handleLogin}>
+        <div 
+        className={classes.SignInButton}
+        onClick={handleLogin}>
+            <span>
                 Sign with Steam
                 <i className="fa fa-steam" aria-hidden="true"></i>
-            </button>
+            </span>
         </div>
     )
 };
