@@ -10,28 +10,6 @@
     left: 0;
 }
 
-.LayoutRightSide {
-    display: flex;
-    margin: auto 50px auto auto;
-}
-
-.LayoutLinks {
-    display: flex;
-    align-items: center;
-}
-.LayoutLinks :not(:last-child) {
-    margin-right: 20px;
-}
-
-.LayoutLinks :last-child {
-    margin-right: 60px;
-}
-
-.LayoutLinks span {
-    font-size: 30px;
-    color: #8089ad;
-}
-
 .LayoutSteamButton {
     display: flex;
     align-items: center;

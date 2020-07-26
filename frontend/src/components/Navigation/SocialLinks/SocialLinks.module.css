@@ -1,0 +1,17 @@
+.SocialLinks {
+width: 120px;
+margin: 47px 0 0 500px;
+}
+
+.SocialLinks div {
+    font-size: 22px;
+    color: #676f8b;
+}
+
+.SocialLinks div {
+    margin-right: 15px;
+}
+
+.SocialLinks div:hover {
+    color: #8089ad;
+}
