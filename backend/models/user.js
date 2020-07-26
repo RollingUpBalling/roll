@@ -13,7 +13,7 @@ const User = new Schema({
     balance:{
         type: Number,
         required: true,
-        default: 0
+        default: 1
     }
 })
 
