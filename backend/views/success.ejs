@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Authenticated</title>
+</head>
+
+<body>
+  Authenticated successfully.
+
+  <script>
+    console.log('<%= jwtToken %>')
+    window.opener.postMessage({
+      token: '<%= jwtToken %>',
+      ok: true
+    }, '<%= clientUrl %>');
+
+    window.close();
+  </script>
+</body>
+
+</html>
