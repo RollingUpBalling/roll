@@ -5,6 +5,8 @@ import Logo from '../../components/Logo/Logo';
 import LanguageSelector from '../../components/UI/LanguageSelector/LanguageSelector';
 import VolumeSelector from '../../components/UI/VolumeSelector/VolumeSelector';
 import DropDownMenu from '../../components/UI/DropDownMenu/DropDownMenu';
+import SocialLinks from '../../components/Navigation/SocialLinks/SocialLinks';
+import SignInButton from '../../components/UI/SignInButton/SignInButton';
 
 import classes from './Layout.module.css';
 
@@ -57,19 +59,9 @@ class Layout extends Component {
                         volume={this.state.volume}/>
                     <DropDownMenu 
                         clicked={this.showLinksMenuHandler}
-                        show={this.state.showLinks}/>
-                
-                    <div className={classes.LayoutRightSide}>
-                        <div className={classes.LayoutLinks}>
-                            <span className="fa fa-telegram" aria-hidden="true"></span>
-                            <span className="fa fa-instagram" aria-hidden="true"></span>
-                            <span className="fa fa-vk" aria-hidden="true"></span>
-                        </div>
-                        <div className={classes.LayoutSteamButton}>
-                            <span>Войти через стим</span>
-                            <i className="fa fa-steam" aria-hidden="true"></i>
-                        </div>
-                    </div>
+                        show={this.state.showLinks}/>               
+                    <SocialLinks />
+                    <SignInButton />
                 </div> 
                {this.props.children}
             </Aux>
