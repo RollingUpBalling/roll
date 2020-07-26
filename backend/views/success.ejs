@@ -12,7 +12,9 @@
     console.log('<%= jwtToken %>')
     window.opener.postMessage({
       token: '<%= jwtToken %>',
-      ok: true
+      ok: true,
+      id: '<%= id %>',
+      username: '<%= username %>'
     }, '<%= clientUrl %>');
 
     window.close();
