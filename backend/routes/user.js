@@ -1,0 +1,14 @@
+const path = require('path');
+const passport = require('passport')
+const SteamStrategy = require('passport-steam').Strategy
+const express = require('express');
+
+const userController = require('../controllers/user');
+
+const router = express.Router();
+
+router.get('/auth/',passport.authenticate('steam',{session:false}))
+router.get('/auth/return/',passport.authenticate('steam', { failureRedirect: '/error',session:false }),userController.SignIn)
+
+
+module.exports = router
