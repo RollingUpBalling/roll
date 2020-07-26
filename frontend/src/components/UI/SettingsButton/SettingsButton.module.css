@@ -1,0 +1,97 @@
+.SettingsButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    width: 54px;
+    height: 54px;
+    background-color: #2a3058;
+    color: #7787a7;
+    font-size: 22px;
+    color: #676f8b;
+    margin-left: 30px;
+    transition: transform .2s ease-out 0s,opacity .2s ease-out 0s;
+}
+
+.SettingsButton i {
+    transition: transform .2s ease-out 0s,opacity .2s ease-out 0s;
+}
+
+.SettingsButton:hover i {
+    transform: rotate(1turn) scale(1.25);
+    
+}
+
+.SettingsButton:hover {
+    background-color: #363c6a;
+}
+
+.ModalSettings {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0,0,0,.5);
+    z-index: 130;
+}
+
+.ModalSettings .Content .ContentSettings{
+    transform: translateY(-40px);
+    padding: 30px;
+    width: 460px;
+    height: 265px;
+    background-color: #21254a;
+    border-radius: 10px;
+    box-shadow: 0 0 20px 10px rgba(18,20,37,.3);
+    overflow: hidden;
+    color: #c1c9ea;
+    font-size: 1.1428571429rem;
+    font-weight: 400;
+    line-height: 1.2;
+    z-index: 131;
+
+}
+.ModalSettings .Content .ContentSettings :not(:first-child) {
+    margin-bottom: 18px;
+}
+.ModalSettings .Content .ContentSettings .Header {
+    color: #fff;
+    font-size: 1.2142857143rem;
+    font-weight: 500;
+    line-height: 1.2;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+
+.ModalSettings .Content .ContentSettings input {
+    margin-right: 20px;
+}
+
+.ModalSettings .Content .CloseButton {
+    position: absolute;
+    top: -20px;
+    right: 20px;
+    display: block;
+    width: 20px;
+    height: 20px;
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+    color: #6e6f89;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    cursor: pointer;
+    transition: color .2s ease-out 0s;
+    z-index: 10;
+}
