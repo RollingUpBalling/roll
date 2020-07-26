@@ -2,28 +2,24 @@ const jwt = require("jsonwebtoken");
 const User = require('../models/user')
 
 exports.SignIn = (req, res, next) => {
-    let balance = 1
     User.findById(req.user.id)
     .then(user => {
-        if(user) {
-            balance = user.balance
-            return balance
-        }
-        else{
+        if(!user) {
             return User.create({
                 _id:req.user.id,
                 steamUsername:req.user.displayName
             })
         }
+        return user
     })
-    .then(data => {
-        console.log(data)
-        const token = jwt.sign({ _id: req.user.id, username: req.user.displayName}, 'secret', {
+    .then(user => {
+        const token = jwt.sign({ _id: user._id, username: user.steamUsername}, 'secret', {
             expiresIn: "2h",
           });
           res.render("success", {
-            id: req.user.id,
-            username: req.user.displayName,
+            id: user._id,
+            username: user.steamUsername,
+            balance: user.balance,
             jwtToken: token,
             clientUrl: 'http://localhost:3000/',
           });
