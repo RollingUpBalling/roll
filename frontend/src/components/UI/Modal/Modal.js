@@ -25,12 +25,14 @@ class Modal extends Component {
             opacity : this.props.show ? '1' : '0'
         }}>
             <h1>Settings</h1>
-            <Switcher label="Site animations"/>
+            <Switcher label="Site animations" 
+            clicked={this.props.changeAnimation}
+            animation={this.props.animation}/>
             <Switcher label="Enable stickers"/>
             <Switcher label="Stickers autoplay"/>
             <Switcher label="Streamer mode"/>
             <Switcher label="Alternative currency"/>
-            <i class="fa fa-times" aria-hidden="true"></i>
+            <i class="fa fa-times" aria-hidden="true" onClick={this.props.modalClosed}></i>
         </div>
         </Aux>
     );
