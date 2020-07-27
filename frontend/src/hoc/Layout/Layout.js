@@ -19,12 +19,8 @@ class Layout extends Component {
         volume : true,
         showLanguages : false,
         showLinks : false,
-
-        changeAnimation: false,
-        stickers: false,
-        autoStickers: false,
-        streaming: false,
-        altCash: false,
+        showSettings : false,
+        animation: false,
     };
 
     changeVolumeHandler = () => {
@@ -51,34 +47,18 @@ class Layout extends Component {
         this.setState({showLinks : !this.state.showLinks});
     };
 
+    showSettingsHandler = () => {
+        this.setState({showSettings : true});
+    }
+    closeSettingsHandler = () => {
+        this.setState({showSettings : false});
+    }
+
     changeAnimationHandler = () => {
-        this.setState({changeAnimation : !this.state.changeAnimation});
-    };
-    stickersHandler = () => {
-        this.setState({stickers : !this.state.stickers});
-    };
-    autoStickersHandler = () => {
-        this.setState({autoStickers : !this.state.autoStickers});
-    };
-    streamingHandler = () => {
-        this.setState({streaming : !this.state.streaming});
-    };
-    altCashHandler = () => {
-        this.setState({altCash : !this.state.altCash});
-    };
+        this.setState({animation : !this.state.animation});
+    }
 
     render() {
-
-        const settingsHandler = new Array();
-        const settingsArray = new Array();
-        settingsHandler.push(this.changeAnimationHandler);
-        settingsHandler.push(this.stickersHandler);
-        settingsHandler.push(this.autoStickersHandler);
-        settingsHandler.push(this.streamingHandler)
-        settingsHandler.push(this.altCashHandler);
-        console.log(settingsHandler);
-        console.log(this.state.changeAnimation);
-
         return (
             <Aux>
                 <div className={classes.Layout}>
@@ -94,14 +74,18 @@ class Layout extends Component {
                         volume={this.state.volume}/>
                     <DropDownMenu 
                         clicked={this.showLinksMenuHandler}
-                        show={this.state.showLinks}/>
-                    <div className={classes.LayoutRightSide}>
+                        show={this.state.showLinks}/> 
+                    <div className={classes.LayoutRightSide}>              
                         <SocialLinks />
                         <SignInButton />
-                        <SettingsButton
-                           settingsHandler = {settingsHandler}/>
-                    </div>   
-                </div>
+                        <SettingsButton 
+                        showSettings={this.state.showSettings}
+                        settingsHandler={this.showSettingsHandler}
+                        closeSettings={this.closeSettingsHandler}
+                        changeAnimation={this.changeAnimationHandler}
+                        animation={this.state.animation}/>
+                    </div>
+                </div> 
                {this.props.children}
             </Aux>
         );

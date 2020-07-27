@@ -18,7 +18,6 @@ const SignInButton = props => {
     useEffect(() => {
         window.addEventListener("message", event => {
           if (event.origin !== "http://localhost:5000") return;
-
           const { token, ok } = event.data;
           if (ok) {
             localStorage.setItem("jwtToken", token);
@@ -28,14 +27,14 @@ const SignInButton = props => {
       }, []);
 
     return (
-        <a href="/" >
-        <div className={classes.SignInButton} onClick={handleLogin}>
+        <div 
+        className={classes.SignInButton}
+        onClick={handleLogin}>
             <span>
-                Sign with Steam 
+                Sign with Steam
                 <i className="fa fa-steam" aria-hidden="true"></i>
             </span>
         </div>
-    </a>
     )
 };
 

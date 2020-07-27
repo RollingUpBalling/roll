@@ -1,6 +1,3 @@
-a {
-    text-decoration: none;
-}
 
 .SignInButton {
     background-color: #65b296;
@@ -11,7 +8,9 @@ a {
     text-align: center;
     box-sizing: border-box;
     text-align: center;
+    transition-duration: 0.5s;
 }
+
 
 .SignInButton:hover {
     background-color: #4a9487;

@@ -10,21 +10,6 @@
     left: 0;
 }
 
-.LayoutSteamButton {
-    display: flex;
-    align-items: center;
-    height: 50px;
-    width: 200px;
-    color: #fff;
-    background-color: #65b296;
-    border-radius: 10px;
-}
-
-.LayoutSteamButton span {
-    font-size: 20px;
-    margin: 0 auto;
-}
-
 .LayoutRightSide {
     display: flex;
     align-items: center;

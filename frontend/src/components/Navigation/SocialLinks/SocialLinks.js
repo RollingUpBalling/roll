@@ -2,7 +2,7 @@ import React from 'react';
 
 import classes from './SocialLinks.module.css';
 
-const socialLinks = ( props ) => (
+const socialLinks = () => (
     <div className={classes.SocialLinks}>
         <a href="https://web.telegram.org/">
             <div 
