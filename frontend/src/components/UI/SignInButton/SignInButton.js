@@ -2,7 +2,9 @@ import React, { useEffect } from 'react';
 
 import classes from './SignInButton.module.css';
 
+
 const SignInButton = props => {
+
 
     const handleLogin = () => {
         const popupWindow = window.open(
