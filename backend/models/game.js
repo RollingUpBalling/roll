@@ -14,7 +14,7 @@ const Game = new Schema({
     state:{
         type:String,
         required: true,
-        default:'active'
+        default:'makingBets'
     },
     bets:[{                                     // array of bets
         type: mongoose.Types.ObjectId,

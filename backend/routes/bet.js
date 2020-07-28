@@ -3,7 +3,8 @@ const router = express.Router();
 
 const betController = require('../controllers/bet');
 
+const isAuth = require('../middleware/auth')
 
-router.post('/makeBet/',betController.makeBet)
+router.post('/makeBet/',isAuth,betController.makeBet)
 
 module.exports = router
