@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const SteamStrategy = require('passport-steam').Strategy;
-const HttpError = require('../models/HttpError');
+const HttpError = require('./models/HttpError');
 const userRoutes = require('./routes/user');
 
 
