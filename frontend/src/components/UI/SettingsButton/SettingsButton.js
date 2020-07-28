@@ -10,8 +10,7 @@ const settingsButton = (props) => {
             <Aux>
                 <div 
                     className={classes.SettingsButton}
-                    onClick={props.settingsHandler} 
-                    style={props.style}>
+                    onClick={props.settingsHandler} >
                     <i className="fa fa-cog" aria-hidden="true"></i>
                 </div>
                 <Modal 
