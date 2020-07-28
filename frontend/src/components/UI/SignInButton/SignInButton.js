@@ -18,13 +18,13 @@ const SignInButton = props => {
     useEffect(() => {
         window.addEventListener("message", event => {
           if (event.origin !== "http://localhost:5000") return;
-          const { token, ok } = event.data;
+          const { token, ok} = event.data;
           if (ok) {
             localStorage.setItem("jwtToken", token);
-            console.log(token);
+            props.clicked();
           }
         });
-      }, []);
+      }, [props]);
 
     return (
         <div 

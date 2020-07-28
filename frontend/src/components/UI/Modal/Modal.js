@@ -32,7 +32,7 @@ class Modal extends Component {
             <Switcher label="Stickers autoplay"/>
             <Switcher label="Streamer mode"/>
             <Switcher label="Alternative currency"/>
-            <i class="fa fa-times" aria-hidden="true" onClick={this.props.modalClosed}></i>
+            <i className="fa fa-times" aria-hidden="true" onClick={this.props.modalClosed}></i>
         </div>
         </Aux>
     );

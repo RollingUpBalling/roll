@@ -1,0 +1,65 @@
+.DepositButton {
+        background-color: #65b296;
+        border-radius: 10px;
+        padding: 0 20px;
+        padding-top: auto;
+        cursor: pointer;
+        text-align: center;
+        box-sizing: border-box;
+        text-align: center;
+        transition-duration: 0.5s;
+}
+
+.DepositButton:hover {
+    background-color: #4a9487;
+}
+
+.DepositButton span {
+    line-height: 54px;
+    font-family: DIN Pro, sans-serif;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    box-sizing: border-box;
+    letter-spacing: 0.3px;
+}
+
+.DepositButton span i {
+    margin-left: 15px;
+    font-size: 16px;
+}
+
+.Name {
+    margin-bottom: -10px;
+}
+
+.Name a {
+    text-decoration: none;
+    color: #dee5ec;
+    font-size: 1.1142857143rem;
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+.Balance {
+    color: #ff9b78;
+    font-size: 1.1142857143rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-top: 10px;
+}
+
+.LogOut {
+    margin-left: 20px;
+}
+
+.LogOut i {
+    color: #444c6f;
+    font-size: 20px;
+}
+
+.LogOut i:hover {
+    color: #974a5f;
+}

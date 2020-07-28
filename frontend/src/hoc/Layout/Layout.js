@@ -8,7 +8,7 @@ import DropDownMenu from '../../components/UI/DropDownMenu/DropDownMenu';
 import SocialLinks from '../../components/Navigation/SocialLinks/SocialLinks';
 import SignInButton from '../../components/UI/SignInButton/SignInButton';
 import SettingsButton from '../../components/UI/SettingsButton/SettingsButton';
-
+import ProfileWrapperAuthorized from './ProfileWrapperAuthorized/ProfileWrapperAuthorized';
 
 import classes from './Layout.module.css';
 
@@ -21,6 +21,7 @@ class Layout extends Component {
         showLinks : false,
         showSettings : false,
         animation: false,
+        authorized : Boolean(localStorage.getItem("jwtToken")),
     };
 
     changeVolumeHandler = () => {
@@ -58,6 +59,10 @@ class Layout extends Component {
         this.setState({animation : !this.state.animation});
     }
 
+    authorizedChangedHandler = () => {
+        this.setState({authorized : !this.state.authorized});
+    }
+
     render() {
         return (
             <Aux>
@@ -77,13 +82,20 @@ class Layout extends Component {
                         show={this.state.showLinks}/> 
                     <div className={classes.LayoutRightSide}>              
                         <SocialLinks />
-                        <SignInButton />
-                        <SettingsButton 
-                        showSettings={this.state.showSettings}
-                        settingsHandler={this.showSettingsHandler}
-                        closeSettings={this.closeSettingsHandler}
-                        changeAnimation={this.changeAnimationHandler}
-                        animation={this.state.animation}/>
+                        {this.state.authorized ? (
+                            <ProfileWrapperAuthorized 
+                                clicked={this.authorizedChangedHandler}/>
+                        ) : [
+                                <SignInButton 
+                                    clicked={this.authorizedChangedHandler}/> ,
+                                <SettingsButton 
+                                    showSettings={this.state.showSettings}
+                                    settingsHandler={this.showSettingsHandler}
+                                    closeSettings={this.closeSettingsHandler}
+                                    changeAnimation={this.changeAnimationHandler}
+                                    animation={this.state.animation}/>
+                                ]
+                        }
                     </div>
                 </div> 
                {this.props.children}
