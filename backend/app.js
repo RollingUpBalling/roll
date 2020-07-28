@@ -4,8 +4,10 @@ const bodyParser = require('body-parser')
 const passport = require('passport');
 const SteamStrategy = require('passport-steam').Strategy;
 const HttpError = require('./models/HttpError');
+
 const userRoutes = require('./routes/user');
 const betRoutes = require('./routes/bet')
+const gameRoutes = require('./routes/game')
 
 const app = express();
 
@@ -41,7 +43,7 @@ passport.use(new SteamStrategy({
 
 app.use(userRoutes);
 app.use(betRoutes)
-
+app.use(gameRoutes)
 
 app.use((req, res) => {
     const error = new HttpError('Couldnt find this route', 404);
