@@ -1,7 +1,7 @@
 const HttpError = require('../models/HttpError');
 const jwt = require('jsonwebtoken');
 
-exports.auth = (req, res, next) => {
+const auth = (req, res, next) => {
 
     if(req.method === "OPTIONS"){
         return next();
@@ -19,5 +19,6 @@ exports.auth = (req, res, next) => {
     catch (err) {
         return next(new HttpError('Authorization failed', 500))
     }
-
 }
+
+module.exports = auth
