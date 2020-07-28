@@ -9,6 +9,7 @@ const Game = new Schema({
     amount:{
         type: Number,
         required: true,
+        default: 0
     },
     state:{
         type:String,
