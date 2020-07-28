@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const User = require('../models/user')
 
-exports.SignIn = (req, res, next) => {
+exports.SignIn = (req, res) => {
     User.findById(req.user.id)
     .then(user => {
         if(!user) {
@@ -19,14 +19,13 @@ exports.SignIn = (req, res, next) => {
           res.render("success", {
             id: user._id,
             username: user.steamUsername,
-            balance: user.balance,
             jwtToken: token,
-            clientUrl: 'http://localhost:3000/',
+            balance:'1',
+            clientUrl:'http://localhost:3000'
           });
     })
     .catch((e) => {
-        console.log("fdfsdf")
-        console.log(e)
+        console.log(e);
     })
 
 }

@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 
 import classes from './SignInButton.module.css';
-
+import {AuthContext} from '../../../context/auth-context';
 
 const SignInButton = props => {
+    const auth = useContext(AuthContext);
 
 
     const handleLogin = () => {
@@ -18,13 +19,17 @@ const SignInButton = props => {
     useEffect(() => {
         window.addEventListener("message", event => {
           if (event.origin !== "http://localhost:5000") return;
-          const { token, ok} = event.data;
+          const { token,ok,username,id} = event.data;
           if (ok) {
-            localStorage.setItem("jwtToken", token);
-            props.clicked();
+            localStorage.setItem('userData', JSON.stringify({
+                userId: id,
+                token: token,
+                username: username,
+            }));
+            auth.login(token, id);
           }
         });
-      }, [props]);
+      }, [auth]);
 
     return (
         <div 
