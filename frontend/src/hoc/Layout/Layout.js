@@ -1,4 +1,4 @@
-import React, { Component} from 'react';
+import React, { Component } from 'react';
 
 import Aux from '../Auxillary/Auxillary';
 import Logo from '../../components/Logo/Logo';
@@ -25,6 +25,14 @@ class Layout extends Component {
     };
 
     static contextType = AuthContext;
+
+    componentDidUpdate() {
+        localStorage.setItem("settingsData", JSON.stringify({
+           language : this.state.language,
+           volume : this.state.volume,
+           animation : this.state.animation
+        }));
+    };
 
 
     changeVolumeHandler = () => {
@@ -67,6 +75,7 @@ class Layout extends Component {
     }
 
     render() {
+
         return (
             <Aux>
                 <div className={classes.Layout}>
@@ -87,17 +96,14 @@ class Layout extends Component {
                         <SocialLinks />
                         {this.context.isLoggedIn ? (
                             <ProfileWrapperAuthorized 
-<<<<<<< HEAD
-                                clicked={this.authorizedChangedHandler}/>
-                        ) : (
-                            [
-                                <SignInButton 
-                                    clicked={this.authorizedChangedHandler}/> ,
-=======
-                                clicked={this.context.logout}/>
+                                clicked={this.context.logout}
+                                    showSettings={this.state.showSettings}
+                                    settingsHandler={this.showSettingsHandler}
+                                    closeSettings={this.closeSettingsHandler}
+                                    changeAnimation={this.changeAnimationHandler}
+                                    animation={this.state.animation}/>
                         ) : [
                                 <SignInButton /> ,
->>>>>>> 0f8d0d7749b9602e31f015f09d0a03752a14cb49
                                 <SettingsButton 
                                     showSettings={this.state.showSettings}
                                     settingsHandler={this.showSettingsHandler}
@@ -105,7 +111,7 @@ class Layout extends Component {
                                     changeAnimation={this.changeAnimationHandler}
                                     animation={this.state.animation}/>
                             ]
-                        )}
+                        }
                     </div>
                 </div> 
                {this.props.children}
