@@ -85,7 +85,8 @@ class Layout extends Component {
                         {this.state.authorized ? (
                             <ProfileWrapperAuthorized 
                                 clicked={this.authorizedChangedHandler}/>
-                        ) : [
+                        ) : (
+                            [
                                 <SignInButton 
                                     clicked={this.authorizedChangedHandler}/> ,
                                 <SettingsButton 
@@ -94,8 +95,8 @@ class Layout extends Component {
                                     closeSettings={this.closeSettingsHandler}
                                     changeAnimation={this.changeAnimationHandler}
                                     animation={this.state.animation}/>
-                                ]
-                        }
+                            ]
+                        )}
                     </div>
                 </div> 
                {this.props.children}
