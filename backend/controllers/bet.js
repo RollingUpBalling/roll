@@ -3,7 +3,7 @@ const Game = require('../models/game')
 const HttpError = require('../models/HttpError')
 const { validationResult } = require('express-validator');
 
-exports.makeBet = async (req, res) => {
+exports.makeBet = async (req, res, next) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
         return res.status(400).json({
@@ -36,7 +36,7 @@ exports.makeBet = async (req, res) => {
             })
         }
     } catch (error) {
-        throw new HttpError(error)
+        return next( new HttpError(error));
     }
 
 }

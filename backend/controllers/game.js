@@ -2,7 +2,7 @@ const Game = require('../models/game')
 const HttpError = require('../models/HttpError')
 const { validationResult } = require('express-validator')
 
-exports.updateState = async (req, res) => {
+exports.updateState = async (req, res, next) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
         return res.status(400).json({
@@ -21,6 +21,6 @@ exports.updateState = async (req, res) => {
         game.save()
         res.sendStatus(204)
     } catch (error) {
-        throw new HttpError(error)
+        return next( new HttpError(error));
     }
 }
