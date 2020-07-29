@@ -19,7 +19,7 @@ const profileWrapperAuthorized = ( props ) => {
                     <a href="/">{JSON.parse(localStorage.getItem('userData')).username}</a>
                 </p>
                 <p className={classes.Balance}>
-                    {'$' + '1'}
+                    {'$1'}
                 </p>
             </div>
             <SettingsButton 

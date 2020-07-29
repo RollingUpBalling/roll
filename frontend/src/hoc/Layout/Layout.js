@@ -102,7 +102,8 @@ class Layout extends Component {
                                     closeSettings={this.closeSettingsHandler}
                                     changeAnimation={this.changeAnimationHandler}
                                     animation={this.state.animation}/>
-                        ) : [
+                        ) : (
+                                <>
                                 <SignInButton /> ,
                                 <SettingsButton 
                                     showSettings={this.state.showSettings}
@@ -110,7 +111,8 @@ class Layout extends Component {
                                     closeSettings={this.closeSettingsHandler}
                                     changeAnimation={this.changeAnimationHandler}
                                     animation={this.state.animation}/>
-                            ]
+                                </>
+                            )
                         }
                     </div>
                 </div> 

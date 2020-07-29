@@ -13,7 +13,7 @@
 
 .RightSide {
     display: inline-block;
-    width: calc(100%-530px);
+    width: calc(100% - 530px);
     height: 100%;
     background-color: #20274b;
     position: relative;

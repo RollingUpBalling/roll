@@ -41,16 +41,16 @@ class Bomb extends Component {
                     }
             }
             if (this.state.first === 0 && this.state.second === 0 && this.state.third ===0 && this.state.fourth === 0 ) {
-                clearInterval(this.state.interval);
+                clearInterval(this.interval);
             }
         })
     };
 
     render() {
 
-        if (!this.props.bets && !this.state.startTime) {
+        if (this.props.bets && !this.state.startTime) {
             this.setState({startTime: new Date()});
-            this.state.interval = setInterval(() => {
+            this.interval = setInterval(() => {
                 this.updateTimer();
             }, 40);
         }
@@ -62,7 +62,7 @@ class Bomb extends Component {
                     src={bombIMG}
                     alt="Bomb" />
                 <div className={classes.Board}>
-                    <div class={classes.Koef}>
+                    <div className={classes.Koef}>
                         <span>{this.state.first}</span>
                         <span>{this.state.second}</span>
                               .
