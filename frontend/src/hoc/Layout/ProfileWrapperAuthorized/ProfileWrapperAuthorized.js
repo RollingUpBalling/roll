@@ -22,7 +22,12 @@ const profileWrapperAuthorized = ( props ) => {
                     {'$' + '1'}
                 </p>
             </div>
-            <SettingsButton />
+            <SettingsButton 
+            showSettings={props.showSettings}
+            settingsHandler={props.settingsHandler}
+            closeSettings={props.closeSettings}
+            changeAnimation={props.changeAnimation}
+            animation={props.animation}/>
             <div 
             className={classes.LogOut}
             onClick={props.clicked}>

@@ -1,0 +1,34 @@
+.Bomb {
+    position: absolute;
+    width: 100%;
+    top: 50px;
+}
+
+.Board {
+    position: absolute;
+    top: 182px;
+    left: calc(50% - 106px);
+    width: 212px;
+    height: 54px;
+    background-image: url('../../assets//images/crash_bg/board_timer.png');
+    z-index: 100;
+    border-radius: 5px;
+    box-shadow: inset 0px 0px 10px rgb(15, 15, 15);
+    color: white;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.Koef {
+    font-size: 40px;
+    margin-left: 40px;
+    letter-spacing: 3.5px;
+}
+
+.AfterKoef {
+    font-size: 25px;
+    margin-left: 5px;
+    letter-spacing: normal;
+}

@@ -1,4 +1,4 @@
-import React, { Component} from 'react';
+import React, { Component } from 'react';
 
 import Aux from '../Auxillary/Auxillary';
 import Logo from '../../components/Logo/Logo';
@@ -25,6 +25,14 @@ class Layout extends Component {
     };
 
     static contextType = AuthContext;
+
+    componentDidUpdate() {
+        localStorage.setItem("settingsData", JSON.stringify({
+           language : this.state.language,
+           volume : this.state.volume,
+           animation : this.state.animation
+        }));
+    };
 
 
     changeVolumeHandler = () => {
@@ -67,6 +75,7 @@ class Layout extends Component {
     }
 
     render() {
+
         return (
             <Aux>
                 <div className={classes.Layout}>
@@ -87,7 +96,12 @@ class Layout extends Component {
                         <SocialLinks />
                         {this.context.isLoggedIn ? (
                             <ProfileWrapperAuthorized 
-                                clicked={this.context.logout}/>
+                                clicked={this.context.logout}
+                                    showSettings={this.state.showSettings}
+                                    settingsHandler={this.showSettingsHandler}
+                                    closeSettings={this.closeSettingsHandler}
+                                    changeAnimation={this.changeAnimationHandler}
+                                    animation={this.state.animation}/>
                         ) : [
                                 <SignInButton /> ,
                                 <SettingsButton 
@@ -96,7 +110,7 @@ class Layout extends Component {
                                     closeSettings={this.closeSettingsHandler}
                                     changeAnimation={this.changeAnimationHandler}
                                     animation={this.state.animation}/>
-                                ]
+                            ]
                         }
                     </div>
                 </div> 
