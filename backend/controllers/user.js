@@ -1,7 +1,8 @@
 const jwt = require("jsonwebtoken");
+const HttpError = require('../models/HttpError');
 const User = require('../models/user')
 
-exports.SignIn = (req, res) => {
+exports.SignIn = (req, res, next) => {
     User.findById(req.user.id)
     .then(user => {
         if(!user) {
@@ -24,8 +25,8 @@ exports.SignIn = (req, res) => {
             clientUrl:'http://localhost:3000'
           });
     })
-    .catch((e) => {
-        console.log(e);
+    .catch((error) => {
+        return next( new HttpError(error));
     })
 
 }
