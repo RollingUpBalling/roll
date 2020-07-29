@@ -3,7 +3,7 @@
 }
 
 .LeftSide {
-    display: flex;
+    display: inline-block;
     width: 530px;
     height: 100%;
     background-color: #1e2443;

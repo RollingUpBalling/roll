@@ -4,6 +4,17 @@ import bombIMG from '../../assets/images/bomb.png';
 import classes from './Bomb.module.css';
 
 class Bomb extends Component {
+
+    state = {
+        numbers : {
+            first : '0',
+            second : '0',
+            third : '0',
+            fourth : '0'
+        },
+        afterNumbers : "sec"
+    }
+
     render() {
         return (
             <>

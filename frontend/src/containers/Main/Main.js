@@ -9,7 +9,7 @@ class Main extends Component {
         return (
                 <div className={classes.Main}>
                     <div className={classes.LeftSide}>
-                        <Bomb />
+                       <Bomb />
                     </div>
                     <div className={classes.RightSide}></div>
                 </div>

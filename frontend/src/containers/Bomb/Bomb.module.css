@@ -18,6 +18,7 @@
     font-weight: 600;
     display: flex;
     align-items: center;
+    box-sizing: border-box;
 }
 
 .Koef {
