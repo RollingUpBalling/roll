@@ -21,14 +21,20 @@
     box-sizing: border-box;
 }
 
+.Board span {
+    display: inline-block;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
 .Koef {
     font-size: 40px;
     margin-left: 40px;
-    letter-spacing: 3.5px;
 }
 
 .AfterKoef {
+    position: absolute;
+    top: 15px;
+    left: 155px;
     font-size: 25px;
-    margin-left: 5px;
-    letter-spacing: normal;
 }
