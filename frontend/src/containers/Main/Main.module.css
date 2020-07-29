@@ -1,9 +1,9 @@
 .Main {
     height: 100vh;
+    display: flex;
 }
 
 .LeftSide {
-    display: inline-block;
     width: 530px;
     height: 100%;
     background-color: #1e2443;
@@ -12,10 +12,10 @@
 }
 
 .RightSide {
-    display: inline-block;
     width: calc(100% - 530px);
     height: 100%;
     background-color: #20274b;
     position: relative;
     left: 0px;
+    display: flex;
 }

@@ -1,10 +1,23 @@
 .SkinBlock {
     width: 270px;
-    height: 220px;
+    height: 200px;
     box-sizing: border-box;
-    background-color: white;
     margin-top: 150px;
-    margin-left: 35px;
+    margin-left: 40px;
+}
+
+.SkinBlock span {
+    position: absolute;
+    top: 330px;
+    color: #9ca4ca;
+    font-size: 17px;
+    line-height: 20px;
+    width: 140px;
+    cursor : pointer;
+}
+
+.loader {
+    cursor : pointer;
 }
 
 .loader,
