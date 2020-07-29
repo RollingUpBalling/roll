@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component} from 'react';
 
 import Aux from '../Auxillary/Auxillary';
 import Logo from '../../components/Logo/Logo';
@@ -9,6 +9,7 @@ import SocialLinks from '../../components/Navigation/SocialLinks/SocialLinks';
 import SignInButton from '../../components/UI/SignInButton/SignInButton';
 import SettingsButton from '../../components/UI/SettingsButton/SettingsButton';
 import ProfileWrapperAuthorized from './ProfileWrapperAuthorized/ProfileWrapperAuthorized';
+import { AuthContext } from '../../context/auth-context';
 
 import classes from './Layout.module.css';
 
@@ -21,8 +22,10 @@ class Layout extends Component {
         showLinks : false,
         showSettings : false,
         animation: false,
-        authorized : Boolean(localStorage.getItem("jwtToken")),
     };
+
+    static contextType = AuthContext;
+
 
     changeVolumeHandler = () => {
         this.setState({ volume : !this.state.volume });
@@ -82,13 +85,19 @@ class Layout extends Component {
                         show={this.state.showLinks}/> 
                     <div className={classes.LayoutRightSide}>              
                         <SocialLinks />
-                        {this.state.authorized ? (
+                        {this.context.isLoggedIn ? (
                             <ProfileWrapperAuthorized 
+<<<<<<< HEAD
                                 clicked={this.authorizedChangedHandler}/>
                         ) : (
                             [
                                 <SignInButton 
                                     clicked={this.authorizedChangedHandler}/> ,
+=======
+                                clicked={this.context.logout}/>
+                        ) : [
+                                <SignInButton /> ,
+>>>>>>> 0f8d0d7749b9602e31f015f09d0a03752a14cb49
                                 <SettingsButton 
                                     showSettings={this.state.showSettings}
                                     settingsHandler={this.showSettingsHandler}

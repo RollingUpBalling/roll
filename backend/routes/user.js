@@ -1,6 +1,4 @@
-const path = require('path');
 const passport = require('passport')
-const SteamStrategy = require('passport-steam').Strategy
 const express = require('express');
 
 const userController = require('../controllers/user');
