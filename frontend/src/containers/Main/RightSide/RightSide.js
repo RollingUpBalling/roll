@@ -3,6 +3,8 @@ import React from 'react';
 import BetController from '../../BetController/BetController';
 
 import classes from './RightSide.module.css';
+import MakeBetButton from '../../../components/UI/Bet/Bet';
+
 
 const rightSide = () =>  {
         return (
