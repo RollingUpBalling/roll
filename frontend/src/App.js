@@ -1,8 +1,8 @@
 import React, { useState, useCallback, useEffect } from 'react';
-
 import Layout from './hoc/Layout/Layout';
 import Main from './containers/Main/Main';
 import { AuthContext } from './context/auth-context';
+import Routes from './Routes';
 import './App.css';
 
 
@@ -66,7 +66,7 @@ const App = () => {
     }>
       <div className="App">
         <Layout>
-          <Main />
+          <Routes />
         </Layout>
       </div>
     </AuthContext.Provider>

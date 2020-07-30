@@ -27,7 +27,7 @@ exports.makeBet = async (req, res, next) => {
             koef: req.body.koef,
             amount: req.body.amount
         })
-        game.amount += bet.amount
+        game.amount += bet.amount  
         game.bets.push(bet)
         game.save()
         res.status(201).json({
