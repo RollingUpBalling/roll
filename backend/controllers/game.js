@@ -26,9 +26,13 @@ exports.updateState = async (req, res, next) => {
     }
 }
 
+
+
+
 exports.createGame = async (req, res, next) => {
     try {
-        const lastGame = await Game.findOne().sort({ 'created_at': -1 })
+        const lastGame = await Game.findOne().sort({ _id: -1 })
+        console.log(lastGame)
         if (lastGame && lastGame.state !== 'finished') {
             return res.status(500).json({
                 message: 'last game is not finished yet'
@@ -37,9 +41,12 @@ exports.createGame = async (req, res, next) => {
         const game = await Game.create({
             koef: 2.28 //should be defined by some algoritm later 
         })
-        return res.status(201).json({
-            gameID: game._id
+        const socket = io.getIO()
+        socket.emit('recieveId',{
+            'gameId' : game._id
         })
+        return res.sendStatus(201)
+
     } catch (error) {
         return next(HttpError(error))
     }
@@ -67,3 +74,5 @@ exports.moveToActiveState = async (req, res, next) => {
         return next(HttpError(error))
     }
 }
+
+
