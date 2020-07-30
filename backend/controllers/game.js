@@ -1,5 +1,6 @@
 const Game = require('../models/game')
 const HttpError = require('../models/HttpError')
+const io = require('../socket');
 const { validationResult } = require('express-validator')
 
 exports.updateState = async (req, res, next) => {
@@ -40,7 +41,7 @@ exports.createGame = async (req, res, next) => {
             gameID: game._id
         })
     } catch (error) {
-        throw new HttpError(error)
+        return next(HttpError(error))
     }
 }
 
@@ -63,6 +64,6 @@ exports.moveToActiveState = async (req, res, next) => {
         }, 20000)
 
     } catch (error) {
-        throw new HttpError(error)
+        return next(HttpError(error))
     }
 }
