@@ -40,7 +40,7 @@ exports.createGame = async (req, res, next) => {
             gameID: game._id
         })
     } catch (error) {
-        throw new HttpError(error)
+        return next(HttpError(error))
     }
 }
 
@@ -63,7 +63,7 @@ exports.moveToActiveState = async (req, res, next) => {
         }, 20000)
 
     } catch (error) {
-        throw new HttpError(error)
+        return next(HttpError(error))
     }
 
 
