@@ -65,6 +65,4 @@ exports.moveToActiveState = async (req, res, next) => {
     } catch (error) {
         throw new HttpError(error)
     }
-
-
 }
