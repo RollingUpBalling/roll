@@ -11,32 +11,29 @@ exports.makeBet = async (req, res, next) => {
         })
     }
     try {
-        let game = await Game.findOne().sort({ 'created_at': -1 })
-        if (!game || game.state === 'finished') {
-            game = await Game.create({
-                koef: 2.28 //should be defined by some algoritm later 
+        const game = await Game.findById(req.body.gameID)
+        if (!game) {
+            return res.status(400).json({
+                error: 'invalid id'
             })
         }
-        if (game.state === 'makingBets') {
-            const bet = await Bet.create({
-                steamUsername: req.body.steamUsername,
-                koef: req.body.koef,
-                amount: req.body.amount
-            })
-            game.amount += bet.amount
-            game.bets.push(bet)
-            game.save()
-            res.status(201).json({
-                bet: bet
+        if (game.state !== 'makingBets') {
+            return res.status(500).json({
+                error: 'cant make bet at this time'
             })
         }
-        else if (game.state === 'active') {
-            res.status(403).json({
-                error: 'cant place bet at this time, wait for another game'
-            })
-        }
+        const bet = await Bet.create({
+            steamUsername: req.body.steamUsername,
+            koef: req.body.koef,
+            amount: req.body.amount
+        })
+        game.amount += bet.amount
+        game.bets.push(bet)
+        game.save()
+        res.status(201).json({
+            bet: bet
+        })
     } catch (error) {
-        return next( new HttpError(error));
+        return next(new HttpError(error));
     }
-
 }
