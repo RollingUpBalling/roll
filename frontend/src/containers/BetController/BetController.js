@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import classes from './BetController.module.css';
-
+import Bet from '../../components/UI/Bet/Bet';
 class BetController extends Component {
 
     state = {
@@ -142,6 +142,7 @@ class BetController extends Component {
                             value={this.state.mainKoef}
                             className={classes.KoefInput}/>)}
                     </div>
+                    <Bet></Bet>
                 </div>
         );
     }

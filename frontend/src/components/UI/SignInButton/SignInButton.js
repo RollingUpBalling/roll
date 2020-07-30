@@ -1,11 +1,10 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 
 import classes from './SignInButton.module.css';
-import {AuthContext} from '../../../context/auth-context';
+import { AuthContext } from '../../../context/auth-context';
 
 const SignInButton = props => {
     const auth = useContext(AuthContext);
-
 
     const handleLogin = () => {
         const popupWindow = window.open(
@@ -16,30 +15,34 @@ const SignInButton = props => {
         if (window.focus) popupWindow.focus();
     };
 
+    
+
     useEffect(() => {
         window.addEventListener("message", event => {
-          if (event.origin !== "http://localhost:5000") return;
-          const { token,ok,username,id} = event.data;
-          if (ok) {
-            localStorage.setItem('userData', JSON.stringify({
-                userId: id,
-                token: token,
-                username: username,
-            }));
-            auth.login(token, id);
-          }
+            if (event.origin !== "http://localhost:5000") return;
+            const { token, ok, username, id } = event.data;
+            if (ok) {
+                localStorage.setItem('userData', JSON.stringify({
+                    userId: id,
+                    token: token,
+                    username: username,
+                }));
+                auth.login(token, id);
+            }
         });
-      }, [auth]);
+    }, [auth]);
 
     return (
-        <div 
-        className={classes.SignInButton}
-        onClick={handleLogin}>
-            <span>
-                Sign with Steam
+        <React.Fragment>
+            <div
+                className={classes.SignInButton}
+                onClick={handleLogin}>
+                <span>
+                    Sign with Steam
                 <i className="fa fa-steam" aria-hidden="true"></i>
-            </span>
-        </div>
+                </span>
+            </div>
+        </React.Fragment>
     )
 };
 
