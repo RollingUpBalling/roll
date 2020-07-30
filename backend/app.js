@@ -50,16 +50,11 @@ app.use((req, res) => {
 })
 
 
-app.use((error, req, res) => {
-    const status = error.code || 500;
-    const message = error.message || 'Something went wrong';
-
-    return res
-        .status(status)
-        .json({
-            message: message,
-        })
-})
+app.use((error, req, res, next) => {
+    const status = error.statusCode || 500;
+    const message = error.message;
+    res.status(status).json({ message: message });
+  });
 
 mongoose.connect('mongodb+srv://admin:admin@cluster0.mszqc.mongodb.net/crash?retryWrites=true&w=majority',
     { useUnifiedTopology: true, useNewUrlParser: true })
