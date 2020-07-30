@@ -1,0 +1,171 @@
+.BetController {
+    width: calc(100% - 253px);
+    display: block;
+    height: 220px;
+    margin-top: 130px;
+    margin-right: 60px;
+    box-sizing: border-box;
+}
+.BetControllerHeader {
+    display: flex;
+}
+
+.BetControllerHeader h1 {
+    margin: 0;
+    padding: 0;
+    color: #929ab5;
+    font-size: 21px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: .84px;
+    margin: 10px;
+}
+
+.EditButton {
+    margin-left: auto;
+    margin-right: 10px;
+    margin-top: 12px;
+    color: #616e8e;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.2;
+    text-transform: uppercase;
+    transition: color .2s ease-out 0s;
+    cursor: pointer;
+}
+
+.EditButton i {
+    margin-left: 5px;
+    font-size: 14px;
+}
+
+.EditButton:hover {
+    color: #7e8bac;
+}
+
+.KoefInformation {
+    width: 100%;
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    background-color: #2b365b;
+    border-radius: 10px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.KoefButton {
+    height: 48px;
+    width: 80px;
+    margin-right: 4px;
+    color: #ced3ea;
+    background-color: #2b365b;
+    border: 2px solid #39446b;
+    border-radius: 10px;
+    font-weight: 600;
+    font-family: DIN Pro,sans-serif;
+    transition: .2s;
+    outline: none;
+    cursor: pointer;
+}
+
+.KoefButton:hover {
+    border: 2px solid #50557b;
+    color : white;
+}
+
+.KoefButton:focus {
+    border : 2px solid #5540d7;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.KoefInput {
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    height: 50px;
+    margin-left: 20px;
+    width: 200px;
+    background-color: #252f53;
+    text-align: center;
+    color: #fff;
+    font-size: 27px;
+    font-weight: 500;
+    transition: .2s;
+}
+
+.KoefInput:hover,
+.KoefInput:focus {
+    background-color: #202948;
+}
+
+.CloseButton {
+    color : #b55867;
+    margin-left: auto;
+    margin-right: 10px;
+    margin-top: 12px;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.2;
+    text-transform: uppercase;
+    transition: color .2s ease-out 0s;
+    cursor: pointer;
+}
+.CloseButton div i {
+    margin-left: 5px;
+    font-size: 14px;
+}
+.CloseButton:hover {
+    color: #d24e67;
+}
+
+.SaveButton {
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    margin-left: 20px;
+    width: 200px;
+    height: 50px;
+    text-align: center;
+    background-color: #404681;
+    color: #edeefb;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+    text-transform: uppercase;
+    transition: .2s;
+}
+.SaveButton:hover {
+    background-color: #4c559c;
+}
+
+.ChangeInput {
+    margin: 0;
+    padding: 0;
+    height: 48px;
+    width: 80px;
+    margin-right: 4px;
+    color: #ced3ea;
+    background-color: #2b365b;
+    border: 2px solid #39446b;
+    border-radius: 10px;
+    font-weight: 600;
+    font-family: DIN Pro,sans-serif;
+    transition: .2s;
+    outline: none;
+    cursor: pointer;
+    text-align: center;
+}
+.ChangeInput:hover {
+    border: 2px solid #50557b;
+    color : white;
+}
+
+.ChangeInput:focus {
+    border : 2px solid #5540d7;
+}
