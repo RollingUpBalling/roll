@@ -19,11 +19,8 @@ const auth = (req, res, next) => {
         next();
     }
     catch (err) {
-        // return res.status(500).json({
-        //     message:'invalid token, login to fix'
-        // })
         err.statusCode = 403
-        throw err
+        next(err)
     }
 }
 
