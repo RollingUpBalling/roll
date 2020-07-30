@@ -5,6 +5,8 @@ import Main from './containers/Main/Main';
 import { AuthContext } from './context/auth-context';
 import './App.css';
 
+
+
 let logoutTimer;
 
 const App = () => {
