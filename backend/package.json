@@ -24,6 +24,7 @@
     "mongoose": "^5.9.25",
     "openid-client": "^3.15.8",
     "passport": "^0.4.1",
-    "passport-steam": "^1.0.14"
+    "passport-steam": "^1.0.14",
+    "socket.io": "^2.3.0"
   }
 }

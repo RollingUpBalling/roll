@@ -7,10 +7,13 @@ const HttpError = require('./models/HttpError');
 
 const userRoutes = require('./routes/user');
 const betRoutes = require('./routes/bet')
-const gameRoutes = require('./routes/game')
+const gameRoutes = require('./routes/game');
+const { Socket } = require('dgram');
 
 const app = express();
 
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
 
 app.set("view engine", "ejs");
 app.set("views", "views");
@@ -50,6 +53,15 @@ app.use((req, res) => {
     return res.json({ message: error.message });
 })
 
+io.on('connect',socket => {
+    socket.on('makeBet',bet => {
+        //create bet here
+    })
+    console.log('connected')
+})
+
+
+
 app.use((error, req, res) => {
     const status = error.code || 500;
     const message = error.message || 'Something went wrong';
@@ -64,5 +76,5 @@ app.use((error, req, res) => {
 mongoose.connect('mongodb+srv://admin:admin@cluster0.mszqc.mongodb.net/crash?retryWrites=true&w=majority',
 { useUnifiedTopology: true, useNewUrlParser: true } )
     .then(() => {
-        app.listen(5000)
+        http.listen(5000)
     }).catch(err => console.log(err))
