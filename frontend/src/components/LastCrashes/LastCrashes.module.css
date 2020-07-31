@@ -1,0 +1,7 @@
+.LastCrashes {
+    height: 30px;
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    overflow: hidden;
+}

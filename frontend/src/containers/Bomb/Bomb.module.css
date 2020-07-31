@@ -1,7 +1,13 @@
 .Bomb {
-    position: absolute;
     width: 100%;
-    top: 50px;
+    margin-top: 52px;
+}
+.BombStripe {
+    width: 100%;
+    height: 20px;
+    margin-top: -130px;
+    background-color: #293157;
+    z-index: 1000;
 }
 
 .Board {

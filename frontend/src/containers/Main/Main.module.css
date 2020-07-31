@@ -9,6 +9,8 @@
     background-color: #1e2443;
     position: relative;
     left: 0px;
+    padding: 0 30px;
+    box-sizing: border-box;
 }
 
 .RightSide {

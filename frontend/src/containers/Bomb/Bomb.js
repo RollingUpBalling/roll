@@ -61,6 +61,7 @@ class Bomb extends Component {
                     className={classes.Bomb}
                     src={bombIMG}
                     alt="Bomb" />
+                <div className={classes.BombStripe}/>
                 <div className={classes.Board}>
                     <div className={classes.Koef}>
                         <span>{this.state.first}</span>
