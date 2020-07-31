@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 
-import classes from './BetController.module.css';
 import Bet from '../../components/UI/Bet/Bet';
+
+import classes from './BetController.module.css';
+
 class BetController extends Component {
 
     state = {
@@ -94,7 +96,7 @@ class BetController extends Component {
                     type='number'
                     min='1'
                     value={el.value}
-                    onChange={(event)=>{
+                    onChange={(event) => {
                         this.inputChangeHandler(event, index);
                     }}
                     />
@@ -122,6 +124,7 @@ class BetController extends Component {
                             <i className="fa fa-list-ul" aria-hidden="true"></i>
                         </div>)}
                     </div>
+                    <div style={{width : '100%'}}>
                     <div className={classes.KoefInformation}>
                        {buttonTrain}
                         {this.state.changeMod ?
@@ -142,7 +145,8 @@ class BetController extends Component {
                             value={this.state.mainKoef}
                             className={classes.KoefInput}/>)}
                     </div>
-                    <Bet></Bet>
+                    </div>
+                    <Bet />
                 </div>
         );
     }

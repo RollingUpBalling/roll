@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import io from "socket.io-client";
 import axios from 'axios'
+import classes from './Bet.module.css';
+
 import ErrorModal from '../ErrorModal/ErrorModal';
 
 const ENDPOINT = "http://127.0.0.1:5000";
@@ -82,15 +84,15 @@ const MakeBetButton = props => {
     }
 
     return (
-        <React.Fragment>
+        <>
             <ErrorModal error={error} onClear={handleError} /> {/* setting error from useState */}
 
             <div>
-                <button onClick={ !gameId ? createGame : null ,gameId ? makeNewBet : null } >makeBet</button>
-                
+                <button 
+                onClick={createGame}
+                className={classes.Bet}>START $0</button>
             </div>
-            {console.log(gameId)}
-        </React.Fragment>
+        </>              
     )
 }
 
