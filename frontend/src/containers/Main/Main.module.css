@@ -17,5 +17,38 @@
     background-color: #20274b;
     position: relative;
     left: 0px;
-    display: flex;
 }
+
+.BetCards {
+    margin-top: 10px;
+    width: calc(100% - 85px);
+    padding-right: 10px;
+    padding-left: 30px;
+    height: 200px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.BetCards::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom:  58px;
+    display: block;
+    width: 100%;
+    height: 20px;
+    background: #20274b;
+    background: linear-gradient(0deg,#20274b 0,transparent);
+    z-index: 10;
+}
+
+.BetCards::-webkit-scrollbar {
+    width: 5px;
+  }
+.BetCards::-webkit-scrollbar-track {
+    background-color: #26294b;
+  }
+.BetCards::-webkit-scrollbar-thumb {
+    background-color: #3c406d;
+    border-radius: 5px;
+  }

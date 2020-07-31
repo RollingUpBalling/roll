@@ -1,0 +1,65 @@
+.BetCard {
+    width: 100%;
+    height: 70px;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #283055;
+    display: flex;
+    align-items: center;
+    transition: .2s;
+}
+.BetCard:hover {
+   box-shadow: 2px 2px 0px 2px #171b30;
+}
+
+.Success {
+    background-color: #283055;
+    background-image: linear-gradient(270deg,#294a5e 0,#293257 120%);
+}
+
+.BetCard img {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+}
+
+.BetCount {
+    height: 40px;
+    width: 150px;
+    background-color: #2f385d;
+    border-radius: 10px;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.BetCount span {
+    color: #ff9b78;
+    font-size: 1.0428571429rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.GameStatusHeader {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+.GameStatus {
+    width: 85px;
+    height: 36px;
+    border-radius: 10px;
+    background-color: #394268;
+    text-align: center;
+}
+.GameStatus span {
+    color: #b4bcd9;
+    font-size: .8285714286rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    line-height: 36px;
+}
