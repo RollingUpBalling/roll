@@ -26,6 +26,9 @@ const MakeBetButton = props => {
 
     const createGame = async () => {
         try {
+            if (!localStorage.getItem('userData')) {
+                return setError('Please login to continue')
+            }
             const game = await axios.post(ENDPOINT + '/createGame/', {}, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -36,7 +39,10 @@ const MakeBetButton = props => {
         }
         catch (err) {
             console.log(err.response)
-            setError(err.response.data.message);
+            if (!err.response) {
+                return setError('unexpected error happened')
+            }
+            return setError(err.response.data.message);
 
         }
 

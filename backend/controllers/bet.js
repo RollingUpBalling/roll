@@ -13,14 +13,10 @@ exports.makeBet = async (req, res, next) => {
     try {
         const game = await Game.findById(req.body.gameID)
         if (!game) {
-            return res.status(400).json({
-                error: 'invalid id'
-            })
+            next(new HttpError('invalid id',400))
         }
         if (game.state !== 'makingBets') {
-            return res.status(500).json({
-                error: 'cant make bet at this time'
-            })
+            next(new HttpError('cant make bet at this time',500))
         }
         const bet = await Bet.create({
             steamUsername: req.body.steamUsername,
