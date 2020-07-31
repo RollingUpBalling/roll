@@ -15,12 +15,12 @@ const MakeBetButton = props => {
     useEffect(() => {
         const socket = io(ENDPOINT)
         socket.on('recieveId', id => {
-            console.log(id)
-            updateId(id)
+            console.log(id, 'vsem q from useEffect')
+            updateId(id.gameId)
         });
         socket.on('addBet', bet=>{
             console.log(bet)
-            addBet(bet);
+            addBet(bet.bet);
         })
     }, [])
 
@@ -53,13 +53,12 @@ const MakeBetButton = props => {
     }
 
     const makeNewBet = async () => {
-
         try {
             if (!localStorage.getItem('userData')) {
                 return setError('Please login to continue')
             }
             const bet = await axios.post(ENDPOINT + '/makeBet/', {
-                gameID: gameId.toString(),
+                gameID: gameId,
                 steamUsername: "q",
                 koef: 3.22,
                 amount: 100
@@ -72,11 +71,11 @@ const MakeBetButton = props => {
             console.log(bet)
         }
         catch (err) {
-            console.log(err)
+            console.log(err.response)
             if (!err.response) {
                 return setError('unexpected error happened from bet')
             }
-            return setError(err.response.data.message);
+            return setError(    JSON.stringify(err.response.data.message) || 'hz what happen');
 
         }
     }
@@ -86,7 +85,8 @@ const MakeBetButton = props => {
             <ErrorModal error={error} onClear={handleError} /> {/* setting error from useState */}
 
             <div>
-                <button onClick={ !gameId ? createGame : null ,gameId ? makeNewBet : null } >makeBet</button>
+                {!gameId && <button onClick={createGame} >makeBet</button>}
+                { gameId && <button onClick={makeNewBet} >makeBet</button>}
                 
             </div>
             {console.log(gameId)}
