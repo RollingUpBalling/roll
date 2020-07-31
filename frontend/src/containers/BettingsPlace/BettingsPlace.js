@@ -1,6 +1,6 @@
 import React from 'react';
 
-import BetController from '../../BetController/BetController';
+import BetController from '../BetController/BetController';
 
 import classes from './BettingsPlace.module.css';
 

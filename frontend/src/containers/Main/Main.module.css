@@ -29,6 +29,19 @@
     overflow-x: hidden;
 }
 
+.BetCards::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom:  58px;
+    display: block;
+    width: 100%;
+    height: 20px;
+    background: #20274b;
+    background: linear-gradient(0deg,#20274b 0,transparent);
+    z-index: 10;
+}
+
 .BetCards::-webkit-scrollbar {
     width: 5px;
   }

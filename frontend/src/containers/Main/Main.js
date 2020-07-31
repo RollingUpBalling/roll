@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Bomb from '../Bomb/Bomb';
-import BettingsPlace from './BettingsPlace/BettingsPlace';
+import BettingsPlace from '../BettingsPlace/BettingsPlace';
 import GameStat from '../../components/UI/GameStat/GameStat';
 import BetCard from '../../components/UI/Bet/BetCard/BetCard';
 
