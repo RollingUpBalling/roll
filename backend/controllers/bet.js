@@ -31,6 +31,7 @@ exports.makeBet = async (req, res, next) => {
         });
         return res.status(201).json({bet:bet});
     } catch (error) {
-        return next(new HttpError(error));
+        console.log(error)
+        return next(new HttpError('from bet controller'));
     }
 }
