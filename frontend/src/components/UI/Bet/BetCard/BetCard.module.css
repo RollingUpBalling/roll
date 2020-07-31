@@ -5,5 +5,9 @@
     margin-bottom: 5px;
     box-sizing: border-box;
     background-color: #283055;
+}
+
+.Success {
+    background-color: #283055;
     background-image: linear-gradient(270deg,#294a5e 0,#293257 120%);
 }

@@ -20,6 +20,10 @@ class Main extends Component {
                         <div className={classes.BetCards}>
                             <BetCard />
                             <BetCard />
+                            <BetCard />
+                            <BetCard />
+                            <BetCard />
+                            <BetCard />
                         </div>
                     </div>
                 </div>
