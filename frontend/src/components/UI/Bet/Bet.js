@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import io from "socket.io-client";
 import axios from 'axios'
+import classes from './Bet.module.css';
+
 import ErrorModal from '../ErrorModal/ErrorModal';
 
 const ENDPOINT = "http://127.0.0.1:5000";
@@ -15,12 +17,21 @@ const MakeBetButton = props => {
     useEffect(() => {
         const socket = io(ENDPOINT)
         socket.on('recieveId', id => {
+<<<<<<< HEAD
             console.log(id)
             updateId(id)
         });
         socket.on('addBet', bet=>{
             console.log(bet)
             addBet(bet);
+=======
+            console.log(id, 'vsem q from useEffect')
+            updateId(id.gameId)
+        });
+        socket.on('addBet', bet=>{
+            console.log(bet)
+            addBet(bet.bet);
+>>>>>>> 34b13bf337efb5e4e37a05d691bad785b34d1f4c
         })
     }, [])
 
@@ -53,6 +64,7 @@ const MakeBetButton = props => {
     }
 
     const makeNewBet = async () => {
+<<<<<<< HEAD
 
         try {
             if (!localStorage.getItem('userData')) {
@@ -78,19 +90,54 @@ const MakeBetButton = props => {
             }
             return setError(err.response.data.message);
 
+=======
+        try {
+            if (!localStorage.getItem('userData')) {
+                return setError('Please login to continue')
+            }
+            const bet = await axios.post(ENDPOINT + '/makeBet/', {
+                gameID: gameId,
+                steamUsername: "q",
+                koef: 3.22,
+                amount: 100
+            }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('userData')).token
+                }
+            })
+            console.log(bet)
+        }
+        catch (err) {
+            console.log(err.response)
+            if (!err.response) {
+                return setError('unexpected error happened from bet')
+            }
+            return setError(    JSON.stringify(err.response.data.message) || 'hz what happen');
+
+>>>>>>> 34b13bf337efb5e4e37a05d691bad785b34d1f4c
         }
     }
 
     return (
-        <React.Fragment>
+        <>
             <ErrorModal error={error} onClear={handleError} /> {/* setting error from useState */}
 
             <div>
+<<<<<<< HEAD
                 <button onClick={ !gameId ? createGame : null ,gameId ? makeNewBet : null } >makeBet</button>
                 
             </div>
             {console.log(gameId)}
         </React.Fragment>
+=======
+                {!gameId && <button onClick={createGame} className={classes.Bet}>START $0</button>}
+                { gameId && <button onClick={makeNewBet} className={classes.Bet}>START $0</button>}
+                
+
+            </div>
+        </>              
+>>>>>>> 34b13bf337efb5e4e37a05d691bad785b34d1f4c
     )
 }
 
