@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Bet from '../../components/UI/Bet/Bet';
 
 import classes from './BetController.module.css';
-
+import Bet from '../../components/UI/Bet/Bet';
 
 class BetController extends Component {
 
