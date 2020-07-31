@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import io from "socket.io-client";
 import axios from 'axios'
+import classes from './Bet.module.css';
+
 const ENDPOINT = "http://127.0.0.1:5000";
 
 const MakeBetButton = props => {
@@ -27,7 +29,7 @@ const MakeBetButton = props => {
             console.log(game)
         }
         catch (error) {
-            console.log(error)
+            console.log(error.response);
         }
        
     }
@@ -41,7 +43,11 @@ const MakeBetButton = props => {
 
     return (
         <div>
-            <button onClick={createGame}>makeBet</button>
+            <button 
+            onClick={createGame}
+            className={classes.Bet}>START $0</button>
+            {/*Game is in progress 
+            should add some logic to making button disabled or not*/}
         </div>
     )
 }

@@ -17,5 +17,10 @@
     background-color: #20274b;
     position: relative;
     left: 0px;
-    display: flex;
+}
+
+.BetCards {
+    margin-top: 10px;
+    padding-left: 30px;
+    padding-right: 55px;
 }

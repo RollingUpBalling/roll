@@ -1,0 +1,62 @@
+.GameStat {
+    width: 100%;
+    padding: 0 30px;
+    margin-top: 47px;
+    box-sizing: border-box;
+    display: flex;
+}
+
+.GameStatHeader {
+    width: 40%;
+    height: 100%;
+    background-color: #293157;
+    margin-right: 6px;
+    color: #d5dcf3;
+    font-size: 1.2928571429rem;
+    font-weight: 500;
+    border-radius: 10px;
+    cursor: normal;
+}
+.GameStatHeader span i {
+    margin-right: 10px;
+}
+.GameStatHeader span {
+    line-height: 90px;
+    margin-left: 30px;
+}
+
+.GameStatsInfo {
+    width: 18.5%;
+    height: 90px;
+    background-color: #2f395d;
+    border-radius: 10px;
+    margin-right: 5px;
+    box-sizing: border-box;
+    padding-left: 35px;
+    color: #d5dcf3;
+    font-size: 1.2928571429rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+}
+
+.GameStatsInfo i {
+    font-size: 26px;
+}
+
+.PlayersCount {
+    margin-left: 20px;
+}
+
+.Number {
+    margin-top: 5px;
+}
+
+.Label {
+    margin-top: -15px;
+    color: #697396;
+    font-size: .7571428571rem;
+    font-weight: 500;
+    line-height: 1;
+    text-transform: uppercase;
+}

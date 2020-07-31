@@ -1,3 +1,8 @@
+button {
+    margin: 0;
+    padding: 0;
+}
+
 .BetController {
     width: calc(100% - 253px);
     display: block;
@@ -45,7 +50,7 @@
 
 .KoefInformation {
     width: 100%;
-    margin-top: 16px;
+    margin-top: 5px;
     display: flex;
     align-items: center;
     background-color: #2b365b;
@@ -97,6 +102,7 @@ input::-webkit-inner-spin-button {
     font-size: 27px;
     font-weight: 500;
     transition: .2s;
+    box-sizing: border-box;
 }
 
 .KoefInput:hover,
@@ -139,14 +145,13 @@ input::-webkit-inner-spin-button {
     line-height: 1;
     text-transform: uppercase;
     transition: .2s;
+    box-sizing: border-box;
 }
 .SaveButton:hover {
     background-color: #4c559c;
 }
 
 .ChangeInput {
-    margin: 0;
-    padding: 0;
     height: 48px;
     width: 80px;
     margin-right: 4px;
@@ -160,6 +165,7 @@ input::-webkit-inner-spin-button {
     outline: none;
     cursor: pointer;
     text-align: center;
+    box-sizing: border-box;
 }
 .ChangeInput:hover {
     border: 2px solid #50557b;

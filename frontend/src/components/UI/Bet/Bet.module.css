@@ -1,0 +1,20 @@
+.Bet {
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 10px;
+    height: 58px;
+    border: none;
+    background-color: #5540d7;
+    font-size: 1.2142857143rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: .2s;
+    color: #fff;
+}
+.Bet:hover {
+    background-color: #7964fc;
+}
+.Bet:disabled {
+    opacity: .7;
+    cursor: not-allowed;
+}

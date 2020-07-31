@@ -2,20 +2,18 @@ import React from 'react';
 
 import BetController from '../../BetController/BetController';
 
-import classes from './RightSide.module.css';
-import MakeBetButton from '../../../components/UI/Bet/Bet';
+import classes from './BettingsPlace.module.css';
 
-
-const rightSide = () =>  {
+const bettingsPlace = () =>  {
         return (
-            <>
+            <div style={{display: 'flex'}}>
                 <div className={classes.SkinBlock}>
                     <div className={classes.loader} />
                     <span>Waiting for bet...</span>
                 </div>
                 <BetController />
-            </>
+            </div>
         );
 };
 
-export default rightSide;
+export default bettingsPlace;
