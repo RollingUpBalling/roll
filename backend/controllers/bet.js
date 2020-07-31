@@ -1,26 +1,21 @@
 const Bet = require('../models/bet')
 const Game = require('../models/game')
 const HttpError = require('../models/HttpError')
+const io = require('../socket');
 const { validationResult } = require('express-validator');
 
 exports.makeBet = async (req, res, next) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
-        return res.status(400).json({
-            errors: errors.array()
-        })
+        return next(new HttpError('Validation error',500))
     }
     try {
         const game = await Game.findById(req.body.gameID)
         if (!game) {
-            return res.status(400).json({
-                error: 'invalid id'
-            })
+            return next(new HttpError('invalid id',400))
         }
         if (game.state !== 'makingBets') {
-            return res.status(500).json({
-                error: 'cant make bet at this time'
-            })
+            return next(new HttpError('cant make bet at this time',500))
         }
         const bet = await Bet.create({
             steamUsername: req.body.steamUsername,
@@ -30,9 +25,11 @@ exports.makeBet = async (req, res, next) => {
         game.amount += bet.amount  
         game.bets.push(bet)
         game.save()
-        res.status(201).json({
-            bet: bet
-        })
+        const socket = io.getIO()
+        socket.emit('addBet',{
+            'bet':bet
+        });
+        return res.status(201).json({bet:bet});
     } catch (error) {
         return next(new HttpError(error));
     }

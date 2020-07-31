@@ -11,6 +11,7 @@ const MakeBetButton = props => {
 
     const [socket, connect] = useState()
     const [gameId, updateId] = useState()
+    const [bets, addBet] = useState();
     const [error, setError] = useState();
 
     useEffect(() => {
@@ -18,6 +19,10 @@ const MakeBetButton = props => {
         socket.on('recieveId', id => {
             console.log(id)
             updateId(id)
+        });
+        socket.on('addBet', bet=>{
+            console.log(bet)
+            addBet(bet);
         })
     }, [])
 
@@ -28,28 +33,55 @@ const MakeBetButton = props => {
 
     const createGame = async () => {
         try {
+            if (!localStorage.getItem('userData')) {
+                return setError('Please login to continue')
+            }
             const game = await axios.post(ENDPOINT + '/createGame/', {}, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('userData')).token
                 }
             })
-            console.log(game)
         }
         catch (err) {
             console.log(err.response)
-            setError(err.response.data.message);
+            if (!err.response) {
+                return setError('unexpected error happened from game')
+            }
+            return setError(err.response.data.message);
 
         }
 
     }
 
-    // const makeNewBet = () => {
-    //     console.log(socket.connected)
-    //     socket.emit('makeBet', {
+    const makeNewBet = async () => {
 
-    //     })
-    // }
+        try {
+            if (!localStorage.getItem('userData')) {
+                return setError('Please login to continue')
+            }
+            const bet = await axios.post(ENDPOINT + '/makeBet/', {
+                gameID: gameId.toString(),
+                steamUsername: "q",
+                koef: 3.22,
+                amount: 100
+            }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('userData')).token
+                }
+            })
+            console.log(bet)
+        }
+        catch (err) {
+            console.log(err)
+            if (!err.response) {
+                return setError('unexpected error happened from bet')
+            }
+            return setError(err.response.data.message);
+
+        }
+    }
 
     return (
         <>
@@ -60,7 +92,7 @@ const MakeBetButton = props => {
                 onClick={createGame}
                 className={classes.Bet}>START $0</button>
             </div>
-        </>
+        </>              
     )
 }
 
