@@ -29,9 +29,8 @@ exports.updateState = async (req, res, next) => {
 exports.createGame = async (req, res, next) => {
     try {
         const lastGame = await Game.findOne().sort({ _id: -1 })
-        console.log(lastGame)
         if (lastGame && lastGame.state !== 'finished') {
-            next(new HttpError('last game is not finished yet',500))
+            return next(new HttpError('last game is not finished yet',500))
         }
         const game = await Game.create({
             koef: 2.28 //should be defined by some algoritm later 
