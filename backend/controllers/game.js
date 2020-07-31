@@ -37,6 +37,9 @@ exports.createGame = async (req, res, next) => {
             koef: 2.28 //should be defined by some algoritm later 
         })
         const socket = io.getIO()
+        // socket.emit('connection', {
+        //     'gameId' : game._id
+        // })
         socket.emit('recieveId',{
             'gameId' : game._id
         })

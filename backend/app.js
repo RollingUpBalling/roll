@@ -50,6 +50,7 @@ app.use((req, res) => {
 })
 
 
+// eslint-disable-next-line no-unused-vars
 app.use((error, req, res, next) => {
     const status = error.statusCode || 500;
     const message = error.message;
@@ -61,7 +62,10 @@ mongoose.connect('mongodb+srv://admin:admin@cluster0.mszqc.mongodb.net/crash?ret
     .then(() => {
         const server = app.listen(5000);
         const io = require('./socket').init(server);
-        io.on('connection', () => {
+        io.on('connection', (gameId) => {
+            io.emit('recieveId',{
+                'gameId':gameId
+            });
             console.log('Client Conneted');
         })
     })
