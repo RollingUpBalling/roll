@@ -9,21 +9,20 @@ const ENDPOINT = "http://127.0.0.1:5000";
 
 const MakeBetButton = props => {
 
-    const [socket, connect] = useState()
+    
     const [gameId, updateId] = useState()
-    const [bets, addBet] = useState();
     const [error, setError] = useState();
 
     useEffect(() => {
         const socket = io(ENDPOINT)
         socket.on('recieveId', id => {
-            console.log(id, 'vsem q from useEffect')
             updateId(id.gameId)
+            console.log(id.gameId)
         });
-        socket.on('addBet', bet=>{
-            console.log(bet)
-            addBet(bet.bet);
-        })
+        // socket.on('addBet', bet=>{
+        //     console.log(bet)
+        //     addBet(bet.bet);
+        // })
     }, [])
 
 
@@ -42,6 +41,21 @@ const MakeBetButton = props => {
                     'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('userData')).token
                 }
             })
+            if (game) {
+                console.log(game)
+                const bet = await axios.post(ENDPOINT + '/makeBet/', {
+                    gameID: game.data.gameId,
+                    steamUsername: "q",
+                    koef: 3.22,
+                    amount: 100
+                }, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('userData')).token
+                    }
+                })
+                console.log(bet)
+            }
         }
         catch (err) {
             console.log(err.response)
@@ -63,7 +77,7 @@ const MakeBetButton = props => {
                 gameID: gameId,
                 steamUsername: "q",
                 koef: 3.22,
-                amount: 100
+                amount: 140
             }, {
                 headers: {
                     'Content-Type': 'application/json',

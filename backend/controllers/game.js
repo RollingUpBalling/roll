@@ -36,13 +36,13 @@ exports.createGame = async (req, res, next) => {
             koef: 2.28 //should be defined by some algoritm later 
         })
         const socket = io.getIO()
-        // socket.emit('connection', {
-        //     'gameId' : game._id
-        // })
         socket.emit('recieveId',{
             'gameId' : game._id
         })
-        return res.sendStatus(201)
+        setTimeout(() => {
+            
+        }, 30000);
+        return res.status(201).json({'gameId' : game._id})
 
     } catch (error) {
         next(new HttpError(error.message,500))
