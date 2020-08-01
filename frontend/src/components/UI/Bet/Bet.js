@@ -42,11 +42,10 @@ const MakeBetButton = props => {
                 }
             })
             if (game) {
-                console.log(game)
                 const bet = await axios.post(ENDPOINT + '/makeBet/', {
                     gameID: game.data.gameId,
                     steamUsername: "q",
-                    koef: 3.22,
+                    koef: props.koef,
                     amount: 100
                 }, {
                     headers: {
