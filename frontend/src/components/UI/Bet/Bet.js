@@ -25,6 +25,13 @@ const MakeBetButton = props => {
         })
     }, [])
 
+    useEffect(() => {
+        if (gameState === 'finished') {
+            updateId('')
+            
+        }
+    },[gameState])
+
 
     const handleError = () => {
         setError(null);
@@ -75,7 +82,7 @@ const MakeBetButton = props => {
             const bet = await axios.post(ENDPOINT + '/makeBet/', {
                 gameID: gameId,
                 steamUsername: "q",
-                koef: 3.22,
+                koef: props.koef,
                 amount: 140
             }, {
                 headers: {
