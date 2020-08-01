@@ -9,7 +9,7 @@ const ENDPOINT = "http://127.0.0.1:5000";
 
 const MakeBetButton = props => {
 
-    const [gameState,updateGameState] = useState('')
+    const [gameState,updateGameState] = useState('makingBets')
     const [gameId, updateId] = useState()
     const [error, setError] = useState();
 
@@ -101,10 +101,13 @@ const MakeBetButton = props => {
             <ErrorModal error={error} onClear={handleError} /> {/* setting error from useState */}
 
             <div>
-                {!gameId && <button onClick={createGame} className={classes.Bet}>START $0</button>}
-                { gameId && <button onClick={makeNewBet} className={classes.Bet}>START $0</button>}
                 
-
+                {!gameId && <button onClick={createGame} className={classes.Bet}>START $0</button>}
+                {gameId 
+                    ? gameState === 'active' ? <button onClick={makeNewBet} className={classes.Bet} disabled>START $0</button> : <button onClick={makeNewBet} className={classes.Bet}>START $0</button>
+                    : null
+                }
+            
             </div>
         </>              
     )
