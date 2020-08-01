@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 
 import Bomb from '../Bomb/Bomb';
 import BettingsPlace from '../BettingsPlace/BettingsPlace';
-import GameStat from '../../components/UI/GameStat/GameStat';
+import GameStat from '../../components/GameStat/GameStat';
 import BetCard from '../../components/UI/Bet/BetCard/BetCard';
+import LastCrashes from '../../components/LastCrashes/LastCrashes';
+import BetSum from '../../components/BetSum/BetSum';
+
 import classes from './Main.module.css';
 import io from "socket.io-client";
 
@@ -45,6 +48,8 @@ const Main = () => {
                     {console.log(bets)}
                     <div className={classes.LeftSide}>
                        <Bomb bets={betsNum} />
+                       <LastCrashes />
+                       <BetSum />
                     </div>
                     <div className={classes.RightSide}>
                         <BettingsPlace />

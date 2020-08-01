@@ -110,7 +110,7 @@ const MakeBetButton = props => {
                 
                 {!gameId && <button onClick={createGame} className={classes.Bet}>START $0</button>}
                 {gameId 
-                    ? gameState === 'active' ? <button onClick={makeNewBet} className={classes.Bet} disabled>START $0</button> : <button onClick={makeNewBet} className={classes.Bet}>START $0</button>
+                    ? gameState === 'active' ? <button onClick={makeNewBet} className={classes.Bet} disabled>GAME IS IN PROGRESS...</button> : <button onClick={makeNewBet} className={classes.Bet}>START $0</button>
                     : null
                 }
             
