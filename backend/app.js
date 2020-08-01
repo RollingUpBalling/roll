@@ -62,15 +62,7 @@ mongoose.connect('mongodb+srv://admin:admin@cluster0.mszqc.mongodb.net/crash?ret
     .then(() => {
         const server = app.listen(5000);
         const io = require('./socket').init(server);
-        io.on('connection', (gameId) => {
-            io.emit('recieveId',{
-                'gameId':gameId
-            });
-            console.log('Client Conneted');
         io.on('connection', (socket) => {
-            // io.emit('recieveId',{
-            //     'gameId':gameId
-            // });
             Game.findOne().sort({_id:-1})
             .then(game=>{
                 if(!game){
