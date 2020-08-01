@@ -53,8 +53,8 @@ exports.createGame = async (req, res, next) => {
                 socket.emit('newPhase',{
                     state:'finished'
                 })
-            }, 3000);
-        }, 3000);
+            }, 30000);
+        }, 30000);
         return res.status(201).json({'gameId' : game._id})
 
     } catch (error) {

@@ -31,6 +31,13 @@ const Main = () => {
             addToBank(data.gameAmount);
             addBetNum(data.users);
         })
+        socket.on('newPhase',data => {
+            if (data.state === 'finished') {
+                addBetNum(0)
+                addToBank(0)
+                addBet([])
+            }
+        })
     }, [])
 
         return (
