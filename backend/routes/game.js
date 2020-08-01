@@ -6,11 +6,7 @@ const { body } = require('express-validator')
 const router = express.Router();
 
 
-router.put('/updateState/',[
-    body('newState').isIn(['finished','active','makingBets'])
-],isAuth,gameController.updateState)
-
 router.post('/createGame/',isAuth,gameController.createGame)
-router.post('/activeState/',isAuth,gameController.moveToActiveState)
+// router.get('/handleResults/',gameController.handleResults)
 
 module.exports = router

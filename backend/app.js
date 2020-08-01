@@ -4,7 +4,7 @@ const bodyParser = require('body-parser')
 const passport = require('passport');
 const SteamStrategy = require('passport-steam').Strategy;
 const HttpError = require('./models/HttpError');
-
+const Game = require('./models/game');
 const userRoutes = require('./routes/user');
 const betRoutes = require('./routes/bet')
 const gameRoutes = require('./routes/game');
@@ -62,11 +62,28 @@ mongoose.connect('mongodb+srv://admin:admin@cluster0.mszqc.mongodb.net/crash?ret
     .then(() => {
         const server = app.listen(5000);
         const io = require('./socket').init(server);
-        io.on('connection', (gameId) => {
-            io.emit('recieveId',{
-                'gameId':gameId
-            });
-            console.log('Client Conneted');
+        io.on('connection', (socket) => {
+            Game.findOne().sort({_id:-1}).populate('bets')
+            .then(game=>{
+                if(!game){
+                    console.log('Client Conneted');
+                }
+                else if(game.state === 'makingBets'){
+
+                    socket.emit('recieveId', {
+                        'gameId':game._id
+                    })
+                    socket.emit('getBets',{
+                        'bets':game.bets,
+                        'gameAmount': game.amount,
+                        'users':game.bets.length
+                    });
+                    
+                    console.log('Client Conneted');
+                }
+                
+            })
+           
         })
     })
     .catch(err => console.log(err))

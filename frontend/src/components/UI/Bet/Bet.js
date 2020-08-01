@@ -9,22 +9,28 @@ const ENDPOINT = "http://127.0.0.1:5000";
 
 const MakeBetButton = props => {
 
-    const [socket, connect] = useState()
+    const [gameState,updateGameState] = useState('makingBets')
     const [gameId, updateId] = useState()
-    const [bets, addBet] = useState();
     const [error, setError] = useState();
 
     useEffect(() => {
         const socket = io(ENDPOINT)
         socket.on('recieveId', id => {
-            console.log(id)
-            updateId(id)
+            updateId(id.gameId)
+            console.log(id.gameId)
         });
-        socket.on('addBet', bet=>{
-            console.log(bet)
-            addBet(bet);
+        socket.on('newPhase',data => {
+            console.log(data)
+            updateGameState(data.state)
         })
     }, [])
+
+    useEffect(() => {
+        if (gameState === 'finished') {
+            updateId('')
+            
+        }
+    },[gameState])
 
 
     const handleError = () => {
@@ -42,6 +48,20 @@ const MakeBetButton = props => {
                     'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('userData')).token
                 }
             })
+            if (game) {
+                const bet = await axios.post(ENDPOINT + '/makeBet/', {
+                    gameID: game.data.gameId,
+                    steamUsername: "q",
+                    koef: props.koef,
+                    amount: 100
+                }, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('userData')).token
+                    }
+                })
+                console.log(bet)
+            }
         }
         catch (err) {
             console.log(err.response)
@@ -55,16 +75,15 @@ const MakeBetButton = props => {
     }
 
     const makeNewBet = async () => {
-
         try {
             if (!localStorage.getItem('userData')) {
                 return setError('Please login to continue')
             }
             const bet = await axios.post(ENDPOINT + '/makeBet/', {
-                gameID: gameId.toString(),
+                gameID: gameId,
                 steamUsername: "q",
-                koef: 3.22,
-                amount: 100
+                koef: props.koef,
+                amount: 140
             }, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -74,11 +93,11 @@ const MakeBetButton = props => {
             console.log(bet)
         }
         catch (err) {
-            console.log(err)
+            console.log(err.response)
             if (!err.response) {
                 return setError('unexpected error happened from bet')
             }
-            return setError(err.response.data.message);
+            return setError(    JSON.stringify(err.response.data.message) || 'hz what happen');
 
         }
     }
@@ -88,9 +107,13 @@ const MakeBetButton = props => {
             <ErrorModal error={error} onClear={handleError} /> {/* setting error from useState */}
 
             <div>
-                <button 
-                onClick={createGame}
-                className={classes.Bet}>START $0</button>
+                
+                {!gameId && <button onClick={createGame} className={classes.Bet}>START $0</button>}
+                {gameId 
+                    ? gameState === 'active' ? <button onClick={makeNewBet} className={classes.Bet} disabled>GAME IS IN PROGRESS...</button> : <button onClick={makeNewBet} className={classes.Bet}>START $0</button>
+                    : null
+                }
+            
             </div>
         </>              
     )

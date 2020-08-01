@@ -8,11 +8,24 @@
     background-color: #283055;
     display: flex;
     align-items: center;
-    transition: .2s;
+    animation-name: betCardVisible;
+    animation-duration: 2s;
+    animation-timing-function: ease;
 }
+
+@keyframes betCardVisible {
+    0% {
+        background-color: #202744;
+    }
+    100% {
+        background-color: #283055;
+    }
+}
+
 .BetCard:hover {
    box-shadow: 2px 2px 0px 2px #171b30;
 }
+
 
 .Success {
     background-color: #283055;
