@@ -72,6 +72,10 @@ mongoose.connect('mongodb+srv://admin:admin@cluster0.mszqc.mongodb.net/crash?ret
                     socket.emit('recieveId', {
                         'gameId':game._id
                     })
+                    socket.emit('addBet',{
+                        'gameAmount': game.amount,
+                        'users':game.bets.length
+                    });
                     console.log(game);
                     console.log('Client Conneted');
                 }
