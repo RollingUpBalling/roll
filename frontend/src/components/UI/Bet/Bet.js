@@ -9,7 +9,7 @@ const ENDPOINT = "http://127.0.0.1:5000";
 
 const MakeBetButton = props => {
 
-    
+    const [gameState,updateGameState] = useState('')
     const [gameId, updateId] = useState()
     const [error, setError] = useState();
 
@@ -19,10 +19,10 @@ const MakeBetButton = props => {
             updateId(id.gameId)
             console.log(id.gameId)
         });
-        // socket.on('addBet', bet=>{
-        //     console.log(bet)
-        //     addBet(bet.bet);
-        // })
+        socket.on('newPhase',data => {
+            console.log(data)
+            updateGameState(data.state)
+        })
     }, [])
 
 

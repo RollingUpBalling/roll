@@ -40,8 +40,21 @@ exports.createGame = async (req, res, next) => {
             'gameId' : game._id
         })
         setTimeout(() => {
-            
-        }, 30000);
+            console.log('first timeout')
+            game.state = 'active'
+            game.save()
+            socket.emit('newPhase',{
+                state:'active'
+            })
+            setTimeout(() => {
+                console.log('second timeout')
+                game.state = 'finished'
+                game.save()
+                socket.emit('newPhase',{
+                    state:'finished'
+                })
+            }, 3000);
+        }, 3000);
         return res.status(201).json({'gameId' : game._id})
 
     } catch (error) {
