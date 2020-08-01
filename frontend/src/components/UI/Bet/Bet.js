@@ -9,7 +9,7 @@ const ENDPOINT = "http://127.0.0.1:5000";
 
 const MakeBetButton = props => {
 
-    
+    const [gameState,updateGameState] = useState('makingBets')
     const [gameId, updateId] = useState()
     const [error, setError] = useState();
 
@@ -19,11 +19,18 @@ const MakeBetButton = props => {
             updateId(id.gameId)
             console.log(id.gameId)
         });
-        // socket.on('addBet', bet=>{
-        //     console.log(bet)
-        //     addBet(bet.bet);
-        // })
+        socket.on('newPhase',data => {
+            console.log(data)
+            updateGameState(data.state)
+        })
     }, [])
+
+    useEffect(() => {
+        if (gameState === 'finished') {
+            updateId('')
+            
+        }
+    },[gameState])
 
 
     const handleError = () => {
@@ -75,7 +82,7 @@ const MakeBetButton = props => {
             const bet = await axios.post(ENDPOINT + '/makeBet/', {
                 gameID: gameId,
                 steamUsername: "q",
-                koef: 3.22,
+                koef: props.koef,
                 amount: 140
             }, {
                 headers: {
@@ -100,10 +107,13 @@ const MakeBetButton = props => {
             <ErrorModal error={error} onClear={handleError} /> {/* setting error from useState */}
 
             <div>
-                {!gameId && <button onClick={createGame} className={classes.Bet}>START $0</button>}
-                { gameId && <button onClick={makeNewBet} className={classes.Bet}>START $0</button>}
                 
-
+                {!gameId && <button onClick={createGame} className={classes.Bet}>START $0</button>}
+                {gameId 
+                    ? gameState === 'active' ? <button onClick={makeNewBet} className={classes.Bet} disabled>START $0</button> : <button onClick={makeNewBet} className={classes.Bet}>START $0</button>
+                    : null
+                }
+            
             </div>
         </>              
     )
