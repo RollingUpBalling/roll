@@ -1,22 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import io from "socket.io-client";
+import React from 'react'
 import classes from './GameStat.module.css';
 
-const ENDPOINT = "http://127.0.0.1:5000";
-const socket = io(ENDPOINT)
-
 const GameStat = (props) => {
-    const [players, addPlayer] = useState(0);
-    const [bank, addToBank] = useState(0);
 
-    useEffect(() => {
-
-        socket.on('addBet', res => {
-            addToBank(res.gameAmount);
-            addPlayer(res.users);
-        });
-
-    }, []);
 
 
 
@@ -32,8 +18,8 @@ const GameStat = (props) => {
             <div className={classes.GameStatsInfo}>
                 <i className="fa fa-user-o" aria-hidden="true"></i>
                 <div className={classes.PlayersCount}>
-                    <p className={classes.Number}>{players}</p>
-                    <p className={classes.Label}>players</p>
+                    <p className={classes.Number}>{props.betCount}</p>
+                    <p className={classes.Label}>bets</p>
                 </div>
             </div>
 
@@ -42,7 +28,7 @@ const GameStat = (props) => {
                 style={{ paddingLeft: '30px' }}>
                 <i className="fa fa-money" aria-hidden="true"></i>
                 <div className={classes.PlayersCount}>
-                    <p className={classes.Number}>{bank}</p>
+                    <p className={classes.Number}>{props.bank}</p>
                     <p className={classes.Label}>total bank</p>
                 </div>
             </div>

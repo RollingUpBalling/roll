@@ -77,7 +77,7 @@ const MakeBetButton = props => {
                 gameID: gameId,
                 steamUsername: "q",
                 koef: 3.22,
-                amount: 100
+                amount: 140
             }, {
                 headers: {
                     'Content-Type': 'application/json',

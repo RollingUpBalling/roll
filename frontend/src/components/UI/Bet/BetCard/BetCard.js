@@ -11,7 +11,7 @@ const BetCard = ( props ) => {
                 alt='Steam avatar'
                 src={testSteamAvatar}/>
             <div className={classes.BetCount}>
-                <span>$100</span>
+                <span>{props.betInfo.amount}$</span>
             </div>
             <div className={classes.GameStatusHeader}>
                 <div className={classes.GameStatus}>

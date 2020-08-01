@@ -27,9 +27,7 @@ exports.makeBet = async (req, res, next) => {
         game.save()
         const socket = io.getIO()
         socket.emit('addBet',{
-            'bet':bet,
-            'gameAmount': game.amount,
-            'users':game.bets.length
+            'bet':bet
         });
         return res.status(201).json({bet:bet});
     } catch (error) {

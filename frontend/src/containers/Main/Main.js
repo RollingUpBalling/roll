@@ -14,12 +14,24 @@ const Main = () => {
     
     const [bets, addBet] = useState([]);
     const [error, setError] = useState();
+    const [betsNum, addBetNum] = useState(0);
+    const [bank, addToBank] = useState(0);
+
+
 
     useEffect(() => {
         const socket = io(ENDPOINT)
         socket.on('addBet', data=>{
             console.log(data.bet)
             addBet(bets => [...bets,data.bet]);
+            addToBank(bank => bank + data.bet.amount);
+            addBetNum(betsNum => betsNum + 1);
+        })
+        socket.on('getBets',data=>{
+            console.log(data.bet)
+            addBet(bets => [...bets,...data.bets]);
+            addToBank(data.gameAmount);
+            addBetNum(data.users);
         })
     }, [])
 
@@ -31,7 +43,7 @@ const Main = () => {
                     </div>
                     <div className={classes.RightSide}>
                         <BettingsPlace />
-                        <GameStat />
+                        <GameStat bank={bank} betCount={betsNum} />
                         <div className={classes.BetCards}>
                             {bets.map((betInfo,index) => (
                                 <BetCard betInfo={betInfo} key={index} />
