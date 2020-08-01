@@ -33,12 +33,11 @@ const Main = () => {
                         <BettingsPlace />
                         <GameStat />
                         <div className={classes.BetCards}>
-                            <BetCard />
-                            <BetCard />
-                            <BetCard />
-                            <BetCard />
-                            <BetCard />
-                            <BetCard />
+                            {bets.map((betInfo,index) => (
+                                <BetCard betInfo={betInfo} key={index} />
+                            ))
+                            }
+                            
                         </div>
                     </div>
                 </div>
