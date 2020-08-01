@@ -1,10 +1,10 @@
 import React from 'react';
-
-
 import testSteamAvatar from '../../../../assets/images/test_steam_avtr.jpg';
 import classes from './BetCard.module.css';
 
-const betCard = ( props ) => {
+
+const BetCard = ( props ) => {
+
     return (
         <div className={classes.BetCard}>
             <img 
@@ -23,4 +23,4 @@ const betCard = ( props ) => {
     );
 };
 
-export default betCard
+export default BetCard
