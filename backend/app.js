@@ -61,29 +61,29 @@ mongoose.connect('mongodb+srv://admin:admin@cluster0.mszqc.mongodb.net/crash?ret
     { useUnifiedTopology: true, useNewUrlParser: true })
     .then(() => {
         const server = app.listen(5000);
-        const io = require('./socket').init(server);
-        io.on('connection', (socket) => {
-            Game.findOne().sort({_id:-1}).populate('bets')
-            .then(game=>{
-                if(!game){
-                    console.log('Client Conneted');
-                }
-                else if(game.state === 'makingBets'){
+        require('./socket').init(server);
+        // io.on('connection', (socket) => {
+        //     Game.findOne().sort({_id:-1}).populate('bets')
+        //     .then(game=>{
+        //         if(!game){
+        //             console.log('Client Conneted');
+        //         }
+        //         else if(game.state === 'makingBets'){
 
-                    socket.emit('recieveId', {
-                        'gameId':game._id
-                    })
-                    socket.emit('getBets',{
-                        'bets':game.bets,
-                        'gameAmount': game.amount,
-                        'users':game.bets.length
-                    });
+        //             socket.emit('recieveId', {
+        //                 'gameId':game._id
+        //             })
+        //             socket.emit('getBets',{
+        //                 'bets':game.bets,
+        //                 'gameAmount': game.amount,
+        //                 'users':game.bets.length
+        //             });
                     
-                    console.log('Client Conneted');
-                }
+        //             console.log('Client Conneted');
+        //         }
                 
-            })
+        //     })
            
-        })
+        // })
     })
     .catch(err => console.log(err))
