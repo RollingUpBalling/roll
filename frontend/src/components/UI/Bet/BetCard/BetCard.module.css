@@ -28,8 +28,40 @@
 
 
 .Success {
-    background-color: #283055;
     background-image: linear-gradient(270deg,#294a5e 0,#293257 120%);
+}
+.Success i {
+    position: relative;
+    margin-left: 10px;
+    font-size: 50px;
+    color: #2c4a5c;
+    top: 14px;
+    left: 0px;
+    transition: .2s;
+    box-sizing: border-box;
+}
+.Success:hover i{
+    color: #315d65;
+    font-size: 56px;
+    margin-top: -6px;
+}
+
+.Failed {
+    background-image: linear-gradient(270deg,#543856 0,#293257 120%);
+}
+.Failed i {
+    position: relative;
+    font-size: 50px;
+    box-sizing: border-box;
+    transition: .2s;
+    color: #563858;
+    margin-left: 10px;
+    top: -15px;
+}
+.Failed:hover i {
+    color: #673a59;
+    font-size: 56px;
+    margin-top: 6px;
 }
 
 .BetCard img {
@@ -65,6 +97,7 @@
 .GameStatus {
     width: 85px;
     height: 36px;
+    padding: 0 10px;
     border-radius: 10px;
     background-color: #394268;
     text-align: center;
@@ -75,4 +108,47 @@
     font-weight: 500;
     text-transform: uppercase;
     line-height: 36px;
+}
+
+.TotalWin {
+    color: #70e0ad;
+    background-color: rgba(126,219,177,.102);
+    margin-right: 10px;
+    width: 140px;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 1.1428571429rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.WinKoef {
+    background-color: #52b387;
+    padding: 0 10px;
+    border-radius: 10px;
+    width: 85px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.0714285714rem;
+    font-weight: 500;
+}
+
+.LoseKoef {
+    background-color: #cb4766;
+    padding: 0 10px;
+    border-radius: 10px;
+    width: 85px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.0714285714rem;
+    font-weight: 500;
 }

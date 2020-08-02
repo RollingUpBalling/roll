@@ -56,10 +56,21 @@ const Main = () => {
                         <GameStat bank={bank} betCount={betsNum} />
                         <div className={classes.BetCards}>
                             {bets.map((betInfo,index) => (
-                                <BetCard betInfo={betInfo} key={index} />
+                                <>
+                                <BetCard 
+                                betInfo={betInfo} 
+                                key={index}
+                                status='Success' />
+                                <BetCard 
+                                betInfo={betInfo} 
+                                key={index}
+                                status='Failed' />
+                                <BetCard 
+                                betInfo={betInfo} 
+                                key={index}/>
+                                </>
                             ))
                             }
-                            
                         </div>
                     </div>
                 </div>
