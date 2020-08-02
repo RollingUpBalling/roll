@@ -69,7 +69,6 @@ class Bomb extends Component {
     render() {
 
 
-
         return (
             <>
                 <img
