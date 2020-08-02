@@ -4,7 +4,6 @@ const bodyParser = require('body-parser')
 const passport = require('passport');
 const SteamStrategy = require('passport-steam').Strategy;
 const HttpError = require('./models/HttpError');
-const Game = require('./models/game');
 const userRoutes = require('./routes/user');
 const betRoutes = require('./routes/bet')
 const gameRoutes = require('./routes/game');

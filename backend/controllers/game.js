@@ -1,8 +1,6 @@
 const Game = require('../models/game')
 const HttpError = require('../models/HttpError')
 const io = require('../socket');
-const { validationResult } = require('express-validator')
-
 
 exports.createGame = async (req, res, next) => {
     try {
@@ -18,7 +16,14 @@ exports.createGame = async (req, res, next) => {
         console.log(id)
         socket.emit('recieveId',{
             'gameId' : game._id
-        })
+        });
+        
+        setInterval(function () {
+            if (game.timerStart <= 0) return;
+            game.timerStart = game.timerStart-10;
+            socket.emit('timer', { 'numbers': game.timerStart });
+            game.save();
+        }, 10)
         setTimeout(() => {
             console.log('first timeout')
             game.state = 'active'
@@ -26,6 +31,8 @@ exports.createGame = async (req, res, next) => {
             socket.emit('newPhase',{
                 state:'active'
             })
+            
+           
             setTimeout(() => {
                 console.log('second timeout')
                 game.state = 'finished'

@@ -16,6 +16,16 @@ const Game = new Schema({
         required: true,
         default:'makingBets'
     },
+    timerStart:{
+        type: Number,
+        required: true,
+        default: 30000
+    },
+    timerFinish:{
+        type: Number,
+        required: true,
+        default:3.22
+    },
     bets:[{                                     // array of bets
         type: mongoose.Types.ObjectId,
         required: true,
