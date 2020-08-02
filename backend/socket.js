@@ -16,7 +16,8 @@ module.exports={
 
                     socket.emit('recieveId', {
                         'gameId':game._id
-                    })
+                    });
+                    socket.emit('timer', {'numbers': game.timerStart})
                     socket.emit('getBets',{
                         'bets':game.bets,
                         'gameAmount': game.amount,
