@@ -114,17 +114,20 @@ const MakeBetButton = props => {
 
     const retrieveBet = async () => {
         try {
+           
             const response = await axios.put(ENDPOINT + '/retrieveWinningBet/',{
-                id:userBet._id 
+                id:userBet._id
+                
             },{
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('userData')).token
                 }
             })
+            console.log(response)
         }
         catch (err) {
-            return setError(err)
+            return setError('error')
         }
         
 

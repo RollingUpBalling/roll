@@ -37,7 +37,6 @@ exports.createGame = async (req, res, next) => {
             let interval2 = setInterval(function () {
                 if (game.timerFinish >= game.koef*1000) return ;
                 game.timerFinish = game.timerFinish+10;
-
                 io.emit('timerFinish', { 'koef': game.timerFinish });
             }, 100)
            

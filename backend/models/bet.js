@@ -11,6 +11,9 @@ const Bet = new Schema({
         type: Number,
         required: true
     },
+    retrieveKoef:{
+        type:Number
+    },
     won:{
         type:Boolean,               // dunno are we really need this
     },
