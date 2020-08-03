@@ -9,7 +9,7 @@ exports.createGame = async (req, res, next) => {
             return next(new HttpError('last game is not finished yet',500))
         }
         const game = await Game.create({
-            koef: 1 //should be defined by some algoritm later 
+            koef: 2 //should be defined by some algoritm later 
         })
         const socket = io.getIO()
         const id = io.getID()
@@ -20,20 +20,23 @@ exports.createGame = async (req, res, next) => {
         socket.emit('newPhase',{
             state:'makingBets'
         })
-        setInterval(function () {
+        const inter1 = setInterval(function () {
             if (game.timerStart <= 0) return;
             game.timerStart = game.timerStart-10;
             socket.emit('timerStart', { 'numbers': game.timerStart });
         }, 10)
         setTimeout(() => {
+
             console.log('first timeout')
             game.state = 'active'
             game.save()
+            clearInterval(inter1);
+
+
             socket.emit('newPhase',{
                 state:'active'
             })
             let interval2 = setInterval(function () {
-                console.log(game.timerFinish)
                 if (game.timerFinish >= game.koef*1000) return ;
                 game.timerFinish = game.timerFinish+10;
 
@@ -41,18 +44,24 @@ exports.createGame = async (req, res, next) => {
             }, 100)
            
             setTimeout(() => {
+                clearInterval(interval2);
                 console.log('second timeout')
                 game.state = 'finished'
-                game.save()
-                clearInterval(interval2);
                 socket.emit('newPhase',{
-                    state:'finished',
-                    timer: 30000
+                    state: 'crashed'
                 })
+                game.save()
+                
+                
                 
 
-            }, game.koef*10000);
-        }, 30000);
+                setTimeout(()=>{
+                    socket.emit('newPhase',{
+                        state:'finished'
+                    })
+                },2000)
+            }, game.koef*10000 - 10000);
+        }, 31000);
         return res.status(201).json({'gameId' : game._id})
 
     } catch (error) {
