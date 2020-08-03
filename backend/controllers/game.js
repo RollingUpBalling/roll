@@ -31,7 +31,7 @@ exports.createGame = async (req, res, next) => {
             clearInterval(inter1);
 
 
-            socket.emit('newPhase',{
+            io.emit('newPhase',{
                 state:'active'
             })
             let interval2 = setInterval(function () {
@@ -45,7 +45,7 @@ exports.createGame = async (req, res, next) => {
                 clearInterval(interval2);
                 console.log('second timeout')
                 game.state = 'finished'
-                socket.emit('newPhase',{
+                io.emit('newPhase',{
                     state: 'crashed'
                 })
                 game.save()
@@ -53,7 +53,7 @@ exports.createGame = async (req, res, next) => {
                 
         
                 setTimeout(()=>{
-                    socket.emit('newPhase',{
+                    io.emit('newPhase',{
                         state:'finished'
                     })
                 },2000)
