@@ -3,6 +3,7 @@ const Game = require('../models/game')
 const HttpError = require('../models/HttpError')
 const IO = require('../socket');
 const { validationResult } = require('express-validator');
+const clientSockets = require("socket.io-client")
 
 exports.makeBet = async (req, res, next) => {
     const errors = validationResult(req)
@@ -43,14 +44,17 @@ exports.retrieveWinningBet = async (req,res,next) => {
         if (!bet) {
             return next(new HttpError('Bet not found or game doesnt exist',400))
         }
-       
-        bet.user.balance += bet.amount * bet.koef
-        bet.won = true
-        await bet.save()
-        return res.status(200).json({
-            balance:bet.user.balance
+        const socket = clientSockets("http://127.0.0.1:5000")
+        socket.once('timerFinish',async data => {
+            bet.retrieveKoef = parseFloat(data.koef / 1000 + '.' + data.koef % 1000 / 100)
+            bet.user.balance += bet.amount * bet.retrieveKoef
+            bet.won = true
+            await bet.save()
+            await bet.user.save()
+            return res.status(200).json({
+                balance:bet.user.balance
+            })
         })
-
     }
     catch (e) {
         return next(new HttpError(e,500))
