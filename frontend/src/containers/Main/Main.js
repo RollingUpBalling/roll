@@ -61,13 +61,6 @@ const Main = () => {
                                 betInfo={betInfo} 
                                 key={index}
                                 status='Success' />
-                                <BetCard 
-                                betInfo={betInfo} 
-                                key={index}
-                                status='Failed' />
-                                <BetCard 
-                                betInfo={betInfo} 
-                                key={index}/>
                                 </>
                             ))
                             }
