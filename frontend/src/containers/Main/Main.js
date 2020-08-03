@@ -45,7 +45,7 @@ const Main = () => {
 
     useEffect(() => {
         const socket = io(ENDPOINT)
-        socket.on('changeBet',data => {
+        socket.once('changeBet',data => {
             const newState = []
             console.log(data.bet)
             addBet(
