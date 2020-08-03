@@ -13,6 +13,7 @@ class Bomb extends Component {
         second: 0,
         third: 0,
         fourth: 0,
+        bombClass: classes.Board
     }
 
     componentDidMount() {
@@ -21,11 +22,18 @@ class Bomb extends Component {
             if (data.state === 'finished') {
                 this.setState((state) => {
                     return {
-
+                        bombClass: classes.Board,
                         first: 3,
                         second: 0,
                         third: 0,
                         fourth: 0
+                    }
+                })
+            }
+            if(data.state === 'crashed'){
+                this.setState(()=>{
+                    return{
+                        bombClass: classes.BoardFinish,
                     }
                 })
             }
@@ -47,6 +55,7 @@ class Bomb extends Component {
         socket.on('timerFinish', (data) => {
             this.setState((state) => {
                 return {
+                    bombClass: classes.BoardGame,
                     first: Math.floor(data.koef / 10000),
                     second: Math.floor(data.koef / 1000 % 10),
                     third: Math.floor(data.koef / 100 % 10),
@@ -76,7 +85,7 @@ class Bomb extends Component {
                     src={bombIMG}
                     alt="Bomb" />
                 <div className={classes.BombStripe} />
-                <div className={classes.Board}>
+                <div className={this.state.bombClass}>
                     <div className={classes.Koef}>
                         <span>{this.state.first}</span>
                         <span>{this.state.second}</span>
