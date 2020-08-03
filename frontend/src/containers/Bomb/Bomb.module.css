@@ -9,7 +9,6 @@
     background-color: #293157;
     z-index: 1000;
 }
-
 .Board {
     position: absolute;
     top: 182px;
@@ -17,6 +16,38 @@
     width: 212px;
     height: 54px;
     background-image: url('../../assets//images/crash_bg/board_timer.png');
+    z-index: 100;
+    border-radius: 5px;
+    box-shadow: inset 0px 0px 10px rgb(15, 15, 15);
+    color: white;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+}
+.BoardGame {
+    position: absolute;
+    top: 182px;
+    left: calc(50% - 106px);
+    width: 212px;
+    height: 54px;
+    background-image: url('../../assets//images/crash_bg/board_multiplier.png');
+    z-index: 100;
+    border-radius: 5px;
+    box-shadow: inset 0px 0px 10px rgb(15, 15, 15);
+    color: white;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+}
+.BoardFinish {
+    position: absolute;
+    top: 182px;
+    left: calc(50% - 106px);
+    width: 212px;
+    height: 54px;
+    background-image: url('../../assets//images/crash_bg/board_explosion.png');
     z-index: 100;
     border-radius: 5px;
     box-shadow: inset 0px 0px 10px rgb(15, 15, 15);
