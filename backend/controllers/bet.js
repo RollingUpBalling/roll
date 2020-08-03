@@ -51,6 +51,10 @@ exports.retrieveWinningBet = async (req,res,next) => {
             bet.won = true
             await bet.save()
             await bet.user.save()
+            const io = IO.getIO()
+            io.emit('changeBet',{
+                bet:bet
+            });
             return res.status(200).json({
                 balance:bet.user.balance
             })
