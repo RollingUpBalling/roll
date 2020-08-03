@@ -10,7 +10,7 @@ const ENDPOINT = "http://127.0.0.1:5000";
 const MakeBetButton = props => {
 
     const [gameState,updateGameState] = useState('makingBets')
-    const [userBet,updateUserBet] = useState({})
+    const [userBet,updateUserBet] = useState()
     const [gameId, updateId] = useState()
     const [error, setError] = useState();
 
@@ -29,7 +29,7 @@ const MakeBetButton = props => {
     useEffect(() => {
         if (gameState === 'finished') {
             updateId('')
-            updateUserBet({})
+            updateUserBet()
             
         }
     },[gameState])
@@ -62,7 +62,9 @@ const MakeBetButton = props => {
                         'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('userData')).token
                     }
                 })
-                updateUserBet(response.data.bet)
+                if (response.data.bet.user === JSON.parse(localStorage.getItem('userData')).userId) {
+                    updateUserBet(response.data.bet)
+                }
                 console.log(response)
                 console.log(userBet)
             }
@@ -94,7 +96,9 @@ const MakeBetButton = props => {
                     'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('userData')).token
                 }
             })
-            updateUserBet(response.data.bet)
+            if (response.data.bet.user === JSON.parse(localStorage.getItem('userData')).userId) {
+                updateUserBet(response.data.bet)
+            }
             console.log(userBet)
             
         }
