@@ -24,7 +24,7 @@ const Game = new Schema({
     timerFinish:{
         type: Number,
         required: true,
-        default:3.22
+        default:0
     },
     bets:[{                                     // array of bets
         type: mongoose.Types.ObjectId,
