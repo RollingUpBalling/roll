@@ -2,15 +2,16 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const Bet = new Schema({
-    steamUsername:{
+    user:{
         type: String,
-        required: true,   
+        required: true,
+        ref: "User"  
     },
     koef:{
         type: Number,
         required: true
     },
-    result:{
+    won:{
         type:Boolean,               // dunno are we really need this
     },
     amount:{

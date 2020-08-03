@@ -23,6 +23,9 @@ const MakeBetButton = props => {
             console.log(data)
             updateGameState(data.state)
         })
+        socket.on('message',data => {
+            console.log(data)
+        })
     }, [])
 
     useEffect(() => {
@@ -51,7 +54,7 @@ const MakeBetButton = props => {
             if (game) {
                 const bet = await axios.post(ENDPOINT + '/makeBet/', {
                     gameID: game.data.gameId,
-                    steamUsername: "q",
+                    userId: JSON.parse(localStorage.getItem('userData')).userId,
                     koef: props.koef,
                     amount: 100
                 }, {
@@ -81,7 +84,7 @@ const MakeBetButton = props => {
             }
             const bet = await axios.post(ENDPOINT + '/makeBet/', {
                 gameID: gameId,
-                steamUsername: "q",
+                userId: JSON.parse(localStorage.getItem('userData')).userId,
                 koef: props.koef,
                 amount: 140
             }, {
