@@ -51,8 +51,7 @@ exports.createGame = async (req, res, next) => {
                 game.save()
                 
                 
-                
-
+        
                 setTimeout(()=>{
                     socket.emit('newPhase',{
                         state:'finished'

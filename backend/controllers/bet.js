@@ -1,6 +1,5 @@
 const Bet = require('../models/bet')
 const Game = require('../models/game')
-const User = require('../models/user')
 const HttpError = require('../models/HttpError')
 const IO = require('../socket');
 const { validationResult } = require('express-validator');
@@ -37,15 +36,20 @@ exports.makeBet = async (req, res, next) => {
     }
 }
 
-exports.takeBet = async (req,res,next) => {
+exports.retrieveWinningBet = async (req,res,next) => {
     try {
-        const bet = await Bet.findById(req.body.id)
+        console.log(req.body.id)
+        const bet = await Bet.findById(req.body.id).populate('user')
         if (!bet) {
             return next(new HttpError('Bet not found or game doesnt exist',400))
         }
-        
+       
+        bet.user.balance += bet.amount * bet.koef
         bet.won = true
         await bet.save()
+        return res.status(200).json({
+            balance:bet.user.balance
+        })
 
     }
     catch (e) {

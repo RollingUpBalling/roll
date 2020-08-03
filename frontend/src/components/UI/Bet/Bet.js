@@ -10,6 +10,7 @@ const ENDPOINT = "http://127.0.0.1:5000";
 const MakeBetButton = props => {
 
     const [gameState,updateGameState] = useState('makingBets')
+    const [userBet,updateUserBet] = useState({})
     const [gameId, updateId] = useState()
     const [error, setError] = useState();
 
@@ -23,14 +24,12 @@ const MakeBetButton = props => {
             console.log(data)
             updateGameState(data.state)
         })
-        socket.on('message',data => {
-            console.log(data)
-        })
     }, [])
 
     useEffect(() => {
         if (gameState === 'finished') {
             updateId('')
+            updateUserBet({})
             
         }
     },[gameState])
@@ -52,7 +51,7 @@ const MakeBetButton = props => {
                 }
             })
             if (game) {
-                const bet = await axios.post(ENDPOINT + '/makeBet/', {
+                const response = await axios.post(ENDPOINT + '/makeBet/', {
                     gameID: game.data.gameId,
                     userId: JSON.parse(localStorage.getItem('userData')).userId,
                     koef: props.koef,
@@ -63,7 +62,9 @@ const MakeBetButton = props => {
                         'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('userData')).token
                     }
                 })
-                console.log(bet)
+                updateUserBet(response.data.bet)
+                console.log(response)
+                console.log(userBet)
             }
         }
         catch (err) {
@@ -82,7 +83,7 @@ const MakeBetButton = props => {
             if (!localStorage.getItem('userData')) {
                 return setError('Please login to continue')
             }
-            const bet = await axios.post(ENDPOINT + '/makeBet/', {
+            const response = await axios.post(ENDPOINT + '/makeBet/', {
                 gameID: gameId,
                 userId: JSON.parse(localStorage.getItem('userData')).userId,
                 koef: props.koef,
@@ -93,7 +94,9 @@ const MakeBetButton = props => {
                     'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('userData')).token
                 }
             })
-            console.log(bet)
+            updateUserBet(response.data.bet)
+            console.log(userBet)
+            
         }
         catch (err) {
             console.log(err.response)
@@ -105,6 +108,24 @@ const MakeBetButton = props => {
         }
     }
 
+    const retrieveBet = async () => {
+        try {
+            const response = await axios.put(ENDPOINT + '/retrieveWinningBet/',{
+                id:userBet._id 
+            },{
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('userData')).token
+                }
+            })
+        }
+        catch (err) {
+            return setError(err)
+        }
+        
+
+    }
+
     return (
         <>
             <ErrorModal error={error} onClear={handleError} /> {/* setting error from useState */}
@@ -112,9 +133,21 @@ const MakeBetButton = props => {
             <div>
                 
                 {!gameId && <button onClick={createGame} className={classes.Bet}>START $0</button>}
+                {console.log('userbet',userBet)}
                 {gameId 
-                    ? gameState === 'active' ? <button onClick={makeNewBet} className={classes.Bet} disabled>GAME IS IN PROGRESS...</button> : <button onClick={makeNewBet} className={classes.Bet}>START $0</button>
+                
+                    ? gameState === 'active' 
+                        ? userBet
+                            ? <button onClick={retrieveBet} className={classes.Bet}>Retrieve bet</button>
+                            : <button onClick={makeNewBet} className={classes.Bet} disabled>GAME IS IN PROGRESS...</button> 
+    
+                        : gameState === 'makingBets' 
+                            ? userBet 
+                                ? <button className={classes.Bet}>waiting for game to start</button>
+                                : <button onClick={makeNewBet} className={classes.Bet}>START $0</button>
+                            : null
                     : null
+ 
                 }
             
             </div>
