@@ -48,6 +48,9 @@ const Main = () => {
                 updateUserBet()
             }
         })
+        socket.on('gameResults',data => {
+            addBet(data.bets)
+        })
     },[])
 
     useEffect(() => {
@@ -102,18 +105,25 @@ const Main = () => {
                         <GameStat bank={bank} betCount={betsNum} />
                         <div className={classes.BetCards}>
                             {bets.map((betInfo,index) => (
-                                !betInfo.won
+                                betInfo.won === undefined
                                 ?   <>
                                     <BetCard 
                                     betInfo={betInfo} 
                                     key={index}
                                      />
                                     </>
-                                : <>
-                                    <BetCard 
-                                    betInfo={betInfo} 
-                                    key={index}
-                                    status='Success' />
+                                :   betInfo.won 
+                                    ?   <>
+                                        <BetCard 
+                                        betInfo={betInfo} 
+                                        key={index}
+                                        status='Success' />
+                                        </>
+                                    :   <>
+                                        <BetCard 
+                                        betInfo={betInfo} 
+                                        key={index}
+                                        status='Failed' />
                                     </>
                             ))
                             }
