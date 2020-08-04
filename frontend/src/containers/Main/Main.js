@@ -48,6 +48,9 @@ const Main = () => {
                 updateUserBet()
             }
         })
+        socket.on('gameResults',data => {
+            addBet(data.bets)
+        })
     },[])
 
     useEffect(() => {
@@ -69,7 +72,7 @@ const Main = () => {
 
     useEffect(() => {
         const socket = io(ENDPOINT)
-        socket.on('changeBetWonState',data => {
+        socket.once('changeBetWonState',data => {
             console.log(data.bet)
             addBet(
                 bets.map((item,index) => (
@@ -77,7 +80,17 @@ const Main = () => {
                 ))
             )
         })
+        socket.once('changeBet',data => {
+            console.log('retrieve triggered')
+            addBet(
+                bets.map((item,index) => (
+                    item._id === data.bet._id ? data.bet : item
+                ))
+            )
+        })
     },[bets])
+
+   
 
         return (
                 <div className={classes.Main}>
@@ -92,18 +105,25 @@ const Main = () => {
                         <GameStat bank={bank} betCount={betsNum} />
                         <div className={classes.BetCards}>
                             {bets.map((betInfo,index) => (
-                                !betInfo.won
+                                betInfo.won === undefined
                                 ?   <>
                                     <BetCard 
                                     betInfo={betInfo} 
                                     key={index}
                                      />
                                     </>
-                                : <>
-                                    <BetCard 
-                                    betInfo={betInfo} 
-                                    key={index}
-                                    status='Success' />
+                                :   betInfo.won 
+                                    ?   <>
+                                        <BetCard 
+                                        betInfo={betInfo} 
+                                        key={index}
+                                        status='Success' />
+                                        </>
+                                    :   <>
+                                        <BetCard 
+                                        betInfo={betInfo} 
+                                        key={index}
+                                        status='Failed' />
                                     </>
                             ))
                             }

@@ -1,11 +1,33 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 
 import classes from './Profile.module.css';
-
+import axios from 'axios'
 import Aux from '../../../hoc/Auxillary/Auxillary';
 import SettingsButton from '../../../components/UI/SettingsButton/SettingsButton';
+import io from "socket.io-client";
 
-const profileWrapperAuthorized = ( props ) => {
+const ENDPOINT = "http://127.0.0.1:5000";
+
+const ProfileWrapperAuthorized = ( props ) => {
+
+    const [balance,updateBalance] = useState(1)
+    
+    useEffect(async () => {
+        try {
+            
+            const response = await axios.get(ENDPOINT+'/getUser/' + JSON.parse(localStorage.getItem('userData')).userId + '/')
+            updateBalance(response.data.balance)
+            const socket = io(ENDPOINT)
+            socket.on('newPhase',async data => {
+                if (data.state === 'finished') {
+                    const response = await axios.get(ENDPOINT+'/getUser/' + JSON.parse(localStorage.getItem('userData')).userId + '/')
+                    updateBalance(response.data.balance)
+                }
+            })
+        } catch (error) { }
+        
+    },[])
+
     return (
         <Aux>
             <div className={classes.DepositButton}>
@@ -19,8 +41,8 @@ const profileWrapperAuthorized = ( props ) => {
                     <a href="/">{JSON.parse(localStorage.getItem('userData')).username}</a>
                 </p>
                 <p className={classes.Balance}>
-                    {'$1'}
-                </p>
+                    {'$'+balance}
+                </p>    
             </div>
             <SettingsButton 
             showSettings={props.showSettings}
@@ -37,4 +59,4 @@ const profileWrapperAuthorized = ( props ) => {
     );
 };
 
-export default profileWrapperAuthorized;
+export default ProfileWrapperAuthorized;
