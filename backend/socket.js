@@ -13,6 +13,11 @@ module.exports={
                     bet:data.bet
                 })
             })
+            // socket.on('changeBetWonState',data => {
+            //     io.emit('changeBetWonState'.{
+            //         bet:data.bet
+            //     })
+            // });
             Game.findOne().sort({_id:-1}).populate('bets')
             .then(game=>{
                 if(!game){

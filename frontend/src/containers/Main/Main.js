@@ -69,7 +69,7 @@ const Main = () => {
 
     useEffect(() => {
         const socket = io(ENDPOINT)
-        socket.on('changeBetWonState',data => {
+        socket.once('changeBetWonState',data => {
             console.log(data.bet)
             addBet(
                 bets.map((item,index) => (
@@ -77,7 +77,17 @@ const Main = () => {
                 ))
             )
         })
+        socket.once('changeBet',data => {
+            console.log('retrieve triggered')
+            addBet(
+                bets.map((item,index) => (
+                    item._id === data.bet._id ? data.bet : item
+                ))
+            )
+        })
     },[bets])
+
+   
 
         return (
                 <div className={classes.Main}>
