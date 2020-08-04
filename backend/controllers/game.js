@@ -29,33 +29,36 @@ exports.createGame = async (req, res, next) => {
             game.state = 'active'
             game.save()
             clearInterval(inter1);
-
+            
             io.emit('newPhase',{
                 state:'active'
+            })
+            io.on('betWon',data => {
+                console.log(data)
             })
             let interval2 = setInterval(async function () {
                 if (game.timerFinish >= game.koef*1000) return ;
                 game.timerFinish = game.timerFinish+10;
-                const currentGame = await Game.findOne().sort({ _id: -1 }).populate({
-                    path:'bets',
-                    populate: {
-                        path:'user',
-                        model:'User'
-                    }
-                })
+                // const currentGame = await Game.findOne().sort({ _id: -1 }).populate({
+                //     path:'bets',
+                //     populate: {
+                //         path:'user',
+                //         model:'User'
+                //     }
+                // })
                 
-                currentGame.bets.forEach(async bet => {
-                    if (!bet.won && bet.koef <= parseFloat(game.timerFinish / 1000 + '.' + game.timerFinish % 1000 / 100)) {
-                        bet.won = true
-                        bet.user.balance += bet.koef * bet.amount 
-                        await bet.save()
-                        await bet.user.save()
-                        console.log(bet)
-                        io.emit('changeBet',{
-                            bet:bet
-                        });
-                    }
-                });
+                // currentGame.bets.forEach(async bet => {
+                //     if (!bet.won && bet.koef <= parseFloat(game.timerFinish / 1000 + '.' + game.timerFinish % 1000 / 100)) {
+                //         bet.won = true
+                //         bet.user.balance += bet.koef * bet.amount 
+                //         await bet.save()
+                //         await bet.user.save()
+                //         console.log(bet)
+                //         io.emit('changeBet',{
+                //             bet:bet
+                //         });
+                //     }
+                // });
                 io.emit('timerFinish', { 'koef': game.timerFinish });
             }, 100)
            

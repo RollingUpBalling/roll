@@ -5,7 +5,14 @@ let io;
 module.exports={
     init: (httpServer) => {
         io = require('socket.io')(httpServer);
+        
         io.on('connection', (socket) => {
+            socket.on('betWon',data => {
+                console.log(data)
+                socket.broadcast.emit('changeBetWonState',{
+                    bet:data.bet
+                })
+            })
             Game.findOne().sort({_id:-1}).populate('bets')
             .then(game=>{
                 if(!game){
