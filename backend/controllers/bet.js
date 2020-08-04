@@ -18,15 +18,32 @@ exports.makeBet = async (req, res, next) => {
         if (game.state !== 'makingBets') {
             return next(new HttpError('cant make bet at this time',500))
         }
-        const bet = await Bet.create({
+        let bet = await Bet.create({
             user: req.body.userId,
             koef: req.body.koef,
             amount: req.body.amount
         })
+        bet = await bet.populate('user').execPopulate()
+        console.log(bet.amount)
+        bet.user.balance = bet.user.balance - bet.amount
         game.amount += bet.amount  
+        console.log(bet.user.balance)
         game.bets.push(bet)
-        game.save()
+        await game.save()
+        await bet.user.save()
         const io = IO.getIO()
+        io.on('connection',socket => {
+            
+            socket.on('subToUpdateBalance',async ()=> {
+                const currentBet = await Bet.findById(bet._id).populate('user')
+                console.log('this works_)')
+                console.log(socket.id)
+                console.log(currentBet.user.balance)
+                socket.emit('updateBalance',{
+                    newBalance:currentBet.user.balance
+                })
+            })
+        })
         io.emit('addBet',{
             'bet':bet
         });

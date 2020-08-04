@@ -8,9 +8,9 @@ import LastCrashes from '../../components/LastCrashes/LastCrashes';
 import BetSum from '../../components/BetSum/BetSum';
 
 import classes from './Main.module.css';
-import io from "socket.io-client";
+import socket from '../../socket'
 
-const ENDPOINT = "http://127.0.0.1:5000";
+
 
 const Main = () => {
     
@@ -21,7 +21,7 @@ const Main = () => {
 
 
     useEffect(() => {
-        const socket = io(ENDPOINT)
+        
         socket.on('addBet', data=>{
             console.log(data.bet)
             addBet(bets => [...bets,data.bet]);
@@ -54,7 +54,7 @@ const Main = () => {
     },[])
 
     useEffect(() => {
-        const socket = io(ENDPOINT)
+        
         socket.on('timerFinish',data => {
             try {
                 if (!userBet.won && userBet.koef <= parseFloat(data.koef / 1000 + '.' + data.koef % 1000 / 100) ) {
@@ -71,7 +71,7 @@ const Main = () => {
     },[userBet])
 
     useEffect(() => {
-        const socket = io(ENDPOINT)
+        
         socket.once('changeBetWonState',data => {
             console.log(data.bet)
             addBet(

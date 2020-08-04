@@ -34,9 +34,6 @@ exports.createGame = async (req, res, next) => {
             io.emit('newPhase',{
                 state:'active'
             })
-            io.on('betWon',data => {
-                console.log(data)
-            })
             let interval2 = setInterval(async function () {
                 if (game.timerFinish >= game.koef*1000) return ;
                 game.timerFinish = game.timerFinish+10;
@@ -65,16 +62,12 @@ exports.createGame = async (req, res, next) => {
                         }
                         else {
                             bet.won = false
-                            bet.user.balance -= bet.amount
-                            await bet.user.save()
                             await bet.save()
                         }
                     }
                 });
                 await currentGame.save()
-                console.log(currentGame)
-                console.log(currentGame.bets[0].user)
-                
+               
                 io.emit('newPhase',{
                     state: 'crashed'
                 })  
@@ -87,7 +80,7 @@ exports.createGame = async (req, res, next) => {
                     })
                 },2000)
             }, game.koef*10000 - 10000);
-        }, 31000);
+        }, 3100);
         return res.status(201).json({'gameId' : game._id})
 
     } catch (error) {

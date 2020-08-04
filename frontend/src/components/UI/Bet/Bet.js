@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import io from "socket.io-client";
+
 import axios from 'axios'
 import classes from './Bet.module.css';
 
 import ErrorModal from '../ErrorModal/ErrorModal';
-
+import socket from '../../../socket'
 
 const ENDPOINT = "http://127.0.0.1:5000";
+
 
 const MakeBetButton = props => {
 
@@ -16,7 +17,7 @@ const MakeBetButton = props => {
     const [error, setError] = useState();
 
     useEffect(() => {
-        const socket = io(ENDPOINT)
+        
         socket.on('recieveId', id => {
             updateId(id.gameId)
             console.log(id.gameId)
@@ -25,9 +26,11 @@ const MakeBetButton = props => {
             console.log(data)
             updateGameState(data.state)
         })
+
     }, [])
 
     useEffect(() => {
+       
         if (gameState === 'finished') {
             updateId('')
             updateUserBet()
@@ -71,11 +74,15 @@ const MakeBetButton = props => {
                         'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('userData')).token
                     }
                 })
-                if (response.data.bet.user === JSON.parse(localStorage.getItem('userData')).userId) {
+                console.log(response)
+               // socket.emit('subToUpdateBalance',{})
+                if (response.data.bet.user._id === JSON.parse(localStorage.getItem('userData')).userId) {
+                    
+                    console.log(socket.id)
                     updateUserBet(response.data.bet)
+                    socket.emit('subToUpdateBalance',{})
                 }
                 console.log(response)
-                console.log(userBet)
             }
         }
         catch (err) {
@@ -106,10 +113,10 @@ const MakeBetButton = props => {
                 }
             })
             if (response.data.bet.user === JSON.parse(localStorage.getItem('userData')).userId) {
+               
                 updateUserBet(response.data.bet)
+                socket.emit('subToUpdateBalance',{})
             }
-            console.log(userBet)
-            
         }
         catch (err) {
             console.log(err.response)
@@ -148,7 +155,6 @@ const MakeBetButton = props => {
             <div>
                 
                 {!gameId && <button onClick={createGame} className={classes.Bet}>START $0</button>}
-                {console.log('userbet',userBet)}
                 {gameId 
                 
                     ? gameState === 'active' 
