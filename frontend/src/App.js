@@ -5,7 +5,6 @@ import Routes from './Routes';
 import './App.css';
 
 
-
 let logoutTimer;
 
 const App = () => {

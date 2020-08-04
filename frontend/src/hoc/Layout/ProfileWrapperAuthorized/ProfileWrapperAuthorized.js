@@ -4,7 +4,7 @@ import classes from './Profile.module.css';
 import axios from 'axios'
 import Aux from '../../../hoc/Auxillary/Auxillary';
 import SettingsButton from '../../../components/UI/SettingsButton/SettingsButton';
-import io from "socket.io-client";
+import socket from '../../../socket'
 
 const ENDPOINT = "http://127.0.0.1:5000";
 
@@ -12,24 +12,39 @@ const ProfileWrapperAuthorized = ( props ) => {
 
     const [balance,updateBalance] = useState(1)
     
-    useEffect(async () => {
+    useEffect(() => {
         try {
-            
-            const response = await axios.get(ENDPOINT+'/getUser/' + JSON.parse(localStorage.getItem('userData')).userId + '/')
-            updateBalance(response.data.balance)
-            const socket = io(ENDPOINT)
-            socket.on('newPhase',async data => {
-                if (data.state === 'finished') {
-                    const response = await axios.get(ENDPOINT+'/getUser/' + JSON.parse(localStorage.getItem('userData')).userId + '/')
-                    updateBalance(response.data.balance)
-                }
+            const getBalance = async () => {
+                const response = await axios.get(ENDPOINT+'/getUser/' + JSON.parse(localStorage.getItem('userData')).userId + '/')
+                updateBalance(response.data.balance)    
+            }
+            getBalance()
+            // const socket = io(ENDPOINT)
+            // socket.on('newPhase',async data => {
+            //     if (data.state === 'finished') {
+            //         const response = await axios.get(ENDPOINT+'/getUser/' + JSON.parse(localStorage.getItem('userData')).userId + '/')
+            //         updateBalance(response.data.balance)
+            //     }
+            //     if(data.state === 'active') {
+            //         console.log('state changed')
+            //         socket.emit('subToUpdateBalance',{})
+            //     }
+            // })
+            console.log(socket.id)
+           // socket.emit('subToUpdateBalance',{})
+            socket.on('updateBalance',data => {
+                console.log('WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOORRRRRRRRRRRRRRRRRRRRRRRRRRRRKKKKKKKKKKKKKKKKKKKKKKKKKK')
+                updateBalance(data.newBalance)
             })
         } catch (error) { }
+
+        
         
     },[])
 
     return (
         <Aux>
+            {console.log(socket.id)}
             <div className={classes.DepositButton}>
                 <span>
                     Deposit
