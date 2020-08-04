@@ -17,7 +17,7 @@ const Main = () => {
     const [bets, addBet] = useState([]);
     const [betsNum, addBetNum] = useState(0);
     const [bank, addToBank] = useState(0);
-
+    const [userBet,updateUserBet] = useState()
 
 
     useEffect(() => {
@@ -27,6 +27,12 @@ const Main = () => {
             addBet(bets => [...bets,data.bet]);
             addToBank(bank => bank + data.bet.amount);
             addBetNum(betsNum => betsNum + 1);
+            try {
+                if (data.bet.user === JSON.parse(localStorage.getItem('userData')).userId) {
+                    updateUserBet(data.bet)
+                }
+            }
+            catch (e) {}
         })
         socket.on('getBets',data=>{
             console.log(data.bet)
@@ -39,14 +45,31 @@ const Main = () => {
                 addBetNum(0)
                 addToBank(0)
                 addBet([])
+                updateUserBet()
             }
         })
     },[])
 
     useEffect(() => {
         const socket = io(ENDPOINT)
-        socket.once('changeBet',data => {
-            const newState = []
+        socket.on('timerFinish',data => {
+            try {
+                if (!userBet.won && userBet.koef <= parseFloat(data.koef / 1000 + '.' + data.koef % 1000 / 100) ) {
+                    const updatedBet = userBet
+                    updatedBet.won = true
+                    updateUserBet(userBet => ({...userBet,won:true}))
+                    socket.emit('betWon',{
+                        bet:userBet
+                    })
+                }
+            }
+            catch (e) {}
+        })
+    },[userBet])
+
+    useEffect(() => {
+        const socket = io(ENDPOINT)
+        socket.on('changeBetWonState',data => {
             console.log(data.bet)
             addBet(
                 bets.map((item,index) => (

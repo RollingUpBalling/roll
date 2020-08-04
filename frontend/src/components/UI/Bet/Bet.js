@@ -5,6 +5,7 @@ import classes from './Bet.module.css';
 
 import ErrorModal from '../ErrorModal/ErrorModal';
 
+
 const ENDPOINT = "http://127.0.0.1:5000";
 
 const MakeBetButton = props => {
@@ -27,12 +28,21 @@ const MakeBetButton = props => {
     }, [])
 
     useEffect(() => {
+        const socket = io(ENDPOINT)
         if (gameState === 'finished') {
             updateId('')
             updateUserBet()
-            
         }
     },[gameState])
+
+    // useEffect(() => {
+    //     const socket = io(ENDPOINT)
+    //     socket.on('timerFinish', data => {
+    //         if (userBet.koef <= parseFloat(data.koef / 1000 + '.' + data.koef % 1000 / 100) ) {
+
+    //         }
+    //     });
+    // })
 
 
     const handleError = () => {
