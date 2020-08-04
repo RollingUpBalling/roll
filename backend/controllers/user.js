@@ -28,5 +28,18 @@ exports.SignIn = (req, res, next) => {
     .catch((error) => {
         return next( new HttpError(error));
     })
+}
 
+exports.GetUser = async (req,res,next) => {
+    try {
+        const user = await User.findById(req.params.id)
+        if (!user) {
+            return next(new HttpError('User not found',400))
+        }
+        return res.status(200).json(user)
+    }
+    catch (e) {
+        return next(new HttpError(e))
+    }
+    
 }

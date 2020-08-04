@@ -55,6 +55,7 @@ exports.retrieveWinningBet = async (req,res,next) => {
             io.emit('changeBet',{
                 bet:bet
             });
+            socket.emit('SubToUpdateBalance',{balance:bet.user.balance})
             return res.status(200).json({
                 balance:bet.user.balance
             })

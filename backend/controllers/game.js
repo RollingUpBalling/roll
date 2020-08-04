@@ -65,6 +65,8 @@ exports.createGame = async (req, res, next) => {
                         }
                         else {
                             bet.won = false
+                            bet.user.balance -= bet.amount
+                            await bet.user.save()
                             await bet.save()
                         }
                     }
@@ -85,7 +87,7 @@ exports.createGame = async (req, res, next) => {
                     })
                 },2000)
             }, game.koef*10000 - 10000);
-        }, 3100);
+        }, 31000);
         return res.status(201).json({'gameId' : game._id})
 
     } catch (error) {
