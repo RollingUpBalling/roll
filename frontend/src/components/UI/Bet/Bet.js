@@ -28,7 +28,6 @@ const MakeBetButton = props => {
     }, [])
 
     useEffect(() => {
-        const socket = io(ENDPOINT)
         if (gameState === 'finished') {
             updateId('')
             updateUserBet()
