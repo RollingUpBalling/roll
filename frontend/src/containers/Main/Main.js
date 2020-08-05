@@ -12,7 +12,7 @@ import socket from '../../socket'
 
 
 
-const Main = () => {
+const Main = props => {
     
     const [bets, addBet] = useState([]);
     const [betsNum, addBetNum] = useState(0);
@@ -102,7 +102,7 @@ const Main = () => {
                        <BetSum />
                     </div>
                     <div className={classes.RightSide}>
-                        <BettingsPlace />
+                        <BettingsPlace updateBalance={props.updateBalance}/>
                         <GameStat bank={bank} betCount={betsNum} />
                         <div className={classes.BetCards}>
                             {bets.map((betInfo,index) => (

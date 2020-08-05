@@ -96,6 +96,7 @@ const MakeBetButton = props => {
             }, context)
             if (response.data.bet.user._id === JSON.parse(localStorage.getItem('userData')).userId) { 
                 updateUserBet(response.data.bet)
+                props.updateBalance(response.data.bet.user.balance)
             }
         }
         catch (err) {

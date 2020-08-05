@@ -2,13 +2,14 @@ import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Main from './containers/Main/Main';
 
-const routing = () =>{
+const routing = props =>{
     
 
     return (
         <Router>
+            {console.log(props)}
             <Route path="/" exact>
-                <Main />
+                <Main updateBalance={props.updateBalance}/>
             </Route>
             <Route path="/history" exact>
 

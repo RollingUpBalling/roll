@@ -4,14 +4,14 @@ import BetController from '../BetController/BetController';
 
 import classes from './BettingsPlace.module.css';
 
-const bettingsPlace = () =>  {
+const bettingsPlace = props =>  {
         return (
             <div style={{display: 'flex'}}>
                 <div className={classes.SkinBlock}>
                     <div className={classes.loader} />
                     <span>Waiting for bet...</span>
                 </div>
-                <BetController />
+                <BetController updateBalance={props.updateBalance} />
             </div>
         );
 };
