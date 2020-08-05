@@ -15,15 +15,17 @@ const App = () => {
 
   const storedData = JSON.parse(localStorage.getItem('userData'));
   const [balance,updateBalance] = useState(1)
-  const getBalance = async () => {
+  
+  useEffect(() => {
+    const getBalance = async () => {
       try {
           const response = await axios.get(ENDPOINT+'/getUser/' + JSON.parse(localStorage.getItem('userData')).userId + '/')
           updateBalance(response.data.balance)        
       } catch (error) { }
-  }
-  useEffect(() => {
+    }
+    
     getBalance()
-  },[])
+  },[localStorage.getItem('userData')])
   const login = useCallback((token, userId, experationDate) => {
     setToken(token);
     setUserId(userId);

@@ -32,18 +32,6 @@ exports.makeBet = async (req, res, next) => {
         await game.save()
         await bet.user.save()
         const io = IO.getIO()
-        // io.on('connection',socket => {
-            
-        //     socket.on('subToUpdateBalance',async ()=> {
-        //         const currentBet = await Bet.findById(bet._id).populate('user')
-        //         
-        //         
-        //         
-        //         socket.emit('updateBalance',{
-        //             newBalance:currentBet.user.balance
-        //         })
-        //     })
-        // })
         io.emit('addBet',{
             'bet':bet
         });

@@ -7,7 +7,6 @@ const routing = props =>{
 
     return (
         <Router>
-            {console.log(props)}
             <Route path="/" exact>
                 <Main updateBalance={props.updateBalance}/>
             </Route>

@@ -7,19 +7,9 @@ import SettingsButton from '../../../components/UI/SettingsButton/SettingsButton
 const ENDPOINT = "http://127.0.0.1:5000";
 
 const ProfileWrapperAuthorized = ( props ) => {
-
-    // const [balance,updateBalance] = useState(1)
-    // const getBalance = async () => {
-    //     try {
-    //         const response = await axios.get(ENDPOINT+'/getUser/' + JSON.parse(localStorage.getItem('userData')).userId + '/')
-    //         updateBalance(response.data.balance)        
-    //     } catch (error) { }
-    // }
     
     useEffect(() => {
-        console.log('triggered')
-        console.log(props)
-        props.updateBalance()
+       props.updateBalance()
     },[])
 
     return (
@@ -36,7 +26,7 @@ const ProfileWrapperAuthorized = ( props ) => {
                     <a href="/">{JSON.parse(localStorage.getItem('userData')).username}</a>
                 </p>
                 <p className={classes.Balance}>
-                    {'$'+props.balance}
+                    {props.balance ? '$'+props.balance : null}
                 </p>    
             </div>
             <SettingsButton 
