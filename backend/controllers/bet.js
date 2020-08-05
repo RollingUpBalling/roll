@@ -32,7 +32,6 @@ exports.makeBet = async (req, res, next) => {
         await game.save()
         await bet.user.save()
         const io = IO.getIO()
-      
         io.emit('addBet',{
             'bet':bet
         });
