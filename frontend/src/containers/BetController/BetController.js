@@ -146,7 +146,7 @@ class BetController extends Component {
                             className={classes.KoefInput}/>)}
                     </div>
                     </div>
-                    <Bet koef={this.state.mainKoef}/>
+                    <Bet koef={this.state.mainKoef} updateBalance={this.props.updateBalance}/>
                 </div>
         );
     }

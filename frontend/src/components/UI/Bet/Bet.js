@@ -64,7 +64,6 @@ const MakeBetButton = props => {
             })
             if (game) {
                makeNewBet(game.data.gameId)
-               console.log(game.data.gameId)
             }
         }
         catch (err) {
@@ -80,7 +79,6 @@ const MakeBetButton = props => {
 
     const makeNewBet = async (id) => {
         try {
-            console.log(id)
             if (!id) {
                 
                 id = gameId
@@ -96,6 +94,7 @@ const MakeBetButton = props => {
             }, context)
             if (response.data.bet.user._id === JSON.parse(localStorage.getItem('userData')).userId) { 
                 updateUserBet(response.data.bet)
+                props.updateBalance(response.data.bet.user.balance)
             }
         }
         catch (err) {
@@ -110,8 +109,7 @@ const MakeBetButton = props => {
             const response = await axios.put(ENDPOINT + '/retrieveWinningBet/',{
                 id:userBet._id
             },context)
-            
-            // UPDATED BALANCE HERE
+            props.updateBalance(response.data.balance)
         }
         catch (err) {
             return setError('error')
