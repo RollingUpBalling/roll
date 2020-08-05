@@ -23,7 +23,7 @@ const Main = () => {
     useEffect(() => {
         
         socket.on('addBet', data=>{
-            console.log(data.bet)
+            
             addBet(bets => [...bets,data.bet]);
             addToBank(bank => bank + data.bet.amount);
             addBetNum(betsNum => betsNum + 1);
@@ -35,7 +35,7 @@ const Main = () => {
             catch (e) {}
         })
         socket.on('getBets',data=>{
-            console.log(data.bet)
+            
             addBet(bets => [...bets,...data.bets]);
             addToBank(data.gameAmount);
             addBetNum(data.users);
@@ -61,6 +61,7 @@ const Main = () => {
                     const updatedBet = userBet
                     updatedBet.won = true
                     updateUserBet(userBet => ({...userBet,won:true}))
+                    
                     socket.emit('betWon',{
                         bet:userBet
                     })
@@ -73,7 +74,7 @@ const Main = () => {
     useEffect(() => {
         
         socket.once('changeBetWonState',data => {
-            console.log(data.bet)
+            
             addBet(
                 bets.map((item,index) => (
                     item._id === data.bet._id ? data.bet : item
@@ -81,7 +82,7 @@ const Main = () => {
             )
         })
         socket.once('changeBet',data => {
-            console.log('retrieve triggered')
+            
             addBet(
                 bets.map((item,index) => (
                     item._id === data.bet._id ? data.bet : item
@@ -94,7 +95,7 @@ const Main = () => {
 
         return (
                 <div className={classes.Main}>
-                    {console.log(bets)}
+                    {}
                     <div className={classes.LeftSide}>
                        <Bomb bets={betsNum} />
                        <LastCrashes />

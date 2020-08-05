@@ -19,23 +19,6 @@ const ProfileWrapperAuthorized = ( props ) => {
                 updateBalance(response.data.balance)    
             }
             getBalance()
-            // const socket = io(ENDPOINT)
-            // socket.on('newPhase',async data => {
-            //     if (data.state === 'finished') {
-            //         const response = await axios.get(ENDPOINT+'/getUser/' + JSON.parse(localStorage.getItem('userData')).userId + '/')
-            //         updateBalance(response.data.balance)
-            //     }
-            //     if(data.state === 'active') {
-            //         console.log('state changed')
-            //         socket.emit('subToUpdateBalance',{})
-            //     }
-            // })
-            console.log(socket.id)
-           // socket.emit('subToUpdateBalance',{})
-            socket.on('updateBalance',data => {
-                console.log('WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOORRRRRRRRRRRRRRRRRRRRRRRRRRRRKKKKKKKKKKKKKKKKKKKKKKKKKK')
-                updateBalance(data.newBalance)
-            })
         } catch (error) { }
 
         
@@ -44,7 +27,7 @@ const ProfileWrapperAuthorized = ( props ) => {
 
     return (
         <Aux>
-            {console.log(socket.id)}
+            {}
             <div className={classes.DepositButton}>
                 <span>
                     Deposit

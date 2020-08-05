@@ -26,7 +26,7 @@ exports.createGame = async (req, res, next) => {
         }, 10)
         setTimeout(() => {
 
-            console.log('first timeout')
+            
             game.state = 'active'
             game.save()
             clearInterval(inter1);
@@ -42,7 +42,7 @@ exports.createGame = async (req, res, next) => {
            
             setTimeout(async () => {
                 clearInterval(interval2);
-                console.log('second timeout')
+                
                 game.state = 'finished'
                 await game.save()
                 const currentGame = await Game.findOne().sort({ _id: -1 }).populate({
