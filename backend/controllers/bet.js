@@ -24,26 +24,26 @@ exports.makeBet = async (req, res, next) => {
             amount: req.body.amount
         })
         bet = await bet.populate('user').execPopulate()
-        console.log(bet.amount)
+        
         bet.user.balance = bet.user.balance - bet.amount
         game.amount += bet.amount  
-        console.log(bet.user.balance)
+        
         game.bets.push(bet)
         await game.save()
         await bet.user.save()
         const io = IO.getIO()
-        io.on('connection',socket => {
+        // io.on('connection',socket => {
             
-            socket.on('subToUpdateBalance',async ()=> {
-                const currentBet = await Bet.findById(bet._id).populate('user')
-                console.log('this works_)')
-                console.log(socket.id)
-                console.log(currentBet.user.balance)
-                socket.emit('updateBalance',{
-                    newBalance:currentBet.user.balance
-                })
-            })
-        })
+        //     socket.on('subToUpdateBalance',async ()=> {
+        //         const currentBet = await Bet.findById(bet._id).populate('user')
+        //         
+        //         
+        //         
+        //         socket.emit('updateBalance',{
+        //             newBalance:currentBet.user.balance
+        //         })
+        //     })
+        // })
         io.emit('addBet',{
             'bet':bet
         });
@@ -56,7 +56,7 @@ exports.makeBet = async (req, res, next) => {
 
 exports.retrieveWinningBet = async (req,res,next) => {
     try {
-        console.log(req.body.id)
+        
         const bet = await Bet.findById(req.body.id).populate('user')
         if (!bet) {
             return next(new HttpError('Bet not found or game doesnt exist',400))
@@ -72,7 +72,6 @@ exports.retrieveWinningBet = async (req,res,next) => {
             io.emit('changeBet',{
                 bet:bet
             });
-            socket.emit('SubToUpdateBalance',{balance:bet.user.balance})
             return res.status(200).json({
                 balance:bet.user.balance
             })

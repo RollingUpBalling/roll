@@ -8,9 +8,18 @@ import socket from '../../../socket'
 
 const ENDPOINT = "http://127.0.0.1:5000";
 
-
 const MakeBetButton = props => {
-
+    
+    let context
+    try {
+        context = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('userData')).token
+            }
+        }
+    } catch (error) { }
+    
     const [gameState,updateGameState] = useState('makingBets')
     const [userBet,updateUserBet] = useState()
     const [gameId, updateId] = useState()
@@ -20,10 +29,10 @@ const MakeBetButton = props => {
         
         socket.on('recieveId', id => {
             updateId(id.gameId)
-            console.log(id.gameId)
+            
         });
         socket.on('newPhase',data => {
-            console.log(data)
+            
             updateGameState(data.state)
         })
 
@@ -36,15 +45,6 @@ const MakeBetButton = props => {
             updateUserBet()
         }
     },[gameState])
-
-    // useEffect(() => {
-    //     const socket = io(ENDPOINT)
-    //     socket.on('timerFinish', data => {
-    //         if (userBet.koef <= parseFloat(data.koef / 1000 + '.' + data.koef % 1000 / 100) ) {
-
-    //         }
-    //     });
-    // })
 
 
     const handleError = () => {
@@ -63,30 +63,12 @@ const MakeBetButton = props => {
                 }
             })
             if (game) {
-                const response = await axios.post(ENDPOINT + '/makeBet/', {
-                    gameID: game.data.gameId,
-                    userId: JSON.parse(localStorage.getItem('userData')).userId,
-                    koef: props.koef,
-                    amount: 100
-                }, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('userData')).token
-                    }
-                })
-                console.log(response)
-               // socket.emit('subToUpdateBalance',{})
-                if (response.data.bet.user._id === JSON.parse(localStorage.getItem('userData')).userId) {
-                    
-                    console.log(socket.id)
-                    updateUserBet(response.data.bet)
-                    socket.emit('subToUpdateBalance',{})
-                }
-                console.log(response)
+               makeNewBet(game.data.gameId)
+               console.log(game.data.gameId)
             }
         }
         catch (err) {
-            console.log(err.response)
+            
             if (!err.response) {
                 return setError('unexpected error happened from game')
             }
@@ -96,50 +78,40 @@ const MakeBetButton = props => {
 
     }
 
-    const makeNewBet = async () => {
+    const makeNewBet = async (id) => {
         try {
+            console.log(id)
+            if (!id) {
+                
+                id = gameId
+            }
             if (!localStorage.getItem('userData')) {
                 return setError('Please login to continue')
             }
             const response = await axios.post(ENDPOINT + '/makeBet/', {
-                gameID: gameId,
+                gameID: id,
                 userId: JSON.parse(localStorage.getItem('userData')).userId,
                 koef: props.koef,
                 amount: 140
-            }, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('userData')).token
-                }
-            })
-            if (response.data.bet.user === JSON.parse(localStorage.getItem('userData')).userId) {
-               
+            }, context)
+            if (response.data.bet.user._id === JSON.parse(localStorage.getItem('userData')).userId) { 
                 updateUserBet(response.data.bet)
-                socket.emit('subToUpdateBalance',{})
             }
         }
         catch (err) {
-            console.log(err.response)
-            if (!err.response) {
-                return setError('unexpected error happened from bet')
-            }
-            return setError(    JSON.stringify(err.response.data.message) || 'hz what happen');
+
+            return setError(    JSON.stringify(err.response.data.message) || 'unexpected error happened from bet');
 
         }
     }
 
     const retrieveBet = async () => {
         try {
-           console.log('triggeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeer')
             const response = await axios.put(ENDPOINT + '/retrieveWinningBet/',{
                 id:userBet._id
-            },{
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('userData')).token
-                }
-            })
-            console.log(response)
+            },context)
+            
+            // UPDATED BALANCE HERE
         }
         catch (err) {
             return setError('error')
@@ -160,12 +132,12 @@ const MakeBetButton = props => {
                     ? gameState === 'active' 
                         ? userBet
                             ? <button onClick={retrieveBet} className={classes.Bet}>Retrieve bet</button>
-                            : <button onClick={makeNewBet} className={classes.Bet} disabled>GAME IS IN PROGRESS...</button> 
+                            : <button onClick={() => makeNewBet(gameId)} className={classes.Bet} disabled>GAME IS IN PROGRESS...</button> 
     
                         : gameState === 'makingBets' 
                             ? userBet 
                                 ? <button className={classes.Bet}>waiting for game to start</button>
-                                : <button onClick={makeNewBet} className={classes.Bet}>START $0</button>
+                                : <button onClick={() => makeNewBet(gameId)} className={classes.Bet}>START $0</button>
                             : null
                     : null
  

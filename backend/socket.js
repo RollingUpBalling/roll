@@ -8,7 +8,7 @@ module.exports={
         
         io.on('connection', (socket) => {
             socket.on('betWon',data => {
-                console.log(data)
+                
                 socket.broadcast.emit('changeBetWonState',{
                     bet:data.bet
                 })
@@ -18,7 +18,7 @@ module.exports={
             Game.findOne().sort({_id:-1}).populate('bets')
             .then(game=>{
                 if(!game){
-                    console.log('Client Conneted');
+                    ;
                 }
                 else if(game.state === 'makingBets'){
                     socket.emit('recieveId', {
@@ -31,7 +31,7 @@ module.exports={
                         'users':game.bets.length
                     });
                     
-                    console.log('Client Conneted');
+                    ;
                 }
                 
             })
