@@ -17,10 +17,7 @@ module.exports={
             
             Game.findOne().sort({_id:-1}).populate('bets')
             .then(game=>{
-                if(!game){
-                    ;
-                }
-                else if(game.state === 'makingBets'){
+                if(game.state === 'makingBets'){
                     socket.emit('recieveId', {
                         'gameId':game._id
                     });
@@ -31,7 +28,7 @@ module.exports={
                         'users':game.bets.length
                     });
                     
-                    ;
+                    
                 }
                 
             })

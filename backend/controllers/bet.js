@@ -25,10 +25,10 @@ exports.makeBet = async (req, res, next) => {
         })
         bet = await bet.populate('user').execPopulate()
         
-        bet.user.balance = bet.user.balance - bet.amount
+        bet.user.balance = bet.user.balance - bet.amount        // getting user balance
         game.amount += bet.amount  
         
-        game.bets.push(bet)
+        game.bets.push(bet)             // push saved bet to game
         await game.save()
         await bet.user.save()
         const io = IO.getIO()
@@ -45,20 +45,20 @@ exports.makeBet = async (req, res, next) => {
 exports.retrieveWinningBet = async (req,res,next) => {
     try {
         
-        const bet = await Bet.findById(req.body.id).populate('user')
+        const bet = await Bet.findById(req.body.id).populate('user')    
         if (!bet) {
             return next(new HttpError('Bet not found or game doesnt exist',400))
         }
         const socket = clientSockets("http://127.0.0.1:5000")
-        socket.once('timerFinish',async data => {
+        socket.once('timerFinish',async (data) => {           // listens socket only once 
             bet.retrieveKoef = parseFloat(data.koef / 1000 + '.' + data.koef % 1000 / 100)
-            bet.user.balance += bet.amount * bet.retrieveKoef
-            bet.won = true
+            bet.user.balance += bet.amount * bet.retrieveKoef       // getting koef of the bet 
+            bet.won = true                              // and adding user balance
             await bet.save()
             await bet.user.save()
             const io = IO.getIO()
             io.emit('changeBet',{
-                bet:bet
+                bet:bet                         
             });
             return res.status(200).json({
                 balance:bet.user.balance
