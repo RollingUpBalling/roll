@@ -2,6 +2,8 @@ import React, { useState, useCallback, useEffect } from 'react';
 import Layout from './hoc/Layout/Layout';
 import { AuthContext } from './context/auth-context';
 import Routes from './Routes';
+import { BrowserRouter } from 'react-router-dom';
+
 import './App.css';
 
 
@@ -63,9 +65,11 @@ const App = () => {
       }
     }>
       <div className="App">
-        <Layout>
-          <Routes />
-        </Layout>
+        <BrowserRouter>
+          <Layout>
+            <Routes />
+          </Layout>
+        </BrowserRouter>
       </div>
     </AuthContext.Provider>
   );

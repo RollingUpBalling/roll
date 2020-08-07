@@ -1,12 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Main from './containers/Main/Main';
+import Layout from './hoc/Layout/Layout';
 
-const routing = () =>{
-    
+const routing = () => {
+
 
     return (
-        <Router>
+        <>
             <Route path="/" exact>
                 <Main />
             </Route>
@@ -21,7 +22,7 @@ const routing = () =>{
             <Route path="/top" exact>
 
             </Route>
-        </Router>
+        </>
     );
 
 };
