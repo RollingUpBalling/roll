@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import classes from './Profile.module.css';
 import Aux from '../../../hoc/Auxillary/Auxillary';
 import SettingsButton from '../../../components/UI/SettingsButton/SettingsButton';
+import Deposit from './Deposit'
 
 const ENDPOINT = "http://127.0.0.1:5000";
 

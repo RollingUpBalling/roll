@@ -13,7 +13,8 @@ const auth = (req, res, next) => {
             next(new HttpError('Login to continue',403))
         }
         const decodedToken = jwt.verify(token, 'secret');
-        req.userData = { userId: decodedToken.userId };
+        
+        req.userData = { userId: decodedToken._id };
         next();
     }
     catch (err) {
