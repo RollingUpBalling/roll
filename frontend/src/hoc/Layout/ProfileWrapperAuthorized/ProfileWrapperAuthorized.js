@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 
 import classes from './Profile.module.css';
 import Aux from '../../../hoc/Auxillary/Auxillary';
@@ -8,6 +8,7 @@ const ENDPOINT = "http://127.0.0.1:5000";
 
 const ProfileWrapperAuthorized = ( props ) => {
     
+
     useEffect(() => {
        props.updateBalance()
     },[])
@@ -15,13 +16,16 @@ const ProfileWrapperAuthorized = ( props ) => {
     return (
         <Aux>
             {}
-            <div className={classes.DepositButton}>
+            <div
+             
+             className={classes.DepositButton}>
+                 <Deposit />
                 <span>
                     Deposit
                     <i className="fa fa-money" aria-hidden="true"></i>
                 </span>
             </div>
-            <div style={{marginLeft: "15px"}}>
+            <div style={{ marginLeft: "15px" }}>
                 <p className={classes.Name}>
                     <a href="/">{JSON.parse(localStorage.getItem('userData')).username}</a>
                 </p>
@@ -29,15 +33,15 @@ const ProfileWrapperAuthorized = ( props ) => {
                     {props.balance ? '$'+props.balance : null}
                 </p>    
             </div>
-            <SettingsButton 
-            showSettings={props.showSettings}
-            settingsHandler={props.settingsHandler}
-            closeSettings={props.closeSettings}
-            changeAnimation={props.changeAnimation}
-            animation={props.animation}/>
-            <div 
-            className={classes.LogOut}
-            onClick={props.clicked}>
+            <SettingsButton
+                showSettings={props.showSettings}
+                settingsHandler={props.settingsHandler}
+                closeSettings={props.closeSettings}
+                changeAnimation={props.changeAnimation}
+                animation={props.animation} />
+            <div
+                className={classes.LogOut}
+                onClick={props.clicked}>
                 <i className="fa fa-sign-out" aria-hidden="true" ></i>
             </div>
         </Aux>

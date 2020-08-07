@@ -1,12 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Main from './containers/Main/Main';
+import Layout from './hoc/Layout/Layout';
+
 
 const routing = props =>{
     
 
     return (
-        <Router>
+        <>
             <Route path="/" exact>
                 <Main updateBalance={props.updateBalance}/>
             </Route>
@@ -21,7 +23,7 @@ const routing = props =>{
             <Route path="/top" exact>
 
             </Route>
-        </Router>
+        </>
     );
 
 };
