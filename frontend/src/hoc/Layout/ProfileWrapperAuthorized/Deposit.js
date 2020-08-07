@@ -27,8 +27,6 @@ const Deposit = (props) => {
                     'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('userData')).token
                 }
             });
-            console.log(res.data.data);
-            console.log(res.data.signature)
             setData(res.data.data);
             setSign(res.data.signature)
             setPressed(true);
@@ -55,7 +53,7 @@ const Deposit = (props) => {
             </input>
             <button type="submit" onClick={createDepo}>
                 
-                asasd
+                asd
 
             </button>
                 <a href={`https://www.liqpay.ua/api/3/checkout?data=${data}&signature=${sign}`} >

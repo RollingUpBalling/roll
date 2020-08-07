@@ -2,13 +2,14 @@ import React, { useState, useCallback, useEffect } from 'react';
 import Layout from './hoc/Layout/Layout';
 import { AuthContext } from './context/auth-context';
 import Routes from './Routes';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter as Route} from 'react-router-dom';
 
 import './App.css';
 import axios from 'axios'
 
 let logoutTimer;
 const ENDPOINT = "http://127.0.0.1:5000";
+
 const App = () => {
 
   const [tok, setToken] = useState(false);
@@ -76,9 +77,11 @@ const App = () => {
       }
     }>
       <div className="App">
+        <Route>
         <Layout balance={balance} updateBalance={updateBalance}>
           <Routes updateBalance={updateBalance}/>
         </Layout>
+        </Route>
       </div>
     </AuthContext.Provider>
   );
