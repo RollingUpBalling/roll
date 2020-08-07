@@ -1,32 +1,17 @@
 import React, { useState, useEffect } from 'react';
 
 import classes from './Profile.module.css';
-import axios from 'axios'
 import Aux from '../../../hoc/Auxillary/Auxillary';
 import SettingsButton from '../../../components/UI/SettingsButton/SettingsButton';
-import Deposit from './Deposit';
-
 
 const ENDPOINT = "http://127.0.0.1:5000";
 
-const ProfileWrapperAuthorized = (props) => {
-
-    const [balance, updateBalance] = useState(1)
-
+const ProfileWrapperAuthorized = ( props ) => {
     
 
     useEffect(() => {
-        try {
-            const getBalance = async () => {
-                const response = await axios.get(ENDPOINT + '/getUser/' + JSON.parse(localStorage.getItem('userData')).userId + '/')
-                updateBalance(response.data.balance)
-            }
-            getBalance()
-        } catch (error) { }
-
-
-
-    }, [])
+       props.updateBalance()
+    },[])
 
     return (
         <Aux>
@@ -45,8 +30,8 @@ const ProfileWrapperAuthorized = (props) => {
                     <a href="/">{JSON.parse(localStorage.getItem('userData')).username}</a>
                 </p>
                 <p className={classes.Balance}>
-                    {'$' + balance}
-                </p>
+                    {props.balance ? '$'+props.balance : null}
+                </p>    
             </div>
             <SettingsButton
                 showSettings={props.showSettings}

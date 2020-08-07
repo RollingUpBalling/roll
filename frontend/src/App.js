@@ -5,10 +5,10 @@ import Routes from './Routes';
 import { BrowserRouter } from 'react-router-dom';
 
 import './App.css';
-
+import axios from 'axios'
 
 let logoutTimer;
-
+const ENDPOINT = "http://127.0.0.1:5000";
 const App = () => {
 
   const [tok, setToken] = useState(false);
@@ -16,7 +16,18 @@ const App = () => {
   const [uid, setUserId] = useState();
 
   const storedData = JSON.parse(localStorage.getItem('userData'));
-
+  const [balance,updateBalance] = useState(1)
+  
+  useEffect(() => {
+    const getBalance = async () => {
+      try {
+          const response = await axios.get(ENDPOINT+'/getUser/' + JSON.parse(localStorage.getItem('userData')).userId + '/')
+          updateBalance(response.data.balance)        
+      } catch (error) { }
+    }
+    
+    getBalance()
+  },[localStorage.getItem('userData')])
   const login = useCallback((token, userId, experationDate) => {
     setToken(token);
     setUserId(userId);
@@ -65,11 +76,9 @@ const App = () => {
       }
     }>
       <div className="App">
-        <BrowserRouter>
-          <Layout>
-            <Routes />
-          </Layout>
-        </BrowserRouter>
+        <Layout balance={balance} updateBalance={updateBalance}>
+          <Routes updateBalance={updateBalance}/>
+        </Layout>
       </div>
     </AuthContext.Provider>
   );

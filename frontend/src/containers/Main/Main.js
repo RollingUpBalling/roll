@@ -12,7 +12,7 @@ import socket from '../../socket'
 
 
 
-const Main = () => {
+const Main = props => {
     
     const [bets, addBet] = useState([]);
     const [betsNum, addBetNum] = useState(0);
@@ -50,6 +50,16 @@ const Main = () => {
         })
         socket.on('gameResults',data => {
             addBet(data.bets)
+            try {
+                data.bets.forEach(bet => {
+                    if (bet.user._id === JSON.parse(localStorage.getItem('userData')).userId && bet.won) {
+                        props.updateBalance(bet.user.balance)
+                    }
+                });
+                
+            }
+            
+            catch (e) {}
         })
     },[])
 
@@ -74,7 +84,6 @@ const Main = () => {
     useEffect(() => {
         
         socket.once('changeBetWonState',data => {
-            
             addBet(
                 bets.map((item,index) => (
                     item._id === data.bet._id ? data.bet : item
@@ -82,7 +91,6 @@ const Main = () => {
             )
         })
         socket.once('changeBet',data => {
-            
             addBet(
                 bets.map((item,index) => (
                     item._id === data.bet._id ? data.bet : item
@@ -102,7 +110,7 @@ const Main = () => {
                        <BetSum />
                     </div>
                     <div className={classes.RightSide}>
-                        <BettingsPlace />
+                        <BettingsPlace updateBalance={props.updateBalance}/>
                         <GameStat bank={bank} betCount={betsNum} />
                         <div className={classes.BetCards}>
                             {bets.map((betInfo,index) => (
