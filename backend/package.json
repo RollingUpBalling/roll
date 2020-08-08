@@ -25,6 +25,7 @@
     "js-sha1": "^0.6.0",
     "jsonwebtoken": "^8.5.1",
     "liqpay": "0.0.1",
+    "liqpay-sdk": "^3.2.0",
     "mongodb": "^3.5.9",
     "mongoose": "^5.9.25",
     "nodejs-currency-converter": "^1.0.2",

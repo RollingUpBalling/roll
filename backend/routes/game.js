@@ -15,4 +15,6 @@ router.post(
     gameController.deposit
 )
 
+router.post('/paymentResult/',() => (console.log('works')))
+
 module.exports = router

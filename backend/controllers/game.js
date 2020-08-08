@@ -2,7 +2,8 @@ const Game = require('../models/game')
 const HttpError = require('../models/HttpError')
 const { validationResult } = require('express-validator');
 const crypto = require('crypto');
-const sha1 = crypto.createHash('sha1');       
+const sha1 = crypto.createHash('sha1');
+const LiqPay = require('liqpay-sdk')   
       
 
 exports.createGame = async (req, res, next) => {
@@ -97,29 +98,31 @@ exports.deposit = (req, res, next) => {
     }
 
     const amount = req.body.amount.toString();
-    console.log(amount)
+ 
     if(!amount){
         return next(new HttpError('Enter some amount to deposit', 500))
     }
     const private_key = 'sandbox_DinD8ouM1fZodppW4xVOjMCKIdoI2b14e9WN3ZrL';
+    const public_key = 'sandbox_i86587284565'
+    const liqpay = new LiqPay(public_key, private_key);
 
-    const json_string = {
-        "public_key": "sandbox_i86587284565",
-        "version": "3",
-        "action": "pay",
-        "amount": amount,
-        "currency": "UAH",
-        "description": "deposit"
-    }
-    const data = new Buffer.from(JSON.stringify(json_string)).toString("base64");
-    console.log(data)
-    const signature = sign_to_string(private_key + data + private_key);
-
-    console.log(signature)
-    return res.json({data: data, signature: signature});
+    const r = liqpay.cnb_object({
+        'action'         : 'pay',
+        "public_key"     : "sandbox_i86587284565",
+        'amount'         : '0.01',
+        'currency'       : 'UAH',
+        'description'    : 'description text',
+        'version'        : '3',
+        'server_url'     : 'http://localhost:5000/paymentResult/',
+        'result_url'     : 'http://localhost:3000/'
+    })
+    
+    return res.status(200).json(r)
 };
 
-
+exports.makePaymant = (req, res, next) => {
+    console.log('works')
+}
 
 const sign_to_string= (str)=>{
     var sha1 = crypto.createHash('sha1');
