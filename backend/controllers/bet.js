@@ -49,6 +49,9 @@ exports.retrieveWinningBet = async (req,res,next) => {
         if (!bet) {
             return next(new HttpError('Bet not found or game doesnt exist',400))
         }
+        if (bet.retrieveKoef || bet.won) {
+            return next(new HttpError('Bet already retrieved',500))
+        }
         const socket = clientSockets("http://127.0.0.1:5000")
         socket.once('timerFinish',async (data) => {           // listens socket only once 
             bet.retrieveKoef = parseFloat(data.koef / 1000 + '.' + data.koef % 1000 / 100)
