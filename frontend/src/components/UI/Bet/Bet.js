@@ -21,6 +21,7 @@ const MakeBetButton = props => {
     } catch (error) { }
     
     const [gameState,updateGameState] = useState('makingBets')
+    const [canRetrieve,updateRetrieveState] = useState(false)
     const [userBet,updateUserBet] = useState()
     const [gameId, updateId] = useState()
     const [error, setError] = useState();
@@ -43,6 +44,11 @@ const MakeBetButton = props => {
         if (gameState === 'finished') {
             updateId('')
             updateUserBet()
+            updateRetrieveState(false)
+        }
+
+        if (gameState === 'active') {
+            updateRetrieveState(true)
         }
     },[gameState])
 
@@ -106,6 +112,7 @@ const MakeBetButton = props => {
 
     const retrieveBet = async () => {
         try {
+            updateRetrieveState(false)
             const response = await axios.put(ENDPOINT + '/retrieveWinningBet/',{
                 id:userBet._id
             },context)
@@ -126,16 +133,17 @@ const MakeBetButton = props => {
                 
                 {!gameId && <button onClick={createGame} className={classes.Bet}>START $0</button>}
                 {gameId 
-                
                     ? gameState === 'active' 
                         ? userBet
-                            ? <button onClick={retrieveBet} className={classes.Bet}>Retrieve bet</button>
+                            ? canRetrieve
+                                ? <button onClick={retrieveBet} className={classes.Bet}>Retrieve bet</button>
+                                : <button onClick={() => makeNewBet(gameId)} className={classes.Bet} disabled>GAME IS IN PROGRESS...</button> 
                             : <button onClick={() => makeNewBet(gameId)} className={classes.Bet} disabled>GAME IS IN PROGRESS...</button> 
     
                         : gameState === 'makingBets' 
                             ? userBet 
                                 ? <button className={classes.Bet}>waiting for game to start</button>
-                                : <button onClick={() => makeNewBet(gameId)} className={classes.Bet}>START $0</button>
+                                : <button onClick={() => makeNewBet(gameId)} className={classes.Bet}>Place your bet</button>
                             : null
                     : null
  
