@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Redirect, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import classes from './Deposit.css';
 
@@ -7,11 +6,8 @@ import classes from './Deposit.css';
 const ENDPOINT = "http://127.0.0.1:5000";
 
 const Deposit = (props) => {
-    console.log(props)
     const [amount, setAmount] = useState(0);
-    const [pressed, setPressed] = useState(false);
-    const [data, setData] = useState();
-    const [sign, setSign] = useState();
+
 
 
     const koefChangedHandler = (event) => {
@@ -27,12 +23,10 @@ const Deposit = (props) => {
                     'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('userData')).token
                 }
             });
-            setData(res.data.data);
-            setSign(res.data.signature)
-            setPressed(true);
+            window.location = `https://www.liqpay.ua/api/3/checkout?data=${res.data.data}&signature=${res.data.signature}`; 
         }
         catch (err) {
-            console.log(err.response);
+            console.log(err);
         }
 
     }
@@ -49,16 +43,15 @@ const Deposit = (props) => {
                 min='0'
                 max='1000'
                 className={classes.KoefInput}
+                onSubmit={createDepo}
             >
             </input>
             <button type="submit" onClick={createDepo}>
-                
-                asd
-
+                Pay
             </button>
-                <a href={`https://www.liqpay.ua/api/3/checkout?data=${data}&signature=${sign}`} >
+               {/*  <a href={``} >
                     Pay
-                </a>
+                </a> */}
         </div>
 
     );
