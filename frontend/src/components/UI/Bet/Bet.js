@@ -50,6 +50,7 @@ const MakeBetButton = props => {
         if (gameState === 'active') {
             updateRetrieveState(true)
         }
+    
     },[gameState])
 
 
@@ -144,7 +145,9 @@ const MakeBetButton = props => {
                             ? userBet 
                                 ? <button className={classes.Bet}>waiting for game to start</button>
                                 : <button onClick={() => makeNewBet(gameId)} className={classes.Bet}>Place your bet</button>
-                            : null
+                            : gameState === 'crashed'
+                                ? <button disabled className={classes.Bet}>GAME FINISHED</button>
+                                : null
                     : null
  
                 }
