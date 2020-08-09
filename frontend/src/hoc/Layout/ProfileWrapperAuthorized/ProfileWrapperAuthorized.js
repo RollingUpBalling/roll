@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
-import classes from './Profile.module.css';
 import Aux from '../../../hoc/Auxillary/Auxillary';
 import SettingsButton from '../../../components/UI/SettingsButton/SettingsButton';
 import Deposit from './Deposit'
+import classes from './Profile.module.css';
 
 const ENDPOINT = "http://127.0.0.1:5000";
 
@@ -21,17 +21,14 @@ const ProfileWrapperAuthorized = ( props ) => {
              
              className={classes.DepositButton}>
                  <Deposit />
-                <span>
-                    Deposit
-                    <i className="fa fa-money" aria-hidden="true"></i>
-                </span>
+                
             </div>
             <div style={{ marginLeft: "15px" }}>
                 <p className={classes.Name}>
                     <a href="/">{JSON.parse(localStorage.getItem('userData')).username}</a>
                 </p>
                 <p className={classes.Balance}>
-                    {props.balance ? '$'+props.balance : null}
+                    { Math.floor(props.balance) ? '$'+Math.floor(props.balance) : null}
                 </p>    
             </div>
             <SettingsButton
