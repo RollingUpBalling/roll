@@ -102,6 +102,7 @@ exports.deposit = (req, res, next) => {
     if(!amount){
         return next(new HttpError('Enter some amount to deposit', 500))
     }
+
     const private_key = 'sandbox_DinD8ouM1fZodppW4xVOjMCKIdoI2b14e9WN3ZrL';
     const public_key = 'sandbox_i86587284565'
     const liqpay = new LiqPay(public_key, private_key);
@@ -109,7 +110,7 @@ exports.deposit = (req, res, next) => {
     const r = liqpay.cnb_object({
         'action'         : 'pay',
         "public_key"     : "sandbox_i86587284565",
-        'amount'         : '0.01',
+        'amount'         : amount,
         'currency'       : 'UAH',
         'description'    : 'description text',
         'version'        : '3',
