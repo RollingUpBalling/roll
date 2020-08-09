@@ -1,0 +1,42 @@
+.KoefInput {
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    height: 50px;
+    margin-left: 20px;
+    width: 200px;
+    background-color: #252f53;
+    text-align: center;
+    color: #fff;
+    font-size: 27px;
+    font-weight: 500;
+    transition: .2s;
+    box-sizing: border-box;
+}
+
+.PayButton {
+    background-color: #65b296;
+    border-radius: 10px;
+    padding: 0 20px;
+    margin-left: 10px;
+    height: 50px;
+    box-sizing: border-box;
+    padding-top: auto;
+    cursor: pointer;
+    text-align: center;
+    box-sizing: border-box;
+    text-align: center;
+    outline: none;
+    border: none;
+    color: #fff;
+    font-size: 15px;
+}
+
+.PayButton:hover {
+    background-color: #4a9487;
+}
+.PayButton:disabled {
+    cursor: not-allowed;
+    background-color: gray;
+    color: black;
+}
