@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Modal from '../../../components/UI/ErrorModal/Mod';
+import DepositModal from '../../../components/UI/DepositModal/DepositModal';
 import classes from './Deposit.module.css';
 
 
@@ -42,7 +42,7 @@ const Deposit = (props) => {
 
     return (
         <>
-            <Modal
+            <DepositModal
                 show={showInput}
                 onCancel = {goBack}
             >
@@ -66,7 +66,7 @@ const Deposit = (props) => {
                 >
                     Pay
                 </button>
-            </Modal>
+            </DepositModal>
             <div onClick={makeDeposit}>
                 <span>
                     Deposit
