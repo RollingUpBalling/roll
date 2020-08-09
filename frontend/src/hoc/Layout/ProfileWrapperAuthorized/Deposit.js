@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Modal from '../../../components/UI/ErrorModal/Mod';
-//import classes from './Deposit.css';
-import classes from './Profile.module.css';
+import classes from './Deposit.module.css';
+
 
 
 const ENDPOINT = "http://127.0.0.1:5000";
@@ -58,17 +58,21 @@ const Deposit = (props) => {
                     onSubmit={createDepo}
                 >
                 </input>
-                <button
+                <button 
+                    disabled={amount <= 0}
                     type="submit"
                     onClick={createDepo}
+                    className={classes.PayButton}
                 >
                     Pay
                 </button>
             </Modal>
-            <span onClick={makeDeposit}>
-                Deposit
-            <i className="fa fa-money" aria-hidden="true"></i>
-            </span>
+            <div onClick={makeDeposit}>
+                <span>
+                    Deposit
+                    <i className="fa fa-money" aria-hidden="true"></i>
+                </span>
+            </div>
         </>
 
     );
