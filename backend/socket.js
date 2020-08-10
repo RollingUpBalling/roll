@@ -32,7 +32,7 @@ module.exports={
                 
             })
            
-            Game.find({},{koef: 1, _id: 0 }).sort({ $natural: -1 }).limit(10)
+            Game.find({},{koef: 1, _id: 0 }).sort({ $natural: -1 }).limit(10).skip(1)
             .then(koefs=>{
                 socket.emit('koefs',{koefs:koefs});
             })
