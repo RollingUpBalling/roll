@@ -23,7 +23,10 @@ const BetSum = (props) => {
                     <>
                         <div className={classes.Balance}> 
                             <span>
-                                Balance: <span className={classes.BalanceValue}>1000$</span>
+                                Balance: 
+                                <span className={classes.BalanceValue}>
+                                    {props.balance}
+                                </span>
                             </span>
                         </div>
                         <input
@@ -38,7 +41,7 @@ const BetSum = (props) => {
                         <button className={classes.Clear} onClick={props.clearAmountHandler}>
                             clear
                         </button>
-                        <button className={classes.Max} onClick={props.maxAmountSetHandler}>
+                        <button className={classes.Max} onClick={() => props.maxAmountSetHandler(props.balance)}>
                             max
                         </button>
                     </>
@@ -69,6 +72,7 @@ const BetSum = (props) => {
 const mapStateToProps = state => {
     return {
         value: state.bv.betValue,
+        balance: state.bln.balance
     }
 };
 
@@ -76,7 +80,7 @@ const mapDispatchToProps = dispatch => {
     return {
         updateBetValue: (event) => dispatch({type: actionTypes.UPDATE_BET_VALUE, event: event}),
         clearAmountHandler: () => dispatch({type: actionTypes.CLEAR_BET_VALUE}),
-        maxAmountSetHandler: () => dispatch({type: actionTypes.ADD_MAX_BET_VALUE})
+        maxAmountSetHandler: (maxValue) => dispatch({type: actionTypes.ADD_MAX_BET_VALUE, value: maxValue})
     }
 }
 

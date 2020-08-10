@@ -16,7 +16,11 @@ const betValueReducer = (state = initialState, action) => {
                 ...state,
                 betValue: 0
             }
-
+        case actionTypes.ADD_MAX_BET_VALUE:
+            return {
+                ...state,
+                betValue: action.value
+            }
     };
     return state;
 };
