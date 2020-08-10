@@ -18,14 +18,17 @@ const getKoefs = async () =>{
     
 };
 
+
 exports.createGame = async (req, res, next) => {
     try {
         const lastGame = await Game.findOne().sort({ _id: -1 })
         if (lastGame && lastGame.state !== 'finished') {
             return next(new HttpError('last game is not finished yet', 500))
         }
+        const genKoef = (Math.random() * (3) + 1);
+        console.log(genKoef);
         const game = await Game.create({
-            koef: 2 //should be defined by some algoritm later 
+            koef: genKoef
         })
         const io = require('../socket').getIO()
         io.emit('recieveId', {
@@ -50,13 +53,13 @@ exports.createGame = async (req, res, next) => {
                 state: 'active'              // staring our game
             })
             let interval2 = setInterval(async function () {     // starting timer of the game with game koef
-                if (game.timerFinish >= game.koef * 1000) return;
+                if (game.timerFinish >= game.koef.toFixed(2) * 1000) return;
                 game.timerFinish = game.timerFinish + 10;
                 io.emit('timerFinish', { 'koef': game.timerFinish });
             }, 100)
 
             setTimeout(async () => {
-                clearInterval(interval2);
+                
 
                 game.state = 'finished'     // setting game to finished
                 await game.save()
@@ -82,7 +85,7 @@ exports.createGame = async (req, res, next) => {
                     }
                 });
                 await currentGame.save()        //saves changes of the game
-
+                clearInterval(interval2);
                 io.emit('newPhase', {
                     state: 'crashed'        //adding state crashed
                 })
@@ -98,7 +101,7 @@ exports.createGame = async (req, res, next) => {
                 console.log(koefs);
                 io.emit('koefs',{koefs:koefs});
 
-            }, game.koef * 10000 - 10000);
+            }, game.koef.toFixed(2) * 10000 - 10000);
         }, 31500);
         return res.status(201).json({ 'gameId': game._id })
 
