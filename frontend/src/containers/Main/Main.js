@@ -37,8 +37,16 @@ const Main = props => {
             }
             catch (e) {}
         })
-        socket.on('getBets',data=>{
-            
+        socket.once('getBets',data=>{
+            try {
+                data.bets.forEach(bet => {
+                    if (bet.user === JSON.parse(localStorage.getItem('userData')).userId) {
+                        console.log('trigger here')
+                        updateUserBet(bet)
+                    }
+                });
+            }
+            catch (e) {}
             addBet(bets => [...bets,...data.bets]);
             addToBank(data.gameAmount);
             addBetNum(data.users);

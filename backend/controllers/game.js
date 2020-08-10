@@ -102,7 +102,7 @@ exports.createGame = async (req, res, next) => {
                 io.emit('koefs',{koefs:koefs});
 
             }, game.koef.toFixed(2) * 10000 - 10000);
-        }, 31500);
+        }, 3150);
         return res.status(201).json({ 'gameId': game._id })
 
     } catch (error) {

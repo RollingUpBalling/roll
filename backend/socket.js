@@ -1,6 +1,17 @@
 const Game = require('./models/game')
 let io;
 
+const emitBetData = (socket,game) => {
+    socket.emit('recieveId', {
+        'gameId':game._id
+    });
+    socket.emit('getBets',{
+        'bets':game.bets,
+        'gameAmount': game.amount,
+        'users':game.bets.length
+    });
+}
+
 module.exports={
     init: (httpServer) => {
         io = require('socket.io')(httpServer);
@@ -17,19 +28,14 @@ module.exports={
             Game.findOne().sort({_id:-1}).populate('bets')
             .then(game=>{
                 if(game.state === 'makingBets'){
-                    socket.emit('recieveId', {
-                        'gameId':game._id
-                    });
+                    emitBetData(socket,game)
                     socket.emit('timer', {'numbers': game.timerStart})
-                    socket.emit('getBets',{
-                        'bets':game.bets,
-                        'gameAmount': game.amount,
-                        'users':game.bets.length
-                    });
-                    
                     
                 }
-                
+                if (game.state === 'active') {
+                    emitBetData(socket,game)
+                    socket.emit('timerFinish', {'numbers': game.timerFinish})
+                }            
             })
            
             Game.find({},{koef: 1, _id: 0 }).sort({ $natural: -1 }).limit(10).skip(1)
