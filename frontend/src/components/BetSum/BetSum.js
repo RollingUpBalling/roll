@@ -17,10 +17,14 @@ const BetSum = (props) => {
             {
                 auth.isLoggedIn ? (
                     <>
-                        <header>
+                        <header
+                            className={classes.modal__header}
+                        >
                             Amount of bet
                         </header>
                         <input
+                            className={classes.KoefInput}
+
                             value={amount}
                             type='number'
                             min='0'
