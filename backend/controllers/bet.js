@@ -35,8 +35,26 @@ exports.makeBet = async (req, res, next) => {
         io.emit('addBet',{
             'bet':bet
         });
+
+        const socket = clientSockets("http://127.0.0.1:5000")
+        socket.on('timerFinish',async (data) => {           
+            const currentKoef = parseFloat(data.koef / 1000 + '.' + data.koef % 1000 / 100)
+            if (bet.koef <= currentKoef) {
+                socket.off('timerFinish')
+                bet.user.balance += bet.amount * bet.koef      
+                bet.won = true                            
+                await bet.save()
+                await bet.user.save()
+                const io = IO.getIO()
+                io.emit('changeBet',{
+                    bet:bet                         
+                });
+                io.emit(bet.user.id,bet.user.balance)
+                
+            }
+        })
         return res.status(201).json({bet:bet});
-    } catch (error) {
+    } catch (error) {   
         console.log(error)
         return next(new HttpError('from bet controller'));
     }

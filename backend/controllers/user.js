@@ -2,32 +2,38 @@ const jwt = require("jsonwebtoken");
 const HttpError = require('../models/HttpError');
 const User = require('../models/user')
 
-exports.SignIn = (req, res, next) => {
-    User.findById(req.user.id)
-    .then(user => {
+
+
+
+exports.SignIn = async (req, res, next) => {
+    try {
+        let user = await User.findById(req.user.id)
         if(!user) {
-            return User.create({
+            user = await User.create({
                 _id:req.user.id,
-                steamUsername:req.user.displayName
+                steamUsername:req.user.displayName,
+                avatar: req.user.photos[2].value
             })
         }
-        return user
-    })
-    .then(user => {
+        else {
+            user.avatar = req.user.photos[2].value
+            user.steamUsername = req.user.displayName
+            user = await user.save()
+        }
+        console.log(user)
         const token = jwt.sign({ _id: user._id, username: user.steamUsername}, 'secret', {
             expiresIn: "2h",
-          });
-          res.render("success", {
+        });
+        res.render("success", {
             id: user._id,
             username: user.steamUsername,
             jwtToken: token,
             balance:'1',
             clientUrl:'http://localhost:3000'
-          });
-    })
-    .catch((error) => {
+        });
+    } catch (error) {
         return next( new HttpError(error));
-    })
+    }
 }
 
 exports.GetUser = async (req,res,next) => {

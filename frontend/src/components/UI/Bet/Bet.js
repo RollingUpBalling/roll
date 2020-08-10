@@ -55,6 +55,16 @@ const MakeBetButton = props => {
     
     },[gameState])
 
+    useEffect(() => {
+        try {
+            socket.on(JSON.parse(localStorage.getItem('userData')).userId,response => {
+                console.log(response)
+                props.updateBalance(response)
+                updateRetrieveState(false)
+            })
+        } catch (error) { }
+        
+    },[])
 
     const handleError = () => {
         setError(null);
