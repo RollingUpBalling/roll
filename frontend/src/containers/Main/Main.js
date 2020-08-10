@@ -17,6 +17,7 @@ import * as actionTypes from '../../store/actions';
 const Main = props => {
     
     const [bets, addBet] = useState([]);
+    const [koefs, addKoef] = useState([]);
     const [betsNum, addBetNum] = useState(0);
     const [bank, addToBank] = useState(0);
     const [userBet,updateUserBet] = useState()
@@ -63,6 +64,9 @@ const Main = props => {
             
             catch (e) {}
         })
+        socket.on('koefs', data =>{
+            addKoef(data.koefs)
+        })
     },[])
 
     useEffect(() => {
@@ -107,7 +111,7 @@ const Main = props => {
                 <div className={classes.Main}>
                     <div className={classes.LeftSide}>
                        <Bomb bets={betsNum} />
-                       <LastCrashes />
+                       <LastCrashes koefs={koefs} />
                        <BetSum />
                     </div>
                     <div className={classes.RightSide}>

@@ -1,5 +1,6 @@
 .LastCrash {
     height: 100%;
+    width: 40px;
     padding: 0 10px;
     background-color: #3e4caf;
     display: flex;
