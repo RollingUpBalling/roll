@@ -5,3 +5,7 @@ export const UPDATE_BET_VALUE = 'UPDATE_BET_VALUE';
 
 //balanceReducer
 export const SET_BALANCE = 'SET_BALANCE';
+
+//avatarReduce
+
+export const SET_AVATAR = 'SET_AVATAR'

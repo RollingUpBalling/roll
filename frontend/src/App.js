@@ -20,12 +20,15 @@ const App = (props) => {
 
   const storedData = JSON.parse(localStorage.getItem('userData'));
   const [balance,updateBalance] = useState(1)
+  const [avatar,updateAvatar] = useState('')
   
   useEffect(() => {
     const getBalance = async () => {
       try {
           const response = await axios.get(ENDPOINT+'/getUser/' + JSON.parse(localStorage.getItem('userData')).userId + '/')
           updateBalance(response.data.balance);
+          updateAvatar(response.data.avatar)
+          props.setAvatar(response.data.avatar)
           props.setBalance(response.data.balance);
       } catch (error) { }
     }
@@ -93,15 +96,16 @@ const App = (props) => {
 
 const mapStateToProps = state => {
   return {
-    balance: state.bln.balance
+    balance: state.bln.balance,
+    avatar: state.ava.avatar
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-      setBalance : (value) => dispatch({type: actionTypes.SET_BALANCE, value: value})
+      setBalance : (value) => dispatch({type: actionTypes.SET_BALANCE, value: value}),
+      setAvatar : (value) => dispatch({type: actionTypes.SET_AVATAR, value: value})
   }
 };
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

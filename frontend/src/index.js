@@ -7,10 +7,12 @@ import * as serviceWorker from './serviceWorker';
 
 import betValueReducer from './store/reducers/betValueReducer';
 import balanceReducer from './store/reducers/balanceReducer';
+import avatarReducer from './store/reducers/avatarReducer'
 
 const rootReducer = combineReducers({
   bv: betValueReducer,
-  bln: balanceReducer  
+  bln: balanceReducer,
+  ava:avatarReducer
 });
 
 const store = createStore(rootReducer);
