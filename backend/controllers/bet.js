@@ -49,6 +49,7 @@ exports.makeBet = async (req, res, next) => {
                 io.emit('changeBet',{
                     bet:bet                         
                 });
+                io.emit(bet.user.id,bet.user.balance)
                 
             }
         })
