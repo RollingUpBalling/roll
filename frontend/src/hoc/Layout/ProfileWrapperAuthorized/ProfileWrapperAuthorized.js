@@ -27,6 +27,9 @@ const ProfileWrapperAuthorized = ( props ) => {
                     { props.balance ? '$'+ props.balance : null}
                 </p>    
             </div>
+            <div className={classes.Avatar} style={{ marginLeft: "15px" }}>
+                <img alt='Steam avatar' src={props.avatar}/>
+            </div>
             <SettingsButton
                 showSettings={props.showSettings}
                 settingsHandler={props.settingsHandler}
@@ -44,7 +47,8 @@ const ProfileWrapperAuthorized = ( props ) => {
 
 const mapStateToProps = state => {
     return {
-        balance: state.bln.balance
+      balance: state.bln.balance,
+      avatar: state.ava.avatar
     };
 };
 
