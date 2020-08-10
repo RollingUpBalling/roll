@@ -29,8 +29,8 @@ const ModalOverlay = (props) => {
 }
 
 const depositModal = (props) => {
-    return(
-        <React.Fragment>
+    return (
+        <>
             {props.show && <BackDrop onClick={props.onCancel} />}
             <CSSTransition
                 in={props.show}
@@ -42,7 +42,7 @@ const depositModal = (props) => {
                 <ModalOverlay {...props} />
                   
             </CSSTransition>
-        </React.Fragment>
+        </>
     )
 };
 
