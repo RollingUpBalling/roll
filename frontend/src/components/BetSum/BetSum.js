@@ -1,20 +1,16 @@
 import React, { useState, useContext } from 'react';
+import { connect } from 'react-redux'
+
+import * as actionTypes from '../../store/actions';
 
 import SignInButton from '../../components/UI/SignInButton/SignInButton';
 import { AuthContext } from '../../context/auth-context';
+
 import classes from './BetSum.module.css';
 
 const BetSum = (props) => {
     const auth = useContext(AuthContext);
     const [amount, setAmount] = useState(null);
-
-    const koefChangedHandler = (event) => {
-        setAmount(event.target.value);
-    };
-
-    const clearAmountHandler = () => {
-        setAmount(0);
-    };
 
     const maxAmountSetHandler = () => {
         setAmount(1000);
@@ -33,16 +29,16 @@ const BetSum = (props) => {
                         <input
                             className={classes.KoefInput}
                             placeholder="YOUR BET..."
-                            value={amount !== null ? amount : ''}
+                            value={props.value !== null ? props.value : ''}
                             type='number'
                             min='0'
                             max='1000'
-                            onChange={koefChangedHandler}
+                            onChange={(event) => props.updateBetValue(event)}
                         />
-                        <button className={classes.Clear} onClick={clearAmountHandler}>
+                        <button className={classes.Clear} onClick={props.clearAmountHandler}>
                             clear
                         </button>
-                        <button className={classes.Max} onClick={maxAmountSetHandler}>
+                        <button className={classes.Max} onClick={props.maxAmountSetHandler}>
                             max
                         </button>
                     </>
@@ -70,4 +66,18 @@ const BetSum = (props) => {
     );
 };
 
-export default BetSum;
+const mapStateToProps = state => {
+    return {
+        value: state.bv.betValue,
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        updateBetValue: (event) => dispatch({type: actionTypes.UPDATE_BET_VALUE, event: event}),
+        clearAmountHandler: () => dispatch({type: actionTypes.CLEAR_BET_VALUE}),
+        maxAmountSetHandler: () => dispatch({type: actionTypes.ADD_MAX_BET_VALUE})
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BetSum);

@@ -96,9 +96,7 @@ class Layout extends Component {
                         <SocialLinks />
                         {this.context.isLoggedIn ? (
                             <ProfileWrapperAuthorized 
-                                balance={this.props.balance}
-                                updateBalance={this.props.updateBalance}
-                                clicked={this.context.logout}
+                                    clicked={this.context.logout}
                                     showSettings={this.state.showSettings}
                                     settingsHandler={this.showSettingsHandler}
                                     closeSettings={this.closeSettingsHandler}

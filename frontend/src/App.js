@@ -1,16 +1,18 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import Layout from './hoc/Layout/Layout';
-import { AuthContext } from './context/auth-context';
-import Routes from './Routes';
 import { BrowserRouter as Route} from 'react-router-dom';
+import { connect } from 'react-redux';
+import axios from 'axios';
 
-import './App.css';
-import axios from 'axios'
+import { AuthContext } from './context/auth-context';
+import * as actionTypes from './store/actions';
+
+import Layout from './hoc/Layout/Layout';
+import Routes from './Routes';
 
 let logoutTimer;
 const ENDPOINT = "http://127.0.0.1:5000";
 
-const App = () => {
+const App = (props) => {
 
   const [tok, setToken] = useState(false);
   const [tokenExperationTime, setTokenExperationTime] = useState();
@@ -23,7 +25,8 @@ const App = () => {
     const getBalance = async () => {
       try {
           const response = await axios.get(ENDPOINT+'/getUser/' + JSON.parse(localStorage.getItem('userData')).userId + '/')
-          updateBalance(response.data.balance)        
+          updateBalance(response.data.balance);
+          props.setBalance(response.data.balance);
       } catch (error) { }
     }
     
@@ -76,10 +79,10 @@ const App = () => {
         logout: logout
       }
     }>
-      <div className="App">
+      <div style={{height: '100%',backgroundColor: '#20274b'}}>
         <Route>
-        <Layout balance={balance} updateBalance={updateBalance}>
-          <Routes updateBalance={updateBalance}/>
+        <Layout>
+          <Routes/>
         </Layout>
         </Route>
       </div>
@@ -88,5 +91,17 @@ const App = () => {
 
 }
 
+const mapStateToProps = state => {
+  return {
+    balance: state.bln.balance
+  };
+};
 
-export default App;
+const mapDispatchToProps = dispatch => {
+  return {
+      setBalance : (value) => dispatch({type: actionTypes.SET_BALANCE, value: value})
+  }
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

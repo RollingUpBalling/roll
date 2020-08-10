@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
+import { connect } from 'react-redux';
 
 import axios from 'axios'
 import classes from './Bet.module.css';
 
 import ErrorModal from '../ErrorModal/ErrorModal';
-import socket from '../../../socket'
+import socket from '../../../socket';
+import * as actionTypes from '../../../store/actions';
 
 const ENDPOINT = "http://127.0.0.1:5000";
 
@@ -101,7 +103,7 @@ const MakeBetButton = props => {
             }, context)
             if (response.data.bet.user._id === JSON.parse(localStorage.getItem('userData')).userId) { 
                 updateUserBet(response.data.bet)
-                props.updateBalance(response.data.bet.user.balance)
+                props.setBalance(response.data.bet.user.balance);
             }
         }
         catch (err) {
@@ -117,7 +119,7 @@ const MakeBetButton = props => {
             const response = await axios.put(ENDPOINT + '/retrieveWinningBet/',{
                 id:userBet._id
             },context)
-            props.updateBalance(response.data.balance)
+            props.setBalance(response.data.balance);
         }
         catch (err) {
             return setError('error')
@@ -151,10 +153,21 @@ const MakeBetButton = props => {
                     : null
  
                 }
-            
             </div>
         </>              
     )
 }
 
-export default MakeBetButton
+const mapStateToProps = state => {
+    return {
+        balance: state.bln.balance
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        setBalance: (value) => dispatch({type: actionTypes.SET_BALANCE, value: value})
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MakeBetButton);
