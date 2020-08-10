@@ -6,6 +6,18 @@ const sha1 = crypto.createHash('sha1');
 const LiqPay = require('liqpay-sdk')   
       
 
+const getKoefs = async () =>{
+    let koefs;
+    try{
+    koefs = await Game.find({},{koef: 1, _id: 0 }).sort({ $natural: -1 }).limit(10);
+    return koefs;
+    }
+    catch(err){
+        console.log(err);
+    }
+    
+};
+
 exports.createGame = async (req, res, next) => {
     try {
         const lastGame = await Game.findOne().sort({ _id: -1 })
@@ -81,9 +93,13 @@ exports.createGame = async (req, res, next) => {
                     io.emit('newPhase', {
                         state: 'finished'
                     })
-                }, 2000)
+                }, 2000);
+                const koefs = await getKoefs();
+                console.log(koefs);
+                io.emit('koefs',{koefs:koefs});
+
             }, game.koef * 10000 - 10000);
-        }, 3100);
+        }, 31500);
         return res.status(201).json({ 'gameId': game._id })
 
     } catch (error) {
@@ -125,8 +141,10 @@ exports.makePaymant = (req, res, next) => {
     console.log('works')
 }
 
+
 const sign_to_string= (str)=>{
     var sha1 = crypto.createHash('sha1');
 			sha1.update(str);
 		return sha1.digest('base64');
 }
+

@@ -1,5 +1,4 @@
 const Game = require('./models/game')
-
 let io;
 
 module.exports={
@@ -32,6 +31,12 @@ module.exports={
                 }
                 
             })
+           
+            Game.find({},{koef: 1, _id: 0 }).sort({ $natural: -1 }).limit(10)
+            .then(koefs=>{
+                socket.emit('koefs',{koefs:koefs});
+            })
+            
             
         })
         return io;
