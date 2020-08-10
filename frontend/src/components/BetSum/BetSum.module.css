@@ -2,17 +2,11 @@
     width: 100%;
     height: 320px;
     margin-top: 15px;
+    padding-top: 30px;
+    box-sizing: border-box;
     border-radius: 15px;
     background-color: #252e52;
 }
-.modal__header {
-    width: 100%;
-    padding: 1rem 0.5rem;
-    box-sizing: border-box;
-    background-color: #1c1f3d;
-    color: white;
-    border-radius: 8px 8px 0px 0px;
-  }
 .KoefInput {
     outline: none;
     border: none;
@@ -27,4 +21,91 @@
     font-weight: 500;
     transition: .2s;
     box-sizing: border-box;
+}
+
+.KoefInput::-webkit-input-placeholder { 
+    font-size: 20px; 
+}
+
+.Balance {
+    margin-left: 20px;
+    margin-top: 40px;
+    width: 154px;
+    border-radius: 10px;
+    border: 2px solid #7D7D7D;
+    line-height: 54px;
+    display: inline-block;
+    font-size: 19px;
+    color: #DADAE1;
+    padding: 0 0 0 20px;
+}
+.BalanceValue {
+    color: #ff9b78;
+    font-size: 1.1142857143rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-top: 10px;
+}
+
+.Clear {
+    outline: none;
+    height: 35px;
+    background: none;
+    font-weight: 500;
+    font-size: 10px;
+    padding: 0 16px;
+    margin-top: 5px;
+    margin-left: 285px;
+    cursor: pointer;
+    border-radius: 10px;
+    border: 2px solid #67676C;
+    color: #67676C;
+    line-height: 35px;
+    text-transform: uppercase;
+    transition: all .3s ease;
+}
+.Clear:hover {
+    border: 2px solid #A6A6AF;
+    color: #A6A6AF;
+}
+
+.Max {
+    outline: none;
+    height: 35px;
+    background: none;
+    font-weight: 500;
+    font-size: 10px;
+    padding: 0 16px;
+    margin-left: 5px;
+    cursor: pointer;
+    border-radius: 10px;
+    border: 2px solid #E15D51;
+    color: #E15D51;
+    line-height: 35px;
+    text-transform: uppercase;
+    transition: all .3s ease;
+}
+.Max:hover {
+    border: 2px solid #fd7a6f;
+    color: #fd7a6f;
+}
+
+.LabelLogin {
+    margin: 0;
+    padding: 0;
+    display: block;
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    color: #434d78;
+    font-size: 1.2857142857rem;
+    font-weight: 500;
+}
+
+.SignInButton {
+    width: 50%;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
 }
