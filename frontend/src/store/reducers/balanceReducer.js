@@ -9,7 +9,7 @@ const balanceReducer = ( state = initialState, action) => {
         case actionTypes.SET_BALANCE:
             return {
                 ...state,
-                balance: action.value
+                balance: action.value.toFixed(2)
             }
     }
     return state;
