@@ -2,25 +2,25 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { CSSTransition } from 'react-transition-group';
 
-import BackDrop from './BackDrop';
-import './Modal.css';
+import BackDrop from '../ErrorModal/BackDrop';
+import classes from './DepositModal.module.css';
 
 
 const ModalOverlay = (props) => {
     const content =
         (
-            <div className={`modal ${props.className}`} style={props.style}>
-                <header className={`modal__header ${props.headerClass}`}>
-                    <h2>{props.header}</h2>
+            <div className={classes.Modal}>
+                <header className={classes.ModalHeader}>
+                    <h2>Choose deposit sum</h2>
                 </header>
                 <form onSubmit={
                     props.onSubmit ? props.onSubmit : (event) => event.preventDefault()
                 }>
-                    <div className={`modal__content ${props.contentClass}`}>
+                    <div className={classes.ModalContent}>
                         {props.children}
                     </div>
-                    <footer className={`modal__footer ${props.footerClass}`}>
-                        {props.footer}
+                    <footer className={classes.ModalFooter}>
+                        pay with Visa & MasterCard
                     </footer>
                 </form>
             </div>
@@ -28,14 +28,14 @@ const ModalOverlay = (props) => {
     return ReactDOM.createPortal(content, document.getElementById('modal-hook'))
 }
 
-const Modal = (props) => {
+const depositModal = (props) => {
     return(
         <React.Fragment>
             {props.show && <BackDrop onClick={props.onCancel} />}
             <CSSTransition
                 in={props.show}
                 timeout={200}
-                classNames="modal"
+                classNames='modal'
                 mountOnEnter
                 unmountOnExit
             >
@@ -46,4 +46,4 @@ const Modal = (props) => {
     )
 };
 
-export default Modal;
+export default depositModal;
