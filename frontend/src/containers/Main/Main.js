@@ -37,11 +37,10 @@ const Main = props => {
             }
             catch (e) {}
         })
-        socket.once('getBets',data=>{
+        socket.on('getBets',data=>{
             try {
                 data.bets.forEach(bet => {
                     if (bet.user === JSON.parse(localStorage.getItem('userData')).userId) {
-                        console.log('trigger here')
                         updateUserBet(bet)
                     }
                 });

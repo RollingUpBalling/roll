@@ -2,13 +2,14 @@ const Game = require('./models/game')
 let io;
 
 const emitBetData = (socket,game) => {
-    socket.emit('recieveId', {
-        'gameId':game._id
+    socket.emit('recieveGameInfo', {
+        gameId:game._id,
+        state:game.state
     });
     socket.emit('getBets',{
-        'bets':game.bets,
-        'gameAmount': game.amount,
-        'users':game.bets.length
+        bets:game.bets,
+        gameAmount: game.amount,
+        users:game.bets.length
     });
 }
 

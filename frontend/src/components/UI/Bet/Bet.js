@@ -23,28 +23,30 @@ const MakeBetButton = props => {
     } catch (error) { }
     
     const [gameState,updateGameState] = useState('makingBets')
-    const [canRetrieve,updateRetrieveState] = useState(false)
+    const [canRetrieve,updateRetrieveState] = useState(true)
     const [userBet,updateUserBet] = useState()
     const [gameId, updateId] = useState()
     const [error, setError] = useState();
 
     useEffect(() => {
         
-        socket.on('recieveId', id => {
-            updateId(id.gameId)
-            
+        socket.on('recieveGameInfo', data => {
+            updateId(data.gameId)
+            updateGameState(data.state)
         });
         socket.on('newPhase',data => {
             
             updateGameState(data.state)
         })
 
-        socket.once('getBets',data=>{
+        socket.on('getBets',data=>{
             try {
+                console.log(data)
                 data.bets.forEach(bet => {
                     if (bet.user === JSON.parse(localStorage.getItem('userData')).userId) {
-                        console.log('trigger here')
-                        updateUserBet(bet)
+                        console.log(!Boolean(bet.won))
+                        updateRetrieveState(canRetrieve => (!Boolean(bet.won)))
+                        updateUserBet(userBet => ({...bet}))
                     }
                 });
             }
@@ -58,19 +60,16 @@ const MakeBetButton = props => {
         if (gameState === 'finished') {
             updateId('')
             updateUserBet()
-            updateRetrieveState(false)
-        }
-
-        if (gameState === 'active') {
             updateRetrieveState(true)
         }
+
+       
     
     },[gameState])
 
     useEffect(() => {
         try {
             socket.on(JSON.parse(localStorage.getItem('userData')).userId,response => {
-                console.log(response)
                 updateRetrieveState(false)
             })
         } catch (error) { }
