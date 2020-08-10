@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 
 import Bomb from '../Bomb/Bomb';
 import BettingsPlace from '../BettingsPlace/BettingsPlace';
@@ -8,7 +9,8 @@ import LastCrashes from '../../components/LastCrashes/LastCrashes';
 import BetSum from '../../components/BetSum/BetSum';
 
 import classes from './Main.module.css';
-import socket from '../../socket'
+import socket from '../../socket';
+import * as actionTypes from '../../store/actions';
 
 
 
@@ -53,7 +55,7 @@ const Main = props => {
             try {
                 data.bets.forEach(bet => {
                     if (bet.user._id === JSON.parse(localStorage.getItem('userData')).userId && bet.won) {
-                        props.updateBalance(bet.user.balance)
+                        props.setBalance(bet.user.balance);
                     }
                 });
                 
@@ -103,14 +105,13 @@ const Main = props => {
 
         return (
                 <div className={classes.Main}>
-                    {}
                     <div className={classes.LeftSide}>
                        <Bomb bets={betsNum} />
                        <LastCrashes />
                        <BetSum />
                     </div>
                     <div className={classes.RightSide}>
-                        <BettingsPlace updateBalance={props.updateBalance}/>
+                        <BettingsPlace />
                         <GameStat bank={bank} betCount={betsNum} />
                         <div className={classes.BetCards}>
                             {bets.map((betInfo,index) => (
@@ -144,5 +145,17 @@ const Main = props => {
     
 };
 
-export default Main;
+const mapStateToProps = state => {
+    return {
+        balance: state.bln.balance
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        setBalance: (value) => dispatch({type: actionTypes.SET_BALANCE, value: value})
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
 

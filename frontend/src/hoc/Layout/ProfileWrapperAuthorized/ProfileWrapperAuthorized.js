@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 
 import Aux from '../../../hoc/Auxillary/Auxillary';
 import SettingsButton from '../../../components/UI/SettingsButton/SettingsButton';
@@ -9,18 +10,9 @@ import classes from './Profile.module.css';
 const ENDPOINT = "http://127.0.0.1:5000";
 
 const ProfileWrapperAuthorized = ( props ) => {
-    
-
-    useEffect(() => {
-       props.updateBalance()
-       
-    },[])
-
-    
 
     return (
         <Aux>
-            {}
             <div
              
              className={classes.DepositButton}>
@@ -50,4 +42,10 @@ const ProfileWrapperAuthorized = ( props ) => {
     );
 };
 
-export default ProfileWrapperAuthorized;
+const mapStateToProps = state => {
+    return {
+        balance: state.bln.balance
+    };
+};
+
+export default connect(mapStateToProps)(ProfileWrapperAuthorized);
