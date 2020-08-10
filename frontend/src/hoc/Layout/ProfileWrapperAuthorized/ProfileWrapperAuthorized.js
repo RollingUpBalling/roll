@@ -6,6 +6,7 @@ import SettingsButton from '../../../components/UI/SettingsButton/SettingsButton
 import Deposit from './Deposit'
 import classes from './Profile.module.css';
 
+
 const ENDPOINT = "http://127.0.0.1:5000";
 
 const ProfileWrapperAuthorized = ( props ) => {

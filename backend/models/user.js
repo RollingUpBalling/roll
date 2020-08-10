@@ -14,6 +14,10 @@ const User = new Schema({
         type: Number,
         required: true,
         default: 1
+    },
+    avatar: {
+        type: String,
+        required: true
     }
 })
 
