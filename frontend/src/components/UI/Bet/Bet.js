@@ -39,6 +39,18 @@ const MakeBetButton = props => {
             updateGameState(data.state)
         })
 
+        socket.once('getBets',data=>{
+            try {
+                data.bets.forEach(bet => {
+                    if (bet.user === JSON.parse(localStorage.getItem('userData')).userId) {
+                        console.log('trigger here')
+                        updateUserBet(bet)
+                    }
+                });
+            }
+            catch (e) {}
+        })
+
     }, [])
 
     useEffect(() => {
@@ -59,12 +71,13 @@ const MakeBetButton = props => {
         try {
             socket.on(JSON.parse(localStorage.getItem('userData')).userId,response => {
                 console.log(response)
-                props.updateBalance(response)
                 updateRetrieveState(false)
             })
         } catch (error) { }
         
     },[])
+
+    
 
     const handleError = () => {
         setError(null);
