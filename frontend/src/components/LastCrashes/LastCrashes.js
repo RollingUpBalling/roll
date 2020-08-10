@@ -3,21 +3,13 @@ import React from 'react';
 import classes from './LastCrashes.module.css';
 import LastCrash from './LastCrash/LastCrash';
 
-const lastCrashes = ( props ) => (
+const lastCrashes = (props) => (
     <div className={classes.LastCrashes}>
-        <LastCrash />
-        <LastCrash />
-        <LastCrash />
-        <LastCrash />
-        <LastCrash />
-        <LastCrash />
-        <LastCrash />
-        <LastCrash />
-        <LastCrash />
-        <LastCrash />
-        <LastCrash />
-        <LastCrash />
-        <LastCrash />
+        {props.koefs.map(koef => (
+            <LastCrash koef={koef.koef} />
+        ))
+        
+    }
     </div>
 );
 
