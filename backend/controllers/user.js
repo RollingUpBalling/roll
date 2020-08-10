@@ -20,7 +20,6 @@ exports.SignIn = async (req, res, next) => {
             user.steamUsername = req.user.displayName
             user = await user.save()
         }
-        console.log(user)
         const token = jwt.sign({ _id: user._id, username: user.steamUsername}, 'secret', {
             expiresIn: "2h",
         });

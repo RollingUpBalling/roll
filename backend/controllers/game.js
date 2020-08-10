@@ -26,13 +26,13 @@ exports.createGame = async (req, res, next) => {
             return next(new HttpError('last game is not finished yet', 500))
         }
         const genKoef = (Math.random() * (3) + 1);
-        console.log(genKoef);
         const game = await Game.create({
             koef: genKoef
         })
         const io = require('../socket').getIO()
-        io.emit('recieveId', {
-            'gameId': game._id         //recieving game id
+        io.emit('recieveGameInfo', {
+            gameId: game._id,
+            state:game.state        
         });
         io.emit('newPhase', {
             state: 'makingBets'              // adding ability to add bets
@@ -98,7 +98,6 @@ exports.createGame = async (req, res, next) => {
                     })
                 }, 2000);
                 const koefs = await getKoefs();
-                console.log(koefs);
                 io.emit('koefs',{koefs:koefs});
 
             }, game.koef.toFixed(2) * 10000 - 10000);
