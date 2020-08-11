@@ -30,7 +30,6 @@ const Main = props => {
             addBet(bets => [...bets,data.bet]);
             addToBank(bank => bank + data.bet.amount);
             addBetNum(betsNum => betsNum + 1);
-            console.log(data.bet)
             try {
                 if (data.bet.user === JSON.parse(localStorage.getItem('userData')).userId) {
                     updateUserBet(data.bet)
@@ -73,7 +72,7 @@ const Main = props => {
             catch (e) {}
         })
         socket.on('koefs', data =>{
-            addKoef(data.koefs)
+            addKoef(data.koefs);
         })
     },[])
 

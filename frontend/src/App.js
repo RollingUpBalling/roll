@@ -25,10 +25,10 @@ const App = (props) => {
   useEffect(() => {
     const getBalance = async () => {
       try {
-          const response = await axios.get(ENDPOINT+'/getUser/' + JSON.parse(localStorage.getItem('userData')).userId + '/')
+          const response = await axios.get(ENDPOINT+'/getUser/' + JSON.parse(localStorage.getItem('userData')).userId + '/');
           updateBalance(response.data.balance);
-          updateAvatar(response.data.avatar)
-          props.setAvatar(response.data.avatar)
+          updateAvatar(response.data.avatar);
+          props.setAvatar(response.data.avatar);
           props.setBalance(response.data.balance);
       } catch (error) { }
     }
@@ -70,29 +70,27 @@ const App = (props) => {
   },
     [login]);
 
-
-
   return (
-    <AuthContext.Provider value={
-      {
-        isLoggedIn: !!tok,
-        token: tok,
-        userId: uid,
-        login: login,
-        logout: logout
-      }
-    }>
-      <div style={{height: '100%',backgroundColor: '#20274b'}}>
-        <Route>
-        <Layout>
-          <Routes/>
-        </Layout>
-        </Route>
-      </div>
-    </AuthContext.Provider>
+      <AuthContext.Provider value={
+        {
+          isLoggedIn: !!tok,
+          token: tok,
+          userId: uid,
+          login: login,
+          logout: logout
+        }
+      }>
+        <div style={{height: '100%',backgroundColor: '#20274b'}}>
+          <Route>
+          <Layout>
+            <Routes/>
+          </Layout>
+          </Route>
+        </div>
+      </AuthContext.Provider>
   );
 
-}
+};
 
 const mapStateToProps = state => {
   return {
