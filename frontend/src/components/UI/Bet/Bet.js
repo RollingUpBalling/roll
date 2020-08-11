@@ -27,6 +27,7 @@ const MakeBetButton = props => {
     const [userBet,updateUserBet] = useState()
     const [gameId, updateId] = useState()
     const [error, setError] = useState();
+    
 
     useEffect(() => {
         
@@ -147,36 +148,41 @@ const MakeBetButton = props => {
         catch (err) {
             return setError('error')
         }
+
+    const createBetButton = () => {
+        let onClinkEvent
+        let text
+        let disabled = false
+        if (!gameId) {
+            onClinkEvent = createGame
+            text = 'START $0'
+        }
+        else if (gameState === 'active' && userBet && canRetrieve) {
+            onClinkEvent = retrieveBet
+            text = 'Retrieve bet'
+        }
+        else if ((gameState === 'active' && userBet && !canRetrieve) || (gameState === 'active' && !userBet)) {
+            text = 'GAME IS IN PROGRESS...'
+            disabled = true
+        }
+        else if (gameState === 'makingBets' && userBet) {
+            text = 'waiting for game to start'
+        }
+        else if (gameState === 'makingBets' && !userBet) {
+            onClinkEvent = () => makeNewBet(gameId)
+            text = 'Place your bet'
+        }
+        else if(gameState === 'crashed') {
+            text = 'GAME FINISHED'
+        }
+        return <button onClick={onClinkEvent} disabled={disabled} className={classes.Bet}>{text}</button>
     }
-
-    // if (gameId) {
-    //     if (gameState === 'active') {
-    //         if (userBet) {
-    //             if (canRetrieve) {
-    //                 <button onClick={retrieveBet} className={classes.Bet}>
-    //                     Retrieve bet
-    //                 </button>
-    //             } else {
-    //                 <button onClick={() => makeNewBet(gameId)} className={classes.Bet} disabled>
-    //                     GAME IS IN PROGRESS...
-    //                 </button>
-    //             }
-    //         } else {
-    //             <button onClick={() => makeNewBet(gameId)} className={classes.Bet} disabled>
-    //                 GAME IS IN PROGRESS...
-    //             </button>
-    //         }
-    //     } else {
-
-    //     }
-    // }
 
     return (
         <>
             <ErrorModal error={error} onClear={handleError} /> {/* setting error from useState */}
 
-            <div>
-                
+            <div>             
     {!gameId && 
     <button 
     disabled={props.betValue <=0 || props.betValue == null} 
@@ -202,6 +208,7 @@ const MakeBetButton = props => {
                     : null
  
                 }
+                {createBetButton()}
             </div>
         </>              
     )
