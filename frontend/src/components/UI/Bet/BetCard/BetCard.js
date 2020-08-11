@@ -25,16 +25,16 @@ const BetCard = ( props ) => {
                 {(props.status === 'Success') ? (
                             <>
                                 <div className={classes.TotalWin}>
-                                    $120
+                                    {((props.betInfo.retrieveKoef ? props.betInfo.retrieveKoef : props.betInfo.koef) * props.betInfo.amount).toFixed(2)}x
                                 </div>
                                 <div className={classes.WinKoef}>
-                                    1.2x
+                                    {props.betInfo.retrieveKoef ? props.betInfo.retrieveKoef : props.betInfo.koef}
                                 </div>
                             </>
                         ) : null}
                 {(props.status === 'Failed') ? (
                             <div className={classes.LoseKoef}>
-                                1.2x
+                                {props.betInfo.retrieveKoef ? props.betInfo.retrieveKoef : props.betInfo.koef}
                             </div>
                 ) : null}
                 {!props.status ? (
