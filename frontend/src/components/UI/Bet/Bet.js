@@ -27,6 +27,7 @@ const MakeBetButton = props => {
     const [userBet,updateUserBet] = useState()
     const [gameId, updateId] = useState()
     const [error, setError] = useState();
+    
 
     useEffect(() => {
         
@@ -146,8 +147,35 @@ const MakeBetButton = props => {
         catch (err) {
             return setError('error')
         }
-        
+    }
 
+    const createBetButton = () => {
+        let onClinkEvent
+        let text
+        let disabled = false
+        if (!gameId) {
+            onClinkEvent = createGame
+            text = 'START $0'
+        }
+        else if (gameState === 'active' && userBet && canRetrieve) {
+            onClinkEvent = retrieveBet
+            text = 'Retrieve bet'
+        }
+        else if ((gameState === 'active' && userBet && !canRetrieve) || (gameState === 'active' && !userBet)) {
+            text = 'GAME IS IN PROGRESS...'
+            disabled = true
+        }
+        else if (gameState === 'makingBets' && userBet) {
+            text = 'waiting for game to start'
+        }
+        else if (gameState === 'makingBets' && !userBet) {
+            onClinkEvent = () => makeNewBet(gameId)
+            text = 'Place your bet'
+        }
+        else if(gameState === 'crashed') {
+            text = 'GAME FINISHED'
+        }
+        return <button onClick={onClinkEvent} disabled={disabled} className={classes.Bet}>{text}</button>
     }
 
     return (
@@ -155,26 +183,7 @@ const MakeBetButton = props => {
             <ErrorModal error={error} onClear={handleError} /> {/* setting error from useState */}
 
             <div>
-                
-                {!gameId && <button onClick={createGame} className={classes.Bet}>START $0</button>}
-                {gameId 
-                    ? gameState === 'active' 
-                        ? userBet
-                            ? canRetrieve
-                                ? <button onClick={retrieveBet} className={classes.Bet}>Retrieve bet</button>
-                                : <button onClick={() => makeNewBet(gameId)} className={classes.Bet} disabled>GAME IS IN PROGRESS...</button> 
-                            : <button onClick={() => makeNewBet(gameId)} className={classes.Bet} disabled>GAME IS IN PROGRESS...</button> 
-    
-                        : gameState === 'makingBets' 
-                            ? userBet 
-                                ? <button className={classes.Bet}>waiting for game to start</button>
-                                : <button onClick={() => makeNewBet(gameId)} className={classes.Bet}>Place your bet</button>
-                            : gameState === 'crashed'
-                                ? <button disabled className={classes.Bet}>GAME FINISHED</button>
-                                : null
-                    : null
- 
-                }
+                {createBetButton()}
             </div>
         </>              
     )
