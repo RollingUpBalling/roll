@@ -12,6 +12,12 @@ import classes from './BetSum.module.css';
 const BetSum = (props) => {
     const auth = useContext(AuthContext);
 
+    const changeInputHandler = (event) => {
+        if (event.target.value > Number(props.balance)) {
+            event.target.value = '';
+        }
+    };
+
     return (
         <div className={classes.BetSumBody}>
             {
@@ -33,6 +39,7 @@ const BetSum = (props) => {
                             min='0'
                             max='1000'
                             onChange={(event) => props.updateBetValue(event)}
+                            onInput={changeInputHandler}
                         />
                         <button className={classes.Clear} onClick={props.clearAmountHandler}>
                             clear

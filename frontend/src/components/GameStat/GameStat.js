@@ -37,7 +37,7 @@ const GameStat = (props) => {
                 style={{ paddingLeft: '40px' }}>
                 <i className="fa fa-heart" aria-hidden="true"></i>
                 <div className={classes.PlayersCount}>
-                    <p className={classes.Number}>100</p>
+                    <p className={classes.Number}>{props.betCount}</p>
                     <p className={classes.Label}>skins</p>
                 </div>
             </div>

@@ -121,8 +121,9 @@ const MakeBetButton = props => {
                 gameID: id,
                 userId: JSON.parse(localStorage.getItem('userData')).userId,
                 koef: props.koef,
-                amount: 140
+                amount: props.betValue
             }, context)
+            props.clearBetValue();
             if (response.data.bet.user._id === JSON.parse(localStorage.getItem('userData')).userId) { 
                 updateUserBet(response.data.bet)
                 props.setBalance(response.data.bet.user.balance);
@@ -130,7 +131,7 @@ const MakeBetButton = props => {
         }
         catch (err) {
 
-            return setError(    JSON.stringify(err.response.data.message) || 'unexpected error happened from bet');
+            return setError(JSON.stringify(err.response.data.message) || 'unexpected error happened from bet');
 
         }
     }
@@ -146,9 +147,29 @@ const MakeBetButton = props => {
         catch (err) {
             return setError('error')
         }
-        
-
     }
+
+    // if (gameId) {
+    //     if (gameState === 'active') {
+    //         if (userBet) {
+    //             if (canRetrieve) {
+    //                 <button onClick={retrieveBet} className={classes.Bet}>
+    //                     Retrieve bet
+    //                 </button>
+    //             } else {
+    //                 <button onClick={() => makeNewBet(gameId)} className={classes.Bet} disabled>
+    //                     GAME IS IN PROGRESS...
+    //                 </button>
+    //             }
+    //         } else {
+    //             <button onClick={() => makeNewBet(gameId)} className={classes.Bet} disabled>
+    //                 GAME IS IN PROGRESS...
+    //             </button>
+    //         }
+    //     } else {
+
+    //     }
+    // }
 
     return (
         <>
@@ -156,7 +177,13 @@ const MakeBetButton = props => {
 
             <div>
                 
-                {!gameId && <button onClick={createGame} className={classes.Bet}>START $0</button>}
+    {!gameId && 
+    <button 
+    disabled={props.betValue <=0 || props.betValue == null} 
+    onClick={createGame} 
+    className={classes.Bet}>
+        START ${Number(props.betValue).toFixed(2)}
+    </button>}
                 {gameId 
                     ? gameState === 'active' 
                         ? userBet
@@ -182,13 +209,15 @@ const MakeBetButton = props => {
 
 const mapStateToProps = state => {
     return {
-        balance: state.bln.balance
+        balance: state.bln.balance,
+        betValue: state.bv.betValue
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        setBalance: (value) => dispatch({type: actionTypes.SET_BALANCE, value: value})
+        setBalance: (value) => dispatch({type: actionTypes.SET_BALANCE, value: value}),
+        clearBetValue: () => dispatch({type: actionTypes.CLEAR_BET_VALUE})
     }
 };
 
