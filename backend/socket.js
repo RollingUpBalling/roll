@@ -24,14 +24,15 @@ module.exports={
                     bet:data.bet
                 })
             })
-
             
-            Game.findOne().sort({_id:-1}).populate('bets')
+            Game.findOne().sort({_id:-1}).populate({
+                path:'bets',
+                populate:{path:'user'}
+            })
             .then(game=>{
                 if(game.state === 'makingBets'){
                     emitBetData(socket,game)
-                    socket.emit('timer', {'numbers': game.timerStart})
-                    
+                    socket.emit('timer', {'numbers': game.timerStart})    
                 }
                 if (game.state === 'active') {
                     emitBetData(socket,game)
