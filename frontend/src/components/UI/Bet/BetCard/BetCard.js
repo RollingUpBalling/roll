@@ -1,9 +1,5 @@
 import React from 'react';
-import testSteamAvatar from '../../../../assets/images/test_steam_avtr.jpg';
 import classes from './BetCard.module.css';
-import { connect } from 'react-redux';
-
-
 
 const BetCard = ( props ) => {
 
@@ -19,7 +15,7 @@ const BetCard = ( props ) => {
         <div className={attachedClasses.join(" ")}>
             <img 
                 alt='Steam avatar'
-                src={props.avatar}/>
+                src={props.betInfo.user.avatar}/>
             <div className={classes.BetCount}>
                 <span>{props.betInfo.amount}$</span>
             </div>
@@ -51,10 +47,4 @@ const BetCard = ( props ) => {
     );
 };
 
-const mapStateToProps = state => {
-    return {
-      avatar: state.ava.avatar
-    };
-  };
-
-export default connect(mapStateToProps)(BetCard)
+export default BetCard
