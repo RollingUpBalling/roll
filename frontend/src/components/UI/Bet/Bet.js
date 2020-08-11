@@ -43,7 +43,7 @@ const MakeBetButton = props => {
             try {
                 console.log(data)
                 data.bets.forEach(bet => {
-                    if (bet.user === JSON.parse(localStorage.getItem('userData')).userId) {
+                    if (bet.user._id === JSON.parse(localStorage.getItem('userData')).userId) {
                         console.log(!Boolean(bet.won))
                         updateRetrieveState(canRetrieve => (!Boolean(bet.won)))
                         updateUserBet(userBet => ({...bet}))
