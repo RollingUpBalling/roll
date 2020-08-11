@@ -17,6 +17,7 @@ import * as actionTypes from '../../store/actions';
 const Main = props => {
     
     const [bets, addBet] = useState([]);
+    const [koefs, addKoef] = useState([]);
     const [betsNum, addBetNum] = useState(0);
     const [bank, addToBank] = useState(0);
     const [userBet,updateUserBet] = useState()
@@ -29,6 +30,7 @@ const Main = props => {
             addBet(bets => [...bets,data.bet]);
             addToBank(bank => bank + data.bet.amount);
             addBetNum(betsNum => betsNum + 1);
+            console.log(data.bet)
             try {
                 if (data.bet.user === JSON.parse(localStorage.getItem('userData')).userId) {
                     updateUserBet(data.bet)
@@ -37,7 +39,14 @@ const Main = props => {
             catch (e) {}
         })
         socket.on('getBets',data=>{
-            
+            try {
+                data.bets.forEach(bet => {
+                    if (bet.user === JSON.parse(localStorage.getItem('userData')).userId) {
+                        updateUserBet(bet)
+                    }
+                });
+            }
+            catch (e) {}
             addBet(bets => [...bets,...data.bets]);
             addToBank(data.gameAmount);
             addBetNum(data.users);
@@ -62,6 +71,9 @@ const Main = props => {
             }
             
             catch (e) {}
+        })
+        socket.on('koefs', data =>{
+            addKoef(data.koefs)
         })
     },[])
 
@@ -107,7 +119,7 @@ const Main = props => {
                 <div className={classes.Main}>
                     <div className={classes.LeftSide}>
                        <Bomb bets={betsNum} />
-                       <LastCrashes />
+                       <LastCrashes koefs={koefs} />
                        <BetSum />
                     </div>
                     <div className={classes.RightSide}>
@@ -115,6 +127,7 @@ const Main = props => {
                         <GameStat bank={bank} betCount={betsNum} />
                         <div className={classes.BetCards}>
                             {bets.map((betInfo,index) => (
+                                
                                 betInfo.won === undefined
                                 ?   <>
                                     <BetCard 

@@ -1,7 +1,5 @@
 import React from 'react';
-import testSteamAvatar from '../../../../assets/images/test_steam_avtr.jpg';
 import classes from './BetCard.module.css';
-
 
 const BetCard = ( props ) => {
 
@@ -17,7 +15,7 @@ const BetCard = ( props ) => {
         <div className={attachedClasses.join(" ")}>
             <img 
                 alt='Steam avatar'
-                src={testSteamAvatar}/>
+                src={props.betInfo.user.avatar}/>
             <div className={classes.BetCount}>
                 <span>{props.betInfo.amount}$</span>
             </div>
@@ -27,16 +25,16 @@ const BetCard = ( props ) => {
                 {(props.status === 'Success') ? (
                             <>
                                 <div className={classes.TotalWin}>
-                                    $120
+                                    {((props.betInfo.retrieveKoef ? props.betInfo.retrieveKoef : props.betInfo.koef) * props.betInfo.amount).toFixed(2)}x
                                 </div>
                                 <div className={classes.WinKoef}>
-                                    1.2x
+                                    {props.betInfo.retrieveKoef ? props.betInfo.retrieveKoef : props.betInfo.koef}
                                 </div>
                             </>
                         ) : null}
                 {(props.status === 'Failed') ? (
                             <div className={classes.LoseKoef}>
-                                1.2x
+                                {props.betInfo.retrieveKoef ? props.betInfo.retrieveKoef : props.betInfo.koef}
                             </div>
                 ) : null}
                 {!props.status ? (
