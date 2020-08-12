@@ -9,7 +9,7 @@ const socket = io(ENDPOINT)
 class Bomb extends Component {
 
     state = {
-        first: 3,
+        first: 1,
         second: 0,
         third: 0,
         fourth: 0,
@@ -23,7 +23,7 @@ class Bomb extends Component {
                 this.setState((state) => {
                     return {
                         bombClass: classes.Board,
-                        first: 3,
+                        first: 1,
                         second: 0,
                         third: 0,
                         fourth: 0
