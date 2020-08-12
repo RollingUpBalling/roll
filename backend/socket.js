@@ -47,7 +47,7 @@ module.exports={
             // listeting eevent if bet is won and emiting to everyone that it has been won
             socket.on('betWon',data => {
                 
-                socket.broadcast.emit('changeBetWonState',{
+                socket.broadcast.emit('changeBet',{
                     bet:data.bet
                 })
             })

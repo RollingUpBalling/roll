@@ -37,19 +37,23 @@ exports.makeBet = async (req, res, next) => {
         });
 
         const socket = clientSockets("http://127.0.0.1:5000")
-        socket.on('timerFinish',async (data) => {           
+        socket.on('timerFinish',async (data) => {
+            const currentBet = await Bet.findById(bet._id).populate('user')
+              
             const currentKoef = parseFloat(data.koef / 1000 + '.' + data.koef % 1000 / 100)
-            if (bet.koef <= currentKoef) {
+            
+            if (currentBet.koef <= currentKoef && !currentBet.won) {
                 socket.off('timerFinish')
-                bet.user.balance += bet.amount * bet.koef      
-                bet.won = true                            
+                console.log(bet)
+                currentBet.user.balance += currentBet.amount * currentBet.koef      
+                currentBet.won = true                            
                 await bet.save()
                 await bet.user.save()
                 const io = IO.getIO()
                 io.emit('changeBet',{
-                    bet:bet                         
+                    bet:currentBet                         
                 });
-                io.emit(bet.user.id,bet.user.balance)
+                io.emit(currentBet.user.id,currentBet.user.balance)
                 
             }
         })
