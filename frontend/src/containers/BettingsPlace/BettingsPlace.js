@@ -11,7 +11,7 @@ const bettingsPlace = props =>  {
                     <div className={classes.loader} />
                     <span>Waiting for bet...</span>
                 </div>
-                <BetController />
+                <BetController betInfo={props.betInfo}/>
             </div>
         );
 };

@@ -13,7 +13,8 @@ class Bomb extends Component {
         second: 0,
         third: 0,
         fourth: 0,
-        bombClass: classes.Board
+        bombClass: classes.Board,
+        behindNumbers: 'sec',
     }
 
     componentDidMount() {
@@ -26,7 +27,8 @@ class Bomb extends Component {
                         first: 3,
                         second: 0,
                         third: 0,
-                        fourth: 0
+                        fourth: 0,
+                        behindNumbers: 'sec'
                     }
                 })
             }
@@ -44,7 +46,7 @@ class Bomb extends Component {
                     first: Math.floor(data.numbers / 10000),
                     second: Math.floor(data.numbers / 1000 % 10),
                     third: Math.floor(data.numbers / 100 % 10),
-                    fourth: Math.floor(data.numbers / 10 % 10)
+                    fourth: Math.floor(data.numbers / 10 % 10),
             });
 
 
@@ -55,7 +57,8 @@ class Bomb extends Component {
                     first: Math.floor(data.koef / 10000),
                     second: Math.floor(data.koef / 1000 % 10),
                     third: Math.floor(data.koef / 100 % 10),
-                    fourth: Math.floor(data.koef / 10 % 10)
+                    fourth: Math.floor(data.koef / 10 % 10),
+                    behindNumbers: 'x'
             });
         });
     }
@@ -76,7 +79,7 @@ class Bomb extends Component {
                               .
                         <span>{this.state.third}</span>
                         <span>{this.state.fourth}</span>
-                        <span className={classes.AfterKoef}>sec</span>
+                        <span className={classes.AfterKoef}>{this.state.behindNumbers}</span>
                     </div>
                 </div>
             </>
