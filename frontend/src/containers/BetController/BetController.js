@@ -69,6 +69,10 @@ class BetController extends Component {
         });
   }
 
+  changeOnInput = (event) => {
+    console.log(11);
+  }
+
 
     render() {
 
@@ -94,7 +98,7 @@ class BetController extends Component {
                     key={index}
                     className={classes.ChangeInput}
                     type='number'
-                    min='1'
+                    min='1.01'
                     value={el.value}
                     onChange={(event) => {
                         this.inputChangeHandler(event, index);
@@ -138,15 +142,17 @@ class BetController extends Component {
                         :
                         (
                             <input 
+                            onInput={(event) => this.changeOnInput(event)}
                             onChange={this.koefChangedHandler}
                             type='number' 
-                            min='0' 
-                            max='1000'
+                            min='1.01'
                             value={this.state.mainKoef}
                             className={classes.KoefInput}/>)}
                     </div>
                     </div>
-                    <Bet koef={this.state.mainKoef} />
+                    <Bet 
+                    koef={Number(this.state.mainKoef).toFixed(2)} 
+                    betInfo={this.props.betInfo}/>
                 </div>
         );
     }

@@ -122,7 +122,7 @@ const Main = props => {
                        <BetSum />
                     </div>
                     <div className={classes.RightSide}>
-                        <BettingsPlace />
+                        <BettingsPlace betInfo={bets}/>
                         <GameStat bank={bank} betCount={betsNum} />
                         <div className={classes.BetCards}>
                             {bets.map((betInfo,index) => (
