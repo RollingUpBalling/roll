@@ -19,7 +19,7 @@ const Game = new Schema({
     timerStart:{
         type: Number,
         required: true,
-        default: 30000
+        default: 10000
     },
     timerFinish:{
         type: Number,

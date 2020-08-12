@@ -8,7 +8,7 @@ const clientSockets = require("socket.io-client")
 exports.makeBet = async (req, res, next) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
-        return next(new HttpError('Validation error',500))
+        return next(new HttpError('Enter amount of bet',500))
     }
     try {
         const game = await Game.findById(req.body.gameID)

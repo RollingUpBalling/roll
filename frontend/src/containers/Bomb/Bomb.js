@@ -24,7 +24,7 @@ class Bomb extends Component {
                 this.setState((state) => {
                     return {
                         bombClass: classes.Board,
-                        first: 3,
+                        first: 1,
                         second: 0,
                         third: 0,
                         fourth: 0,
