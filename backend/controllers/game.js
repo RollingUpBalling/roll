@@ -21,7 +21,7 @@ const getKoefs = async () =>{
 
 exports.createGame = async (req, res, next) => {
     const crashWait = 2000;
-    const StartGameTimer = 11500;
+    const StartGameTimer = 1150;
     try {
         const lastGame = await Game.findOne().sort({ _id: -1 })     
         if (lastGame && lastGame.state !== 'finished') {
