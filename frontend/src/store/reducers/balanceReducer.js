@@ -1,7 +1,7 @@
 import * as actionTypes from '../actions';
 
 const initialState = {
-    balance: 0
+    balance: null
 };
 
 const balanceReducer = ( state = initialState, action) => {

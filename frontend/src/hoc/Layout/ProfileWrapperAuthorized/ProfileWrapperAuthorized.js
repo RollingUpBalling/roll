@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import Aux from '../../../hoc/Auxillary/Auxillary';
 import SettingsButton from '../../../components/UI/SettingsButton/SettingsButton';
 import Deposit from './Deposit'
+import Spinner from '../../../components/UI/Spinner/Spinner';
+
 import classes from './Profile.module.css';
 
 
@@ -24,7 +26,7 @@ const ProfileWrapperAuthorized = ( props ) => {
                     <a href="/">{JSON.parse(localStorage.getItem('userData')).username}</a>
                 </p>
                 <p className={classes.Balance}>
-                    { props.balance ? '$'+ props.balance : null}
+                    { props.balance !== null ? '$'+ props.balance : <Spinner />}
                 </p>    
             </div>
             <div className={classes.Avatar} style={{ marginLeft: "15px" }}>

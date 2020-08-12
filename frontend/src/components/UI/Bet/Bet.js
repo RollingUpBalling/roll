@@ -24,9 +24,11 @@ const MakeBetButton = props => {
     
     const [gameState,updateGameState] = useState('makingBets')
     const [canRetrieve,updateRetrieveState] = useState(true)
-    const [userBet,updateUserBet] = useState()
+    const [userBet,updateUserBet] = useState();
+    const [clicked , setClicked] = useState(false);
     const [gameId, updateId] = useState()
     const [error, setError] = useState();
+    
 
     useEffect(() => {
         
@@ -58,9 +60,10 @@ const MakeBetButton = props => {
     useEffect(() => {
        
         if (gameState === 'finished') {
-            updateId('')
-            updateUserBet()
-            updateRetrieveState(true)
+            updateId('');
+            updateUserBet();
+            updateRetrieveState(true);
+            setClicked(false);
         }
 
        
@@ -96,6 +99,7 @@ const MakeBetButton = props => {
             if (game) {
                makeNewBet(game.data.gameId)
             }
+            setClicked(true);
         }
         catch (err) {
             
@@ -121,8 +125,9 @@ const MakeBetButton = props => {
                 gameID: id,
                 userId: JSON.parse(localStorage.getItem('userData')).userId,
                 koef: props.koef,
-                amount: 140
+                amount: props.betValue
             }, context)
+            props.clearBetValue();
             if (response.data.bet.user._id === JSON.parse(localStorage.getItem('userData')).userId) { 
                 updateUserBet(response.data.bet)
                 props.setBalance(response.data.bet.user.balance);
@@ -130,7 +135,7 @@ const MakeBetButton = props => {
         }
         catch (err) {
 
-            return setError(    JSON.stringify(err.response.data.message) || 'unexpected error happened from bet');
+            return setError(JSON.stringify(err.response.data.message) || 'unexpected error happened from bet');
 
         }
     }
@@ -146,17 +151,50 @@ const MakeBetButton = props => {
         catch (err) {
             return setError('error')
         }
-        
+    }
 
+    const createBetButton = () => {
+        let onClinkEvent
+        let text
+        let disabled = false
+        if (!gameId) {
+            onClinkEvent = createGame
+            text = 'START $0'
+        }
+        else if (gameState === 'active' && userBet && canRetrieve) {
+            onClinkEvent = retrieveBet
+            text = 'Retrieve bet'
+        }
+        else if ((gameState === 'active' && userBet && !canRetrieve) || (gameState === 'active' && !userBet)) {
+            text = 'GAME IS IN PROGRESS...'
+            disabled = true
+        }
+        else if (gameState === 'makingBets' && userBet) {
+            text = 'waiting for game to start'
+        }
+        else if (gameState === 'makingBets' && !userBet) {
+            onClinkEvent = () => makeNewBet(gameId)
+            text = 'Place your bet'
+        }
+        else if(gameState === 'crashed') {
+            text = 'GAME FINISHED'
+        }
+        return <button onClick={onClinkEvent} disabled={disabled} className={classes.Bet}>{text}</button>
     }
 
     return (
         <>
+        {console.log(props.betInfo)}
             <ErrorModal error={error} onClear={handleError} /> {/* setting error from useState */}
 
-            <div>
-                
-                {!gameId && <button onClick={createGame} className={classes.Bet}>START $0</button>}
+            <div>             
+    {!gameId && 
+    <button 
+    disabled={props.betValue <=0 || props.betValue == null } 
+    onClick={createGame} 
+    className={classes.Bet}>
+        START ${Number(props.betValue).toFixed(2)}
+    </button>}
                 {gameId 
                     ? gameState === 'active' 
                         ? userBet
@@ -167,14 +205,15 @@ const MakeBetButton = props => {
     
                         : gameState === 'makingBets' 
                             ? userBet 
-                                ? <button className={classes.Bet}>waiting for game to start</button>
-                                : <button onClick={() => makeNewBet(gameId)} className={classes.Bet}>Place your bet</button>
+                                ? <button className={classes.Bet} disabled>Waiting for game to start</button>
+                                : <button onClick={() => makeNewBet(gameId)} disabled={clicked} className={classes.Bet}>Place your bet</button>
                             : gameState === 'crashed'
                                 ? <button disabled className={classes.Bet}>GAME FINISHED</button>
                                 : null
                     : null
  
                 }
+                {/* {createBetButton()} */}
             </div>
         </>              
     )
@@ -182,13 +221,15 @@ const MakeBetButton = props => {
 
 const mapStateToProps = state => {
     return {
-        balance: state.bln.balance
+        balance: state.bln.balance,
+        betValue: state.bv.betValue
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        setBalance: (value) => dispatch({type: actionTypes.SET_BALANCE, value: value})
+        setBalance: (value) => dispatch({type: actionTypes.SET_BALANCE, value: value}),
+        clearBetValue: () => dispatch({type: actionTypes.CLEAR_BET_VALUE})
     }
 };
 

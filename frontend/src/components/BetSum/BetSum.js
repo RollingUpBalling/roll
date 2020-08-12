@@ -5,16 +5,18 @@ import * as actionTypes from '../../store/actions';
 
 import SignInButton from '../../components/UI/SignInButton/SignInButton';
 import { AuthContext } from '../../context/auth-context';
+import Spinner from '../UI/Spinner/Spinner';
 
 import classes from './BetSum.module.css';
 
 const BetSum = (props) => {
     const auth = useContext(AuthContext);
-    const [amount, setAmount] = useState(null);
 
-    const maxAmountSetHandler = () => {
-        setAmount(1000);
-    }
+    const changeInputHandler = (event) => {
+        if (event.target.value > Number(props.balance)) {
+            event.target.value = '';
+        }
+    };
 
     return (
         <div className={classes.BetSumBody}>
@@ -25,7 +27,7 @@ const BetSum = (props) => {
                             <span>
                                 Balance: 
                                 <span className={classes.BalanceValue}>
-                                    {props.balance}
+                                    {props.balance !== null ? props.balance : <Spinner />}
                                 </span>
                             </span>
                         </div>
@@ -37,6 +39,7 @@ const BetSum = (props) => {
                             min='0'
                             max='1000'
                             onChange={(event) => props.updateBetValue(event)}
+                            onInput={changeInputHandler}
                         />
                         <button className={classes.Clear} onClick={props.clearAmountHandler}>
                             clear
