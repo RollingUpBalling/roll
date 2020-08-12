@@ -20,8 +20,10 @@ const getKoefs = async () =>{
 
 
 exports.createGame = async (req, res, next) => {
+    const crashWait = 2000;
+    const StartGameTimer = 11500;
     try {
-        const lastGame = await Game.findOne().sort({ _id: -1 })
+        const lastGame = await Game.findOne().sort({ _id: -1 })     
         if (lastGame && lastGame.state !== 'finished') {
             return next(new HttpError('last game is not finished yet', 500))
         }
@@ -96,12 +98,12 @@ exports.createGame = async (req, res, next) => {
                     io.emit('newPhase', {
                         state: 'finished'
                     })
-                }, 2000);
+                }, crashWait);
                 const koefs = await getKoefs();
                 io.emit('koefs',{koefs:koefs});
 
             }, game.koef.toFixed(2) * 10000 - 10000);
-        }, 3150);
+        }, StartGameTimer);
         return res.status(201).json({ 'gameId': game._id })
 
     } catch (error) {
