@@ -135,10 +135,6 @@ const MakeBetButton = props => {
                 koef: props.koef,
                 amount: props.betValue
             }, context)
-<<<<<<< HEAD
-           // props.clearBetValue();
-=======
->>>>>>> 99a7705181e7795079b1277ab375238fcc8b5bde
             if (response.data.bet.user._id === JSON.parse(localStorage.getItem('userData')).userId) { 
                 updateUserBet(response.data.bet)
                 props.setBalance(response.data.bet.user.balance);
