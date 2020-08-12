@@ -128,7 +128,6 @@ const MakeBetButton = props => {
                 koef: props.koef,
                 amount: props.betValue
             }, context)
-            props.clearBetValue();
             if (response.data.bet.user._id === JSON.parse(localStorage.getItem('userData')).userId) { 
                 updateUserBet(response.data.bet)
                 props.setBalance(response.data.bet.user.balance);
@@ -202,7 +201,7 @@ const MakeBetButton = props => {
                             ? canRetrieve
                                 ? <button onClick={retrieveBet} className={classes.Bet}>Retrieve bet</button>
                                 : 
-                                  <button className={classes.Bet} disabled>YOU WIN ~ ${props.betInfo ? props.betInfo.retrieveKoef : null}</button> 
+                                  <button className={classes.Bet} disabled>YOU WIN ~ ${props.betInfo ? (props.betInfo.retrieveKoef * props.betValue).toFixed(2) : null}</button> 
                             : <button onClick={() => makeNewBet(gameId)} className={classes.Bet} disabled>GAME IS IN PROGRESS...</button> 
     
                         : gameState === 'makingBets' 
