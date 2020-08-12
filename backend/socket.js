@@ -1,6 +1,8 @@
 const Game = require('./models/game')
 let io;
 
+
+// func for emiting bet info 
 const emitBetData = (socket,game) => {
     socket.emit('recieveGameInfo', {
         gameId:game._id,
@@ -18,33 +20,37 @@ module.exports={
         io = require('socket.io')(httpServer);
         
         io.on('connection', (socket) => {
+
+            // getting last game and all users in game
+            Game.findOne().sort({_id:-1}).populate({
+                path:'bets',
+                populate:{path:'user'}
+            })
+            .then(game=>{
+                // if we making bets we emitting timer 
+                if(game.state === 'makingBets'){
+                    emitBetData(socket,game)
+                    socket.emit('timer', {'numbers': game.timerStart})    
+                }
+                // if game is on crash we getting bet info and emitting finish timer
+                if (game.state === 'active') {
+                    emitBetData(socket,game)
+                    socket.emit('timerFinish', {'numbers': game.timerFinish})
+                }            
+            })
+           // taking koef last 10 games and emiting it in connection
+            Game.find({},{koef: 1, _id: 0 }).sort({ $natural: -1 }).limit(10).skip(1)   
+            .then(koefs=>{
+                socket.emit('koefs',{koefs:koefs});
+            })
+
+            // listeting eevent if bet is won and emiting to everyone that it has been won
             socket.on('betWon',data => {
                 
                 socket.broadcast.emit('changeBetWonState',{
                     bet:data.bet
                 })
             })
-            
-            Game.findOne().sort({_id:-1}).populate({
-                path:'bets',
-                populate:{path:'user'}
-            })
-            .then(game=>{
-                if(game.state === 'makingBets'){
-                    emitBetData(socket,game)
-                    socket.emit('timer', {'numbers': game.timerStart})    
-                }
-                if (game.state === 'active') {
-                    emitBetData(socket,game)
-                    socket.emit('timerFinish', {'numbers': game.timerFinish})
-                }            
-            })
-           
-            Game.find({},{koef: 1, _id: 0 }).sort({ $natural: -1 }).limit(10).skip(1)
-            .then(koefs=>{
-                socket.emit('koefs',{koefs:koefs});
-            })
-            
             
         })
         return io;
