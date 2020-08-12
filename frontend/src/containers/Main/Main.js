@@ -95,21 +95,27 @@ const Main = props => {
     },[userBet])
 
     useEffect(() => {
-        
-        socket.once('changeBetWonState',data => {
-            addBet(
-                bets.map((item,index) => (
-                    item._id === data.bet._id ? data.bet : item
-                ))
-            )
-        })
+
         socket.once('changeBet',data => {
+            try {
+                if (data.bet.user._id === JSON.parse(localStorage.getItem('userData')).userId) {
+                    updateUserBet(data.bet)
+                }
+            } catch (error) { }
+
             addBet(
                 bets.map((item,index) => (
                     item._id === data.bet._id ? data.bet : item
                 ))
             )
         })
+        // socket.once('changeBet',data => {
+        //     addBet(
+        //         bets.map((item,index) => (
+        //             item._id === data.bet._id ? data.bet : item
+        //         ))
+        //     )
+        // })
     },[bets])
 
    
@@ -122,7 +128,7 @@ const Main = props => {
                        <BetSum />
                     </div>
                     <div className={classes.RightSide}>
-                        <BettingsPlace betInfo={bets}/>
+                        <BettingsPlace betInfo={userBet}/>
                         <GameStat bank={bank} betCount={betsNum} />
                         <div className={classes.BetCards}>
                             {bets.map((betInfo,index) => (

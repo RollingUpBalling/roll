@@ -5,6 +5,7 @@ import axios from 'axios'
 import classes from './Bet.module.css';
 
 import ErrorModal from '../ErrorModal/ErrorModal';
+import Spinner from '../../UI/Spinner/Spinner';
 import socket from '../../../socket';
 import * as actionTypes from '../../../store/actions';
 
@@ -200,7 +201,8 @@ const MakeBetButton = props => {
                         ? userBet
                             ? canRetrieve
                                 ? <button onClick={retrieveBet} className={classes.Bet}>Retrieve bet</button>
-                                : <button onClick={() => makeNewBet(gameId)} className={classes.Bet} disabled>GAME IS IN PROGRESS...</button> 
+                                : 
+                                  <button className={classes.Bet} disabled>YOU WIN ~ ${props.betInfo ? props.betInfo.retrieveKoef : null}</button> 
                             : <button onClick={() => makeNewBet(gameId)} className={classes.Bet} disabled>GAME IS IN PROGRESS...</button> 
     
                         : gameState === 'makingBets' 
