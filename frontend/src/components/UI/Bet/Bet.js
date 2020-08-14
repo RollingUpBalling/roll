@@ -9,7 +9,7 @@ import Spinner from '../../UI/Spinner/Spinner';
 import socket from '../../../socket';
 import * as actionTypes from '../../../store/actions';
 
-const ENDPOINT = "http://127.0.0.1:5000";
+const ENDPOINT = "https://roll-back-end.herokuapp.com";
 
 const MakeBetButton = props => {
     
@@ -45,10 +45,8 @@ const MakeBetButton = props => {
 
         socket.on('getBets',data=>{
             try {
-                console.log(data)
                 data.bets.forEach(bet => {
                     if (bet.user._id === JSON.parse(localStorage.getItem('userData')).userId) {
-                        console.log(!Boolean(bet.won))
                         updateRetrieveState(canRetrieve => (!Boolean(bet.won)))
                         updateUserBet(userBet => ({...bet}))
                     }
@@ -58,7 +56,6 @@ const MakeBetButton = props => {
         })
 
         socket.on('timerFinish', (data) => {
-            console.log(data)
             updateGameKoef((gameKoef) => parseFloat(data.koef / 1000 + '.' + data.koef % 1000 / 100))
         });
 
@@ -191,7 +188,6 @@ const MakeBetButton = props => {
 
     return (
         <>
-        {console.log(gameKoef)}
             <ErrorModal error={error} onClear={handleError} /> {/* setting error from useState */}
 
             <div>             
