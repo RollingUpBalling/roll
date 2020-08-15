@@ -23,15 +23,17 @@ exports.createGame = async (req, res, next) => {
     const crashWait = 2000;
     const StartGameTimer = 1150;
     try {
+        const io = require('../socket').getIO()
         const lastGame = await Game.findOne().sort({ _id: -1 })     
         if (lastGame && lastGame.state !== 'finished') {
             return next(new HttpError('last game is not finished yet', 500))
         }
+        
         const genKoef = (Math.random() * (3) + 1);
         const game = await Game.create({
             koef: genKoef
         })
-        const io = require('../socket').getIO()
+        
         io.emit('recieveGameInfo', {
             gameId: game._id,
             state:game.state        
