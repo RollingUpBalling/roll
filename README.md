@@ -9,7 +9,7 @@
 ## Gif
 ![git](https://raw.githubusercontent.com/RollingUpBalling/roll/master/frontend/src/assets/images/rollUp.gif)
 ## Deploy
-App(front-end and back-end) has been deployed with heroku, you can it [here](https://rolling-up-crash.herokuapp.com/)
+App(front-end and back-end) has been deployed with heroku, you can see it [here](https://rolling-up-crash.herokuapp.com/)
 ## How to authorize
 We are using passport.js with steam API, so to login to out application you need to have steam account
 ## Installation
