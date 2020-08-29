@@ -1,6 +1,6 @@
 const Game = require('./models/game')
 let io;
-
+const wm = new WeakMap();
 
 // func for emiting bet info 
 const emitBetData = (socket,game) => {
@@ -17,7 +17,7 @@ const emitBetData = (socket,game) => {
 
 module.exports={
     init: (httpServer) => {
-        io = require('socket.io')(httpServer);
+        io = require('socket.io')(httpServer, { perMessageDeflate: false });
         
         io.on('connection', (socket) => {
 
