@@ -31,4 +31,5 @@ We are using passport.js with steam API, so to login to out application you need
     npm install
     ```
 ## Licence    
+![License](https://img.shields.io/github/license/RollingUpBalling/roll)
 MIT © [sverhrazum69](https://github.com/sverhrazum69) [17etro](https://github.com/17etro) [JohnyKovalenko1337](https://github.com/JohnyKovalenko1337)
