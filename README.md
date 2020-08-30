@@ -6,7 +6,7 @@
 ![Redux](https://img.shields.io/badge/Redux-7.2.1-brightgreen)
  ![MongoDB](https://img.shields.io/badge/MongoDB-brightgreen)
 ![Socket.io](https://img.shields.io/badge/Socket.io-2.3.0-brightgreen)
-## Gif
+## Gameplay
 ![git](https://raw.githubusercontent.com/RollingUpBalling/roll/master/frontend/src/assets/images/rollUp.gif)
 ## Deploy
 App(front-end and back-end) has been deployed with heroku, you can see it [here](https://rolling-up-crash.herokuapp.com/)
