@@ -30,6 +30,8 @@ We are using passport.js with steam API, so to login to out application you need
     cd ../frontend
     npm install
     ```
+## Inspiration
+Design has been inspired from famous site cs.fail
 ## Licence    
 ![License](https://img.shields.io/github/license/RollingUpBalling/roll)
 
