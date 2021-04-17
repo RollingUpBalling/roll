@@ -31,7 +31,7 @@ app.use(passport.initialize());
 passport.use(new SteamStrategy({
     returnURL: 'http://localhost:5000/auth/return/',
     realm: 'http://localhost:5000/',
-    apiKey: '80B0922FC7EC882935094C335322E1DA'
+    apiKey: '80DA'
 },
     (identifier, profile, done) => {
         return done(null, profile);
@@ -56,7 +56,7 @@ app.use((error, req, res, next) => {
     res.status(status).json({ message: message });
   });
 
-mongoose.connect('mongodb+srv://admin:admin@cluster0.mszqc.mongodb.net/crash?retryWrites=true&w=majority',
+mongoose.connect('mongodb+srv://admin:tes=true&w=majority',
     { useUnifiedTopology: true, useNewUrlParser: true })
     .then(() => {
         const server = app.listen(5000);
