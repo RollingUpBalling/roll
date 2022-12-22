@@ -23,7 +23,7 @@
     "express": "^4.17.1",
     "express-validator": "^6.6.0",
     "js-sha1": "^0.6.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "liqpay": "0.0.1",
     "liqpay-sdk": "^3.2.0",
     "mongodb": "^3.5.9",
