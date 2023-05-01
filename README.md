@@ -11,7 +11,7 @@
 ## Deploy
 App(front-end and back-end) has been deployed with heroku, you can see it [here](https://rolling-up-crash.herokuapp.com/)
 ## How to authorize
-We are using passport.js with steam API, so to login to out application you need to have steam account
+We are using passport.js with steam API, so to login to our application you need to have steam account
 ## Installation
 1. Clone this repository
 
